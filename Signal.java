@@ -1,35 +1,26 @@
 
 public class Signal {
-	/**
-	 * Indique la forme du signal. Ne peut prendre que des valeurs prédéfinies.
-	 */
+	/** Indique la forme du signal. */
 	private String forme;
-	/**
-	 * Indique l'amplitude crête-à-crête du signal. A une valeur comprise entre 0 et
-	 * 20V.
-	 */
+	/** Indique l'amplitude crÃªte-Ã -crÃªte du signal en volts. */
 	private double amplitude;
-	/**
-	 * Indique la fréquence du signal. Pour éviter les erreurs avec la taille des
-	 * int, on limite la valeur à 1Ghz.
-	 */
+	/** Indique la frÃ©quence du signal en Hz. */
 	private int freq;
-	/**
-	 * Indique le bruit en pourcentage. Valeur comprise entre 0 et 100.
-	 */
+	/** Indique le bruit en pourcentage. */
 	private double bruit;
-
-	private final double MAX_AMP = 20., MAX_BRUIT = 100;
-	private final int MAX_FREQ = (int) Math.pow(10., 9);
+	
+	/** Valeurs maximales des propriÃ©tÃ©s du signal. */
+	private final double MAX_AMP = 20., MAX_BRUIT = 100.; // 20V crÃªte-Ã -crÃªte, 100% de bruit.
+	private final int MAX_FREQ = (int) Math.pow(10, 9); // 1GHz.
 
 	/**
-	 * Constructeur à vide. Ces valeurs servent simplement à initialiser l'objet. On
-	 * a choisi une forme sinusoïdale à 50 Hz comme le réseau EDF, et une amplitude
-	 * de 20V crête-à-crête car c'est la valeur limite des oscilloscopes des TP.
+	 * Constructeur Ã  vide. Ces valeurs servent simplement Ã  initialiser l'objet. On
+	 * a choisi une forme sinusoÃ¯dale Ã  50 Hz comme le rÃ©seau EDF, et une amplitude
+	 * de 20V crÃªte-Ã -crÃªte car c'est la valeur limite des oscilloscopes des TP.
 	 */
 	public Signal() {
 		forme = "sinus";
-		amplitude = 5.;
+		amplitude = 20.;
 		freq = 50;
 		bruit = 0.;
 	}
@@ -49,7 +40,7 @@ public class Signal {
 	}
 
 	/**
-	 * @return La fréquence du signal.
+	 * @return La frÃ©quence du signal.
 	 */
 	public int getFreq() {
 		return freq;
@@ -64,7 +55,7 @@ public class Signal {
 
 	/**
 	 * @param forme
-	 *            La forme à modifier.
+	 *            La forme Ã  modifier.
 	 * @throws IllegalArgumentException
 	 *             si la valeur est incorrecte.
 	 */
@@ -77,7 +68,8 @@ public class Signal {
 
 	/**
 	 * @param amplitude
-	 *            the amplitude to set
+	 *            L'amplitude Ã  modifier.
+	 * 	      Valeur comprise entre 0.1 et MAX_AMP compris.
 	 */
 	public void setAmplitude(double amplitude) {
 		if (amplitude > MAX_AMP) {
@@ -91,7 +83,8 @@ public class Signal {
 
 	/**
 	 * @param freq
-	 *            the freq to set
+	 *            La frÃ©quence Ã  appliquer.
+	 * 	      Valeur comprise entre 1 Hz et MAX_FREQ.
 	 */
 	public void setFreq(int freq) {
 		if (freq > MAX_FREQ) {
@@ -105,7 +98,8 @@ public class Signal {
 
 	/**
 	 * @param bruit
-	 *            the bruit to set
+	 *            Le bruit Ã  appliquer.
+	 * 	      Valeur comprise entre 0 et MAX_BRUIT.
 	 */
 	public void setBruit(double bruit) {
 		if (bruit > MAX_BRUIT) {
