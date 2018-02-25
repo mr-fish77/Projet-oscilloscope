@@ -3,17 +3,20 @@ import java.awt.Color;
 import javax.swing.JFrame;
 
 public abstract class Fenetre extends JFrame {
-
+	
+	/** Signal */
+	protected Signal s;
+	
 	/**
-	 * Constructeur principal Génère une fenêtre d'après des modèles prédéfinis.
+	 * Constructeur principal GÃ©nÃ¨re une fenÃªtre d'aprÃ¨s des modÃ¨les prÃ©dÃ©finis.
 	 * 
 	 * @param c1
-	 *            Un caractère qui détermine le modèle de fenêtre à appliquer : 'o'
-	 *            pour Oscilloscope, 'g' pour Générateur de courant.
+	 *            Un caractÃ¨re qui dÃ©termine le modÃ¨le de fenÃªtre Ã  appliquer : 'o'
+	 *            pour Oscilloscope, 'g' pour GÃ©nÃ©rateur de courant.
 	 * @throws IllegalArgumentException
-	 *             Si le paramètre c1 ne correspond pas aux modèles prédéfinis.
+	 *             Si le paramÃ¨tre c1 ne correspond pas aux modÃ¨les prÃ©dÃ©finis.
 	 */
-	public Fenetre(char c1) {
+	public Fenetre(char c1, Signal s) {
 		super();
 		switch (c1) {
 		case 'o':
@@ -21,7 +24,7 @@ public abstract class Fenetre extends JFrame {
 			super.setSize(1200, 600);
 			break;
 		case 'g':
-			super.setTitle("Générateur de courant");
+			super.setTitle("GÃ©nÃ©rateur de courant");
 			super.setSize(800, 500);
 			break;
 		default:
@@ -32,6 +35,6 @@ public abstract class Fenetre extends JFrame {
 		super.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		super.setLayout(null);
 		super.setVisible(true);
-
+		this.s = s;
 	}
 }
