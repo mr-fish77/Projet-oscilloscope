@@ -1,22 +1,16 @@
 
-public class Signal {
-	/** Indique la forme du signal. */
-	private String forme;
+public abstract class Signal {
 	/** Indique l'amplitude crête-à-crête du signal en volts. */
 	private double amplitude;
 	/** Indique la fréquence du signal en Hz. */
 	private int freq;
-	/** Indique le bruit en pourcentage. */
-	private double bruit;
 	
 	/** Valeurs maximales des propriétés du signal. */
-	private final double MAX_AMP = 20., MAX_BRUIT = 100.; // 20V crête-à-crête, 100% de bruit.
+	private final double MAX_AMP = 20.; // 20V crête-à-crête.
 	private final int MAX_FREQ = (int) Math.pow(10, 9); // 1GHz.
 
 	/**
-	 * Constructeur à vide. Ces valeurs servent simplement à initialiser l'objet. On
-	 * a choisi une forme sinusoïdale à 50 Hz comme le réseau EDF, et une amplitude
-	 * de 20V crête-à-crête car c'est la valeur limite des oscilloscopes des TP.
+	 * Constructeur par défaut.
 	 */
 	public Signal() {
 		forme = "sinus";
@@ -28,9 +22,7 @@ public class Signal {
 	/**
 	 * @return La forme du signal.
 	 */
-	public String getForme() {
-		return forme;
-	}
+	public abstract String getForme();
 
 	/**
 	 * @return L'amplitude du signal.
@@ -44,26 +36,6 @@ public class Signal {
 	 */
 	public int getFreq() {
 		return freq;
-	}
-
-	/**
-	 * @return Le bruit du signal.
-	 */
-	public double getBruit() {
-		return bruit;
-	}
-
-	/**
-	 * @param forme
-	 *            La forme à modifier.
-	 * @throws IllegalArgumentException
-	 *             si la valeur est incorrecte.
-	 */
-	public void setForme(String forme) {
-		if (forme.equals("sinus") || forme.equals("rect") || forme.equals("triangle"))
-			this.forme = forme;
-		else
-			throw new IllegalArgumentException();
 	}
 
 	/**
@@ -93,21 +65,6 @@ public class Signal {
 			this.freq = 1;
 		} else {
 			this.freq = freq;
-		}
-	}
-
-	/**
-	 * @param bruit
-	 *            Le bruit à appliquer.
-	 * 	      Valeur comprise entre 0 et MAX_BRUIT.
-	 */
-	public void setBruit(double bruit) {
-		if (bruit > MAX_BRUIT) {
-			this.bruit = MAX_BRUIT;
-		} else if (bruit < 0) {
-			this.bruit = 0;
-		} else {
-			this.bruit = bruit;
 		}
 	}
 }
