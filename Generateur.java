@@ -1,20 +1,23 @@
 import java.awt.Color;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.GridLayout;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+/** @author Martin FRANCESCHI entre 10h et 11h30, avant manger. */
+
 public class Generateur extends JFrame implements ActionListener {
 	/** Les signaux. */
 	private Signal sig1, sig2;
 	
 	/** Les JComponents utilisés. */
-	private JPanel panSig1, panSig2;
+	private JPanel panSig;
 	private JPanel affSup = new JPanel();
 	private JPanel boutonsPan = new JPanel();
-	private JButton [] boutonsTab = new JButton [3];
+	private JButton [] boutons = new JButton [3];
 	private JLabel [] labels = new JLabel [10];
 	
 	/** Constructeur principal.
@@ -31,52 +34,62 @@ public class Generateur extends JFrame implements ActionListener {
 		this.sig1 = sig1;
 		this.sig2 = sig2;
 		
-		affSup.setBounds(0,0,800,100);
+		affSup.setBounds(0,0,800,80);
 		affSup.setLayout(new GridLayout());
 		for(JLabel l : labels){
 			l = new JLabel();
 			affSup.add(l);
 		}
 		
-		panSig1 = new JPanel();
-		panSig2 = new JPanel();
+		panSig = new JPanel();
+		panSig.setBounds(0,80, 800, 280);
+		panSig.setLayout(null);
 		
-		boutonsPan.setBounds(0, 600, this.getWidth(), 200);
+		boutonsPan.setBounds(0, 600, this.getWidth(), 140);
 		boutonsPan.setLayout(null);
 		
+		boutons[0] = new JButton("Appliquer");
+		boutons[0].setBounds(20, 20, 360, 100);
+		boutons[0].setActionListener(this);
+		boutonsPan.add(boutons[0]);
 		
-		boutonsTab[0] = new JButton("Appliquer");
-		boutonsTab[0].setBounds(20, 20, 360, 100);
-		boutonsTab[0].setActionListener(this);
-		boutonsPan.add(boutonsTab[0]);
-		
-		boutonsTab[1] = new JButton("Éteindre");
-		boutonsTab[1].setBounds(420, 20, 360, 100);
-		boutonsTab[1].setActionListener(this);
-		boutonsPan.add(boutonsTab[1]);
+		boutons[1] = new JButton("Éteindre");
+		boutons[1].setBounds(420, 20, 360, 100);
+		boutons[1].setActionListener(this);
+		boutonsPan.add(boutons[1]);
 		
 		
 		/* Si on a un signal aléatoire, débloquer ce bouton ^^
-		boutonsTab[2] = new JButton("Générer un signal aléatoire");
-		boutonsTab[2].setBounds(400, 20, 380, 100);
-		boutonsTab[2].setActionListener(this);
-		boutonsPan.add(boutonsTab[2]);
+		boutons[2] = new JButton("Générer un signal aléatoire");
+		boutons[2].setBounds(400, 20, 380, 100);
+		boutons[2].setActionListener(this);
+		boutonsPan.add(boutons[2]);
 		*/
 		
-		for(JPanel p : boutonsPan){
-			add(p);
+		for(JPanel p : boutons){
+			boutonsPan.add(p);
 		}
 		
 		pack();
 		setVisible(true);
 	}
 	
+	public void paint(Graphics g){
+		refreshLabels();
+	}
+	
+	/** Méthode appelée à chaque paint() */
 	private void refreshLabels(){
+		for(JLabel l : labels){
+			l.setBackground(Color.WHITE);
+			l.setFont(new Font("Courier", Font.PLAIN, 11));
+		}
+		
 		// CH1 et CH2
 		labels[0].setText("CH1");
-		labels[0].setBackground(Color.WHITE);
+		labels[0].setFont(new Font("Courier", Font.BOLD, 11));
 		labels[5].setText("CH2");
-		labels[5].setBackground(Color.WHITE);
+		labels[5].setFont(new Font("Courier", Font.BOLD, 11));
 		
 		// Actif ou non
 		if(sig1.isActive()){
@@ -96,19 +109,22 @@ public class Generateur extends JFrame implements ActionListener {
 		
 		// Types de signaux
 		labels[2].setText(sig1.getType());
-		labels[2].setBackground(Color.GRAY);
 		labels[7].setText(sig2.getType());
-		labels[7].setBackground(Color.GRAY);
 		
 		// Fréquence
 		labels[3].setText(sig1.getFreq() + " Hz");
-		labels[3].setBackground(Color.GRAY);
 		labels[8].setText(sig2.getFreq() + " Hz");
-		labels[8].setBackground(Color.GRAY);
 		
 		// Amplitude
 		labels[4].setText(Math.round(sig1.getAmplitude()) + " V");
-		labels[4].setBackground(Color.GRAY);
 		labels[9].setText(Math.round(sig2.getAmplitude()) + " V");
-		labels[9].setBackground(Color.GRAY);
+	}
+	
+	public void actionPerformed(ActionEvent e){
+		if(e.getSource().equals(boutons[0])){
+			"Appliquer";
+		} else if (e.getSource().equals(boutons[1])){
+			"Eteindre";
+		}
+	}
 }
