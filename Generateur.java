@@ -98,14 +98,14 @@ public class Generateur extends JFrame implements ActionListener {
 		// Actif ou non
 		if(sig1.isActive()){
 			labels[1].setText("ON");
-			labels[1].setBackground("GREEN");
+			labels[1].setBackground(Color.GREEN);
 		} else {
 			labels[1].setText("OFF");
 			labels[1].setBackground(Color.BROWN);
 		}
 		if (sig2.isActive()){
 			labels[6].setText("ON");
-			labels[6].setBackground("GREEN");
+			labels[6].setBackground(Color.GREEN);
 		} else {
 			labels[6].setText("OFF");
 			labels[6].setBackground(Color.BROWN);
