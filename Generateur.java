@@ -1,8 +1,10 @@
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.Font;
 import java.awt.GridLayout;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -12,6 +14,7 @@ import javax.swing.JPanel;
 public class Generateur extends JFrame implements ActionListener {
 	/** Les signaux. */
 	private Signal sig1, sig2;
+	private boolean activeSig;
 	
 	/** Les JComponents utilisés. */
 	private JPanel panSig;
@@ -24,15 +27,16 @@ public class Generateur extends JFrame implements ActionListener {
 	 * @param sig1 Le signal du channel 1.
 	 * @param sig2 Le signal du channel 2.
 	 */
-	public Generateur(Signal sig1, Signal s2) {
+	public Generateur(Signal s1, Signal s2) {
 		super("Générateur");
 		setSize(800, 500);
 		setResizable(false);
 		setBackground(Color.GRAY);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(null);
-		this.sig1 = sig1;
-		this.sig2 = sig2;
+		this.sig1 = s1;
+		this.sig2 = s2;
+		activeSig = true;
 		
 		affSup.setBounds(0,0,800,80);
 		affSup.setLayout(new GridLayout());
@@ -121,10 +125,10 @@ public class Generateur extends JFrame implements ActionListener {
 	}
 	
 	public void actionPerformed(ActionEvent e){
-		if(e.getSource().equals(boutons[0])){
+		if(e.getSource().equals(boutons[0])){ // Bouton APPLIQUER
 			"Appliquer";
-		} else if (e.getSource().equals(boutons[1])){
-			"Eteindre";
+		} else if (e.getSource().equals(boutons[1])){ // Bouton ETEINDRE
+			activeSig ? sig1.desactiver() : sig2.desactiver();
 		}
 	}
 }
