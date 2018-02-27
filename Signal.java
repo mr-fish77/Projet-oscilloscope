@@ -1,5 +1,5 @@
 
-public abstract class Signal {
+public class Signal {
 	/** Indique l'amplitude crête-à-crête du signal en volts. */
 	private double amplitude;
 	/** Indique la fréquence du signal en Hz. */
@@ -8,21 +8,24 @@ public abstract class Signal {
 	/** Valeurs maximales des propriétés du signal. */
 	private final double MAX_AMP = 20.; // 20V crête-à-crête.
 	private final int MAX_FREQ = (int) Math.pow(10, 9); // 1GHz.
-
+	
+	/** Actif ou non, affich� ou non. */
+	private boolean active, displayed;
+	
 	/**
 	 * Constructeur par défaut.
 	 */
 	public Signal() {
-		forme = "sinus";
 		amplitude = 20.;
 		freq = 50;
-		bruit = 0.;
+		active = false;
+		displayed = false;
 	}
 
 	/**
 	 * @return La forme du signal.
 	 */
-	public abstract String getForme();
+	public String getForme() {return "SIN";}
 
 	/**
 	 * @return L'amplitude du signal.
@@ -66,5 +69,21 @@ public abstract class Signal {
 		} else {
 			this.freq = freq;
 		}
+	}
+	
+	public void setActive(boolean b) {
+		this.active = b;
+	}
+	
+	public boolean getActive() {
+		return this.active;
+	}
+	
+	public void setDisplayed(boolean b) {
+		this.displayed = b;
+	}
+	
+	public boolean getDisplayed() {
+		return displayed;
 	}
 }
