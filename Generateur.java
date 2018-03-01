@@ -45,9 +45,9 @@ public class Generateur extends JFrame implements ActionListener {
 		affSup.setLayout(new GridLayout());
 		for(int i = 0; i < labels.length; i++){
 			labels[i] = new JLabel();
-			refreshLabels();
 			affSup.add(labels[i]);
 		}
+		refreshLabels();
 		
 		panSig = new JPanel();
 		panSig.setBounds(0,80, 800, 280);
