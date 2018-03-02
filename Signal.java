@@ -1,25 +1,24 @@
 
 public class Signal {
-	/** Indique l'amplitude crête-à-crête du signal en volts. */
+	/** Indique l'amplitude du signal en volts. */
 	private double amplitude;
-	/** Indique la fréquence du signal en Hz. */
+	/** Indique la frÃ©quence du signal en Hz. */
 	private int freq;
 	
-	/** Valeurs maximales des propriétés du signal. */
-	private final double MAX_AMP = 20.; // 20V crête-à-crête.
+	/** Valeurs maximales des proprietes du signal. */
+	private final double MAX_AMP = 10.; // 20V crete-a-crete.
 	private final int MAX_FREQ = (int) Math.pow(10, 9); // 1GHz.
 	
-	/** Actif ou non, affich� ou non. */
-	private boolean active, displayed;
+	/** Actif ou non. */
+	private boolean active;
 	
 	/**
-	 * Constructeur par défaut.
+	 * Constructeur par defaut.
 	 */
 	public Signal() {
-		amplitude = 20.;
+		amplitude = MAX_AMP;
 		freq = 50;
 		active = false;
-		displayed = false;
 	}
 
 	/**
@@ -35,7 +34,7 @@ public class Signal {
 	}
 
 	/**
-	 * @return La fréquence du signal.
+	 * @return La frÃ©quence du signal.
 	 */
 	public int getFreq() {
 		return freq;
@@ -43,7 +42,7 @@ public class Signal {
 
 	/**
 	 * @param amplitude
-	 *            L'amplitude à modifier.
+	 *            L'amplitude Ã  modifier.
 	 * 	      Valeur comprise entre 0.1 et MAX_AMP compris.
 	 */
 	public void setAmplitude(double amplitude) {
@@ -58,7 +57,7 @@ public class Signal {
 
 	/**
 	 * @param freq
-	 *            La fréquence à appliquer.
+	 *            La frÃ©quence Ã  appliquer.
 	 * 	      Valeur comprise entre 1 Hz et MAX_FREQ.
 	 */
 	public void setFreq(int freq) {
@@ -77,13 +76,5 @@ public class Signal {
 	
 	public boolean getActive() {
 		return this.active;
-	}
-	
-	public void setDisplayed(boolean b) {
-		this.displayed = b;
-	}
-	
-	public boolean getDisplayed() {
-		return displayed;
 	}
 }
