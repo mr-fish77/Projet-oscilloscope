@@ -12,8 +12,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-/** @author Martin FRANCESCHI entre 10h et 11h30, avant manger. */
-
 public class Generateur extends JFrame implements ActionListener {
 	/** Les signaux. */
 	private Signal sig1, sig2;
@@ -144,9 +142,9 @@ public class Generateur extends JFrame implements ActionListener {
 		
 		// Bouton Changer de canal
 		if(aLEcran == 1) {
-			boutons.get(2).setText("Canal 2");
-		} else {
 			boutons.get(2).setText("Canal 1");
+		} else {
+			boutons.get(2).setText("Canal 2");
 		}
 	}
 	
