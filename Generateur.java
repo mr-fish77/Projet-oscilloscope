@@ -1,6 +1,8 @@
 import java.awt.Color;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridLayout;
@@ -15,15 +17,15 @@ import javax.swing.JPanel;
 public class Generateur extends JFrame implements ActionListener {
 	/** Les signaux. */
 	private Signal sig1, sig2;
-	private boolean aLEcran; // Signal affiché à l'écran, true pour 1, false pour 2.
+	private byte aLEcran; // Signal affiché à l'écran.
 	
-	/** Les JComponents utilisÃ©s. */
+	/** Les JComponents utilisés. */
 	private JPanel panSig;
 	private JPanel affSup = new JPanel();
 	private JPanel boutonsPan = new JPanel();
 	private JPanel mainPanel = new JPanel();
-	private JButton [] boutons = new JButton [3];
-	private JLabel [] labels = new JLabel [10];
+	private ArrayList<JButton> boutons = new ArrayList<JButton>();
+	private ArrayList<JLabel> labels = new ArrayList<JLabel>();
 	
 	
 	/** Constructeur principal.
@@ -31,109 +33,143 @@ public class Generateur extends JFrame implements ActionListener {
 	 * @param sig2 Le signal du channel 2.
 	 */
 	public Generateur(Signal s1, Signal s2) {
-		super("GÃ©nÃ©rateur");
-		setSize(800, 500);
+		super("Générateur");
+		setSize(600, 600);
 		setResizable(false);
-		setBackground(Color.GRAY);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setLayout(null);
 		this.sig1 = s1;
 		this.sig2 = s2;
-		aLEcran = true;
+		aLEcran = 1;
 		
-		affSup.setBounds(0,0,800,80);
-		affSup.setLayout(new GridLayout());
-		for(int i = 0; i < labels.length; i++){
-			labels[i] = new JLabel();
-			affSup.add(labels[i]);
+		/** Affichage des infos des signaux dans la partie supérieure. */
+		affSup.setBounds(0,0,this.getWidth(), 20);
+		affSup.setLayout(new GridLayout(1,0));
+		for(int i = 0; i < 10; i++){
+			JLabel temp = new JLabel();
+			temp.setOpaque(true);
+			temp.setBackground(Color.WHITE);
+			temp.setForeground(Color.BLACK);
+			temp.setFont(new Font("Courier", Font.BOLD, 15));
+			temp.setHorizontalAlignment(JLabel.CENTER);
+			labels.add(temp);
+			affSup.add(temp);
 		}
-		refreshLabels();
+		labels.get(0).setText("CH1");
+		labels.get(0).setFont(new Font("Courier", Font.BOLD, 20));
+		labels.get(0).setBackground(Color.LIGHT_GRAY);
+		labels.get(5).setText("CH2");
+		labels.get(5).setFont(new Font("Courier", Font.BOLD, 20));
+		labels.get(5).setBackground(Color.LIGHT_GRAY);
+		affSup.setBackground(null);
 		
+		/** Panneau ou on remplit les informations. */
 		panSig = new JPanel();
-		panSig.setBounds(0,80, 800, 280);
+		panSig.setBounds(0,20, this.getWidth(), this.getHeight()-20-97);
 		panSig.setLayout(null);
+		panSig.setBackground(Color.BLUE);
 		
-		boutonsPan.setBounds(0, 600, this.getWidth(), 140);
-		boutonsPan.setLayout(null);
+		/** Boutons en bas. */
+		boutonsPan.setBounds(0, this.getHeight()-97, this.getWidth(), 100);
+		boutonsPan.setLayout(new FlowLayout()); // C'est par defaut mais comme ca c'est propre.
+		boutonsPan.setBackground(Color.CYAN);
 		
-		boutons[0] = new JButton("Appliquer");
-		boutons[0].setBounds(20, 20, 360, 100);
-		boutons[0].addActionListener(this);
-		boutonsPan.add(boutons[0]);
-		
-		boutons[1] = new JButton("Ã‰teindre");
-		boutons[1].setBounds(420, 20, 360, 100);
-		boutons[1].addActionListener(this);
-		boutonsPan.add(boutons[1]);
-		
-		
-		/* Si on a un signal alÃ©atoire, dÃ©bloquer ce bouton ^^
-		boutons[2] = new JButton("GÃ©nÃ©rer un signal alÃ©atoire");
-		boutons[2].setBounds(400, 20, 380, 100);
-		boutons[2].setActionListener(this);
-		boutonsPan.add(boutons[2]);
-		*/
-		
+		boutons.add(new JButton("Appliquer"));
+		boutons.add(new JButton());
+		boutons.add(new JButton());
 		for(JButton p : boutons){
-			if(p != null) boutonsPan.add(p);
+			p.setFont(new Font("Arial", Font.PLAIN, 25));
+			p.addActionListener(this);
+			boutonsPan.add(p);
 		}
 		
-		this.setContentPane(mainPanel);
+		/** Conteneur principal. */
+		mainPanel.setBounds(0, 0, this.getWidth(), this.getHeight());
+		mainPanel.setLayout(null);
+		mainPanel.setBackground(Color.WHITE);
 		mainPanel.add(affSup);
+		mainPanel.add(panSig);
 		mainPanel.add(boutonsPan);
-		pack();
+		
+		/** Affichage. */
+		refreshItems();
+		this.setContentPane(mainPanel);
+		this.revalidate();
 		setVisible(true);
 	}
 	
-	private void refreshLabels(){
-		for(int i = 0; i < labels.length; i++){
-			labels[i].setBackground(Color.WHITE);
-			labels[i].setFont(new Font("Courier", Font.PLAIN, 11));
-		}
-		
-		// CH1 et CH2
-		labels[0].setText("CH1");
-		labels[0].setFont(new Font("Courier", Font.BOLD, 11));
-		labels[5].setText("CH2");
-		labels[5].setFont(new Font("Courier", Font.BOLD, 11));
-		
+	private void refreshItems(){
 		// Actif ou non
 		if(sig1.getActive()){
-			labels[1].setText("ON");
-			labels[1].setBackground(Color.GREEN);
+			labels.get(1).setText("ON");
+			labels.get(1).setForeground(Color.GREEN);
 		} else {
-			labels[1].setText("OFF");
-			labels[1].setBackground(Color.DARK_GRAY);
+			labels.get(1).setText("OFF");
+			labels.get(1).setForeground(Color.DARK_GRAY);
 		}
 		if (sig2.getActive()){
-			labels[6].setText("ON");
-			labels[6].setBackground(Color.GREEN);
+			labels.get(6).setText("ON");
+			labels.get(6).setForeground(Color.GREEN);
 		} else {
-			labels[6].setText("OFF");
-			labels[6].setBackground(Color.DARK_GRAY);
+			labels.get(6).setText("OFF");
+			labels.get(6).setForeground(Color.DARK_GRAY);
 		}
 		
 		// Types de signaux
-		labels[2].setText(sig1.getForme());
-		labels[7].setText(sig2.getForme());
+		labels.get(2).setText(sig1.getForme());
+		labels.get(7).setText(sig2.getForme());
 		
-		// FrÃ©quence
-		labels[3].setText(sig1.getFreq() + " Hz");
-		labels[8].setText(sig2.getFreq() + " Hz");
+		// Frequence
+		labels.get(3).setText(sig1.getFreq() + " Hz");
+		labels.get(8).setText(sig2.getFreq() + " Hz");
 		
 		// Amplitude
-		labels[4].setText(Math.round(sig1.getAmplitude()) + " V");
-		labels[9].setText(Math.round(sig2.getAmplitude()) + " V");
+		labels.get(4).setText(Math.round(sig1.getAmplitude()) + " V");
+		labels.get(9).setText(Math.round(sig2.getAmplitude()) + " V");
+		System.out.println("Méthode refreshLabels OK");
+		
+		// Bouton Allumer / Eteindre
+		if (aLEcran == 1) {
+			if(sig1.getActive()) {
+				boutons.get(1).setText("Eteindre");
+			} else {
+				boutons.get(1).setText("Allumer");
+			}
+		} else {
+			if(sig2.getActive()) {
+				boutons.get(1).setText("Eteindre");
+			} else {
+				boutons.get(1).setText("Allumer");
+			}
+		}
+		
+		// Bouton Changer de canal
+		if(aLEcran == 1) {
+			boutons.get(2).setText("Canal 2");
+		} else {
+			boutons.get(2).setText("Canal 1");
+		}
 	}
 	
 	public void actionPerformed(ActionEvent e){
-		if(e.getSource().equals(boutons[0])){ // Bouton APPLIQUER
-			String O = "Appliquer";
-		} else if (e.getSource().equals(boutons[1])){ // Bouton ETEINDRE
-			if(aLEcran) 
-				sig1.setActive(false);
-			else 
-				sig2.setActive(false);
+		
+		if(e.getSource().equals(boutons.get(0))){ // Bouton APPLIQUER
+			System.out.println("Bouton APPLIQUER");
+			
+		} else if (e.getSource().equals(boutons.get(1))){ // Bouton ETEINDRE
+			System.out.println("Bouton ETEINDRE");
+			if(aLEcran == 1) {
+				sig1.setActive(!sig1.getActive());
+			} else {
+				sig2.setActive(!sig2.getActive());
+			}
+			
+		} else if (e.getSource().equals(boutons.get(2))) { // Bouton SWITCH
+			if(aLEcran == 1) {
+				aLEcran = 2;
+			} else {
+				aLEcran = 1;
+			}
 		}
+		refreshItems();
 	}
 }
