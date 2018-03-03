@@ -1,27 +1,19 @@
 
 public class Signal {
-	
-	/** Amplitude crete-a-crete du signal en volts. */
+	/** Indique l'amplitude crête-à-crête du signal en volts. */
 	private double amplitude;
-	/** Frequence du signal en Hz. */
+	/** Indique la fréquence du signal en Hz. */
 	private int freq;
 	
-	/** Valeurs maximales des proprietes du signal. */
+	/** Valeurs maximales des propriétés du signal. */
 	private final double MAX_AMP = 20.; // 20V crête-à-crête.
 	private final int MAX_FREQ = (int) Math.pow(10, 9); // 1GHz.
 	
-	public static final String [] SIGNAL_TYPES = {"SIN", "TRI", "REC"};
-	public static final String [] FREQ_UNITES = {"Hz", "kHz", "MHz", "GHz"};
-	public static final String [] AMPL_UNITES = {"mV", "V"};
-
-	/** Actif ou non, affich� ou non. 
-	 * Un signal actif est nul.
-	 * Le param�tre displayed devrait �tre dans Channel plutot que Signal non ?
-	 * */
+	/** Actif ou non, affich� ou non. */
 	private boolean active, displayed;
 	
 	/**
-	 * Constructeur par defaut.
+	 * Constructeur par défaut.
 	 */
 	public Signal() {
 		amplitude = 20.;

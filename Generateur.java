@@ -1,5 +1,4 @@
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,27 +8,25 @@ import java.awt.Graphics;
 import java.awt.GridLayout;
 
 import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
+
+/** @author Martin FRANCESCHI entre 10h et 11h30, avant manger. */
 
 public class Generateur extends JFrame implements ActionListener {
-	
 	/** Les signaux. */
 	private Signal sig1, sig2;
 	private byte aLEcran; // Signal affiché à l'écran.
 	
 	/** Les JComponents utilisés. */
-	private PanneauRemplir panSig;
+	private JPanel panSig;
 	private JPanel affSup = new JPanel();
 	private JPanel boutonsPan = new JPanel();
 	private JPanel mainPanel = new JPanel();
 	private ArrayList<JButton> boutons = new ArrayList<JButton>();
 	private ArrayList<JLabel> labels = new ArrayList<JLabel>();
+	
 	
 	/** Constructeur principal.
 	 * @param sig1 Le signal du channel 1.
@@ -66,7 +63,10 @@ public class Generateur extends JFrame implements ActionListener {
 		affSup.setBackground(null);
 		
 		/** Panneau ou on remplit les informations. */
-		panSig = new PanneauRemplir(0, 20, this.getWidth(), this.getHeight()-20-97);
+		panSig = new JPanel();
+		panSig.setBounds(0,20, this.getWidth(), this.getHeight()-20-97);
+		panSig.setLayout(null);
+		panSig.setBackground(Color.BLUE);
 		
 		/** Boutons en bas. */
 		boutonsPan.setBounds(0, this.getHeight()-97, this.getWidth(), 100);
@@ -76,7 +76,6 @@ public class Generateur extends JFrame implements ActionListener {
 		boutons.add(new JButton("Appliquer"));
 		boutons.add(new JButton());
 		boutons.add(new JButton());
-		boutons.add(new JButton("Réinitialiser"));
 		for(JButton p : boutons){
 			p.setFont(new Font("Arial", Font.PLAIN, 25));
 			p.addActionListener(this);
@@ -98,7 +97,6 @@ public class Generateur extends JFrame implements ActionListener {
 		setVisible(true);
 	}
 	
-	/** Re-calcule le texte affiché dans les composants. */
 	private void refreshItems(){
 		// Actif ou non
 		if(sig1.getActive()){
@@ -146,9 +144,9 @@ public class Generateur extends JFrame implements ActionListener {
 		
 		// Bouton Changer de canal
 		if(aLEcran == 1) {
-			boutons.get(2).setText("Canal 1");
-		} else {
 			boutons.get(2).setText("Canal 2");
+		} else {
+			boutons.get(2).setText("Canal 1");
 		}
 	}
 	
@@ -171,97 +169,7 @@ public class Generateur extends JFrame implements ActionListener {
 			} else {
 				aLEcran = 1;
 			}
-			
-		} else if (e.getSource().equals(boutons.get(3))) { // Bouton RESET
-			System.out.println("Bouton RESET");
-			panSig.choixTypes.setSelectedItem("REC");
 		}
 		refreshItems();
-	}
-	
-	/** Objet qui contient tous les composants nécessaires
-	 * pour modifier la valeur d'un signal.
-	 */
-	private class PanneauRemplir extends JPanel{
-		
-		private final Font DEFAULT_FONT = new Font("Calibri", Font.PLAIN, 15);
-		private JComboBox<String> choixTypes = new JComboBox<>(Signal.SIGNAL_TYPES);
-		private JComboBox<String> choixUniteFreq = new JComboBox<>(Signal.FREQ_UNITES);
-		private JComboBox<String> choixUniteAmpl = new JComboBox<>(Signal.AMPL_UNITES);
-		private JTextField[] txtFields = new JTextField[3];
-		private JTextArea errorField = new JTextArea();
-
-		public PanneauRemplir(int posX, int posY, int wid, int hei) {
-			super();
-			this.setLocation(posX, posY);
-			this.setSize(wid, hei);
-			this.setBackground(new Color(192, 192, 192));
-			this.setLayout(null);
-			
-			/* Espace supérieur. */
-			JPanel justBlack = new JPanel();
-			justBlack.setBackground(Color.BLACK);
-			justBlack.setBounds(0, 0, this.getWidth(), 10);
-			
-			JLabel txt1 = new JLabel("Générateur de courant", JLabel.CENTER);
-			txt1.setFont(new Font("Calibri", Font.BOLD + Font.ITALIC, 40));
-			txt1.setBounds(0, 25, this.getWidth(), 40);
-			txt1.setForeground(Color.DARK_GRAY);
-			
-			/* Espace de remplissage des composants. */
-			JPanel ligne1 = new JPanel();
-			ligne1.setBounds(40, 80, this.getWidth()-80, 30);
-			ligne1.setLayout(new GridLayout(1,2));
-			
-			JLabel l = new JLabel("Forme");
-			l.setFont(DEFAULT_FONT);
-			ligne1.add(l);
-			choixTypes.setFont(DEFAULT_FONT);
-			ligne1.add(choixTypes);
-			
-			JPanel ligne2 = new JPanel();
-			ligne2.setBounds(40, 80+30, this.getWidth()-80, 30);
-			ligne2.setLayout(new GridLayout(1,3));
-			
-			l = new JLabel("Fréquence");
-			l.setFont(DEFAULT_FONT);
-			ligne2.add(l);
-			txtFields[0] = new JTextField(Integer.toString(sig1.getFreq()));
-			txtFields[0].setFont(DEFAULT_FONT);
-			ligne2.add(txtFields[0]);
-			choixUniteFreq.setFont(DEFAULT_FONT);
-			ligne2.add(choixUniteFreq);
-			
-			JPanel ligne3 = new JPanel();
-			ligne3.setBounds(40, 80+30+30, this.getWidth()-80, 30);
-			ligne3.setLayout(new GridLayout(1,3));
-			
-			l = new JLabel("Amplitude");
-			l.setFont(DEFAULT_FONT);
-			ligne3.add(l);
-			txtFields[1] = new JTextField(Double.toString(sig1.getAmplitude()));
-			txtFields[1].setFont(DEFAULT_FONT);
-			ligne3.add(txtFields[1]);
-			choixUniteAmpl.setFont(DEFAULT_FONT);
-			ligne3.add(choixUniteAmpl);
-			
-			/* Text Area pour les erreurs éventuelles. */
-			errorField.setLineWrap(true);
-			errorField.setEditable(false);
-			errorField.setFont(DEFAULT_FONT);
-			errorField.setBounds(40, 340, 520, 120);
-			
-			/* Assemblage et affichage. */
-			add(justBlack);
-			add(txt1);
-			add(ligne1);
-			add(ligne2);
-			add(ligne3);
-			add(errorField);
-		}
-	}
-	
-	private String choixUnite (int nbr, String cQuoi) {
-		return "Hz";
 	}
 }
