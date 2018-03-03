@@ -7,16 +7,16 @@ public class Signal {
 	private int freq;
 	
 	/** Valeurs maximales des proprietes du signal. */
-	private final double MAX_AMP = 20.; // 20V crête-à-crête.
+	private final double MAX_AMP = 20.; // 20V crÃªte-Ã -crÃªte.
 	private final int MAX_FREQ = (int) Math.pow(10, 9); // 1GHz.
 	
 	public static final String [] SIGNAL_TYPES = {"SIN", "TRI", "REC"};
 	public static final String [] FREQ_UNITES = {"Hz", "kHz", "MHz", "GHz"};
 	public static final String [] AMPL_UNITES = {"mV", "V"};
 
-	/** Actif ou non, affich� ou non. 
+	/** Actif ou non, affiché ou non. 
 	 * Un signal actif est nul.
-	 * Le param�tre displayed devrait �tre dans Channel plutot que Signal non ?
+	 * Le paramètre displayed devrait être dans Channel plutot que Signal non ?
 	 * */
 	private boolean active, displayed;
 	
@@ -24,10 +24,14 @@ public class Signal {
 	 * Constructeur par defaut.
 	 */
 	public Signal() {
-		amplitude = 20.;
-		freq = 50;
+		resetSignal();
 		active = false;
 		displayed = false;
+	}
+	
+	public void resetSignal() {
+		amplitude = 10.;
+		freq = 50;
 	}
 
 	/**
@@ -43,15 +47,55 @@ public class Signal {
 	}
 
 	/**
-	 * @return La fréquence du signal.
+	 * @return La frÃ©quence du signal.
 	 */
 	public int getFreq() {
 		return freq;
 	}
 
+	/** 
+	 * @return L'amplitude à 3 chiffres significatifs, et son unité.
+	 */
+	public String[] getAmplAsString() {
+		String[] s = new String[2];
+		if(amplitude > 1) {
+			s[0] = Double.toString(amplitude);
+			s[1] = "V";
+			return s;
+		} else {
+			s[0] = Double.toString(amplitude * 1000);
+			s[1] = "mV";
+			return s;
+		}
+	}
+	
+	/** 
+	 * @return La fréquence à 3 chiffres significatifs, et son unité.
+	 */
+	public String [] getFreqAsString() {
+		String[] s = new String[2];
+		if (freq < 1000) {
+			s[0] = Integer.toString(freq);
+			s[1] = "Hz";
+			return  s;
+		} else if (freq < 1000000) {
+			s[0] = Double.toString(freq / 1000.);
+			s[1] = "kHz";
+			return s;
+		} else if (freq < 1000000000) {
+			s[0] = Double.toString(freq / 1000000.);
+			s[1] = "MHz";
+			return s;
+		} else {
+			s[0] = Double.toString(freq / 1000000000.);
+			s[1] = "GHz";
+			return s;
+		}
+	}
+
 	/**
 	 * @param amplitude
-	 *            L'amplitude à modifier.
+	 *            L'amplitude Ã  modifier.
 	 * 	      Valeur comprise entre 0.1 et MAX_AMP compris.
 	 */
 	public void setAmplitude(double amplitude) {
@@ -66,7 +110,7 @@ public class Signal {
 
 	/**
 	 * @param freq
-	 *            La fréquence à appliquer.
+	 *            La frÃ©quence Ã  appliquer.
 	 * 	      Valeur comprise entre 1 Hz et MAX_FREQ.
 	 */
 	public void setFreq(int freq) {
