@@ -1,24 +1,33 @@
 
 public class Signal {
-	/** Indique l'amplitude du signal en volts. */
+	
+	/** Amplitude crete-a-crete du signal en volts. */
 	private double amplitude;
-	/** Indique la frÃ©quence du signal en Hz. */
+	/** Frequence du signal en Hz. */
 	private int freq;
 	
 	/** Valeurs maximales des proprietes du signal. */
-	private final double MAX_AMP = 10.; // 20V crete-a-crete.
+	private final double MAX_AMP = 20.; // 20V crête-à-crête.
 	private final int MAX_FREQ = (int) Math.pow(10, 9); // 1GHz.
 	
-	/** Actif ou non. */
-	private boolean active;
+	public static final String [] SIGNAL_TYPES = {"SIN", "TRI", "REC"};
+	public static final String [] FREQ_UNITES = {"Hz", "kHz", "MHz", "GHz"};
+	public static final String [] AMPL_UNITES = {"mV", "V"};
+
+	/** Actif ou non, affich� ou non. 
+	 * Un signal actif est nul.
+	 * Le param�tre displayed devrait �tre dans Channel plutot que Signal non ?
+	 * */
+	private boolean active, displayed;
 	
 	/**
 	 * Constructeur par defaut.
 	 */
 	public Signal() {
-		amplitude = MAX_AMP;
+		amplitude = 20.;
 		freq = 50;
 		active = false;
+		displayed = false;
 	}
 
 	/**
@@ -34,7 +43,7 @@ public class Signal {
 	}
 
 	/**
-	 * @return La frÃ©quence du signal.
+	 * @return La fréquence du signal.
 	 */
 	public int getFreq() {
 		return freq;
@@ -42,7 +51,7 @@ public class Signal {
 
 	/**
 	 * @param amplitude
-	 *            L'amplitude Ã  modifier.
+	 *            L'amplitude à modifier.
 	 * 	      Valeur comprise entre 0.1 et MAX_AMP compris.
 	 */
 	public void setAmplitude(double amplitude) {
@@ -57,7 +66,7 @@ public class Signal {
 
 	/**
 	 * @param freq
-	 *            La frÃ©quence Ã  appliquer.
+	 *            La fréquence à appliquer.
 	 * 	      Valeur comprise entre 1 Hz et MAX_FREQ.
 	 */
 	public void setFreq(int freq) {
@@ -76,5 +85,13 @@ public class Signal {
 	
 	public boolean getActive() {
 		return this.active;
+	}
+	
+	public void setDisplayed(boolean b) {
+		this.displayed = b;
+	}
+	
+	public boolean getDisplayed() {
+		return displayed;
 	}
 }
