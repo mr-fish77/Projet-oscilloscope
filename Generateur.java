@@ -21,9 +21,9 @@ public class Generateur extends JFrame implements ActionListener {
 	
 	/** Les signaux. */
 	private Signal sig1, sig2;
-	private byte aLEcran; // Signal affiché à l'écran.
+	private byte aLEcran; // Signal affichÃ© Ã  l'Ã©cran.
 	
-	/** Les JComponents utilisés. */
+	/** Les JComponents utilisÃ©s. */
 	private PanneauRemplir panSig;
 	private JPanel affSup = new JPanel();
 	private JPanel boutonsPan = new JPanel();
@@ -36,7 +36,7 @@ public class Generateur extends JFrame implements ActionListener {
 	 * @param sig2 Le signal du channel 2.
 	 */
 	public Generateur(Signal s1, Signal s2) {
-		super("Générateur");
+		super("GÃ©nÃ©rateur");
 		setSize(600, 600);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -44,7 +44,7 @@ public class Generateur extends JFrame implements ActionListener {
 		this.sig2 = s2;
 		aLEcran = 1;
 		
-		/** Affichage des infos des signaux dans la partie supérieure. */
+		/** Affichage des infos des signaux dans la partie supÃ©rieure. */
 		affSup.setBounds(0,0,this.getWidth(), 20);
 		affSup.setLayout(new GridLayout(1,0));
 		for(int i = 0; i < 10; i++){
@@ -76,7 +76,7 @@ public class Generateur extends JFrame implements ActionListener {
 		boutons.add(new JButton("Appliquer"));
 		boutons.add(new JButton());
 		boutons.add(new JButton());
-		boutons.add(new JButton("Réinitialiser"));
+		boutons.add(new JButton("RÃ©initialiser"));
 		for(JButton p : boutons){
 			p.setFont(new Font("Arial", Font.PLAIN, 25));
 			p.addActionListener(this);
@@ -98,8 +98,10 @@ public class Generateur extends JFrame implements ActionListener {
 		setVisible(true);
 	}
 	
-	/** Re-calcule le texte affiché dans les composants. */
+	/** Re-calcule le texte affichÃ© dans les composants. */
 	private void refreshItems(){
+		String [] s;
+		
 		// Actif ou non
 		if(sig1.getActive()){
 			labels.get(1).setText("ON");
@@ -121,13 +123,16 @@ public class Generateur extends JFrame implements ActionListener {
 		labels.get(7).setText(sig2.getForme());
 		
 		// Frequence
-		labels.get(3).setText(sig1.getFreq() + " Hz");
-		labels.get(8).setText(sig2.getFreq() + " Hz");
+		s = sig1.getFreqAsString();
+		labels.get(3).setText(s[0] + " " + s[1]);
+		s = sig2.getFreqAsString();
+		labels.get(8).setText(s[0] + " " + s[1]);
 		
 		// Amplitude
-		labels.get(4).setText(Math.round(sig1.getAmplitude()) + " V");
-		labels.get(9).setText(Math.round(sig2.getAmplitude()) + " V");
-		System.out.println("Méthode refreshLabels OK");
+		s = sig1.getAmplAsString();
+		labels.get(4).setText(s[0] + " " + s[1]);
+		s = sig2.getAmplAsString();
+		labels.get(9).setText(s[0] + " " + s[1]);
 		
 		// Bouton Allumer / Eteindre
 		if (aLEcran == 1) {
@@ -156,9 +161,9 @@ public class Generateur extends JFrame implements ActionListener {
 		
 		if(e.getSource().equals(boutons.get(0))){ // Bouton APPLIQUER
 			System.out.println("Bouton APPLIQUER");
+			sig1.setAmplitude(sig1.getAmplitude()/5);
 			
 		} else if (e.getSource().equals(boutons.get(1))){ // Bouton ETEINDRE
-			System.out.println("Bouton ETEINDRE");
 			if(aLEcran == 1) {
 				sig1.setActive(!sig1.getActive());
 			} else {
@@ -168,18 +173,21 @@ public class Generateur extends JFrame implements ActionListener {
 		} else if (e.getSource().equals(boutons.get(2))) { // Bouton SWITCH
 			if(aLEcran == 1) {
 				aLEcran = 2;
+				panSig.activeSig = sig2;
 			} else {
 				aLEcran = 1;
+				panSig.activeSig = sig1;
 			}
+			panSig.refreshItems();
 			
 		} else if (e.getSource().equals(boutons.get(3))) { // Bouton RESET
 			System.out.println("Bouton RESET");
-			panSig.choixTypes.setSelectedItem("REC");
+			panSig.activeSig.resetSignal();
 		}
-		refreshItems();
+		this.refreshItems();
 	}
 	
-	/** Objet qui contient tous les composants nécessaires
+	/** Objet qui contient tous les composants nÃ©cessaires
 	 * pour modifier la valeur d'un signal.
 	 */
 	private class PanneauRemplir extends JPanel{
@@ -190,6 +198,7 @@ public class Generateur extends JFrame implements ActionListener {
 		private JComboBox<String> choixUniteAmpl = new JComboBox<>(Signal.AMPL_UNITES);
 		private JTextField[] txtFields = new JTextField[3];
 		private JTextArea errorField = new JTextArea();
+		private Signal activeSig = sig1;
 
 		public PanneauRemplir(int posX, int posY, int wid, int hei) {
 			super();
@@ -198,12 +207,12 @@ public class Generateur extends JFrame implements ActionListener {
 			this.setBackground(new Color(192, 192, 192));
 			this.setLayout(null);
 			
-			/* Espace supérieur. */
+			/* Espace supÃ©rieur. */
 			JPanel justBlack = new JPanel();
 			justBlack.setBackground(Color.BLACK);
 			justBlack.setBounds(0, 0, this.getWidth(), 10);
 			
-			JLabel txt1 = new JLabel("Générateur de courant", JLabel.CENTER);
+			JLabel txt1 = new JLabel("GÃ©nÃ©rateur de courant", JLabel.CENTER);
 			txt1.setFont(new Font("Calibri", Font.BOLD + Font.ITALIC, 40));
 			txt1.setBounds(0, 25, this.getWidth(), 40);
 			txt1.setForeground(Color.DARK_GRAY);
@@ -223,7 +232,7 @@ public class Generateur extends JFrame implements ActionListener {
 			ligne2.setBounds(40, 80+30, this.getWidth()-80, 30);
 			ligne2.setLayout(new GridLayout(1,3));
 			
-			l = new JLabel("Fréquence");
+			l = new JLabel("FrÃ©quence");
 			l.setFont(DEFAULT_FONT);
 			ligne2.add(l);
 			txtFields[0] = new JTextField(Integer.toString(sig1.getFreq()));
@@ -245,7 +254,7 @@ public class Generateur extends JFrame implements ActionListener {
 			choixUniteAmpl.setFont(DEFAULT_FONT);
 			ligne3.add(choixUniteAmpl);
 			
-			/* Text Area pour les erreurs éventuelles. */
+			/* Text Area pour les erreurs Ã©ventuelles. */
 			errorField.setLineWrap(true);
 			errorField.setEditable(false);
 			errorField.setFont(DEFAULT_FONT);
@@ -259,9 +268,15 @@ public class Generateur extends JFrame implements ActionListener {
 			add(ligne3);
 			add(errorField);
 		}
+		
+		private void refreshItems() {
+			this.choixTypes.setSelectedItem(activeSig.getForme());
+			this.txtFields[0].setText(Integer.toString(activeSig.getFreq()));
+			this.choixUniteFreq.setSelectedItem(activeSig.getFreqAsString()[1]);
+			this.txtFields[1].setText(Double.toString(activeSig.getAmplitude()));
+			this.choixUniteAmpl.setSelectedItem(activeSig.getForme());
+		}
 	}
 	
-	private String choixUnite (int nbr, String cQuoi) {
-		return "Hz";
-	}
+	
 }
