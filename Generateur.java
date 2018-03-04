@@ -1,16 +1,13 @@
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.awt.Font;
-import java.awt.Graphics;
 import java.awt.GridLayout;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -19,8 +16,9 @@ import javax.swing.JTextField;
 
 public class Generateur extends JFrame implements ActionListener {
 	
-	/** Les signaux. */
-	private Signal sig1, sig2;
+	/** Les signaux. L'indice 1 correspond au signal 1, l'indice 2 au signal 2.
+	 * L'indice 0 est le signal � l'�cran. */
+	private Signal [] sig = new Signal[3];
 	/* Signal affiché à l'écran.
 	* A changer pour passer de byte à Signal. */
 	private byte aLEcran; 
@@ -42,8 +40,8 @@ public class Generateur extends JFrame implements ActionListener {
 		setSize(600, 600);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.sig1 = s1;
-		this.sig2 = s2;
+		this.sig[1] = s1;
+		this.sig[2] = s2;
 		aLEcran = 1;
 		
 		/** Affichage des infos des signaux dans la partie supérieure. */
@@ -108,14 +106,14 @@ public class Generateur extends JFrame implements ActionListener {
 		String [] s;
 		
 		// Actif ou non
-		if(sig1.getActive()){
+		if(sig[1].getActive()){
 			labels.get(1).setText("ON");
 			labels.get(1).setForeground(Color.GREEN);
 		} else {
 			labels.get(1).setText("OFF");
 			labels.get(1).setForeground(Color.DARK_GRAY);
 		}
-		if (sig2.getActive()){
+		if (sig[2].getActive()){
 			labels.get(6).setText("ON");
 			labels.get(6).setForeground(Color.GREEN);
 		} else {
@@ -124,30 +122,30 @@ public class Generateur extends JFrame implements ActionListener {
 		}
 		
 		// Types de signaux
-		labels.get(2).setText(sig1.getForme());
-		labels.get(7).setText(sig2.getForme());
+		labels.get(2).setText(sig[1].getForme());
+		labels.get(7).setText(sig[2].getForme());
 		
 		// Frequence
-		s = sig1.getFreqAsString();
+		s = sig[1].getFreqAsString();
 		labels.get(3).setText(s[0] + " " + s[1]);
-		s = sig2.getFreqAsString();
+		s = sig[2].getFreqAsString();
 		labels.get(8).setText(s[0] + " " + s[1]);
 		
 		// Amplitude
-		s = sig1.getAmplAsString();
+		s = sig[1].getAmplAsString();
 		labels.get(4).setText(s[0] + " " + s[1]);
-		s = sig2.getAmplAsString();
+		s = sig[2].getAmplAsString();
 		labels.get(9).setText(s[0] + " " + s[1]);
 		
 		// Bouton Allumer / Eteindre
 		if (aLEcran == 1) {
-			if(sig1.getActive()) {
+			if(sig[1].getActive()) {
 				boutons.get(1).setText("Eteindre");
 			} else {
 				boutons.get(1).setText("Allumer");
 			}
 		} else {
-			if(sig2.getActive()) {
+			if(sig[2].getActive()) {
 				boutons.get(1).setText("Eteindre");
 			} else {
 				boutons.get(1).setText("Allumer");
@@ -168,22 +166,22 @@ public class Generateur extends JFrame implements ActionListener {
 		
 		if(e.getSource().equals(boutons.get(0))){ // Bouton APPLIQUER
 			System.out.println("Bouton APPLIQUER");
-			sig1.setAmplitude(sig1.getAmplitude()/5); // pour un test
+			sig[1].setAmplitude(sig[1].getAmplitude()/5); // pour un test
 			
 		} else if (e.getSource().equals(boutons.get(1))){ // Bouton ETEINDRE
 			if(aLEcran == 1) {
-				sig1.setActive(!sig1.getActive());
+				sig[1].setActive(!sig[1].getActive());
 			} else {
-				sig2.setActive(!sig2.getActive());
+				sig[2].setActive(!sig[2].getActive());
 			}
 			
 		} else if (e.getSource().equals(boutons.get(2))) { // Bouton SWITCH
 			if(aLEcran == 1) {
 				aLEcran = 2;
-				panSig.activeSig = sig2;
+				panSig.activeSig = sig[2];
 			} else {
 				aLEcran = 1;
-				panSig.activeSig = sig1;
+				panSig.activeSig = sig[1];
 			}
 			panSig.refreshItems();
 			
@@ -205,7 +203,7 @@ public class Generateur extends JFrame implements ActionListener {
 		private JComboBox<String> choixUniteAmpl = new JComboBox<>(Signal.AMPL_UNITES);
 		private JTextField[] txtFields = new JTextField[3];
 		private JTextArea errorField = new JTextArea();
-		private Signal activeSig = sig1;
+		private Signal activeSig = sig[1];
 
 		public PanneauRemplir(int posX, int posY, int wid, int hei) {
 			super();
@@ -242,7 +240,7 @@ public class Generateur extends JFrame implements ActionListener {
 			l = new JLabel("Fréquence");
 			l.setFont(DEFAULT_FONT);
 			ligne2.add(l);
-			txtFields[0] = new JTextField(Integer.toString(sig1.getFreq()));
+			txtFields[0] = new JTextField(Integer.toString(sig[1].getFreq()));
 			txtFields[0].setFont(DEFAULT_FONT);
 			ligne2.add(txtFields[0]);
 			choixUniteFreq.setFont(DEFAULT_FONT);
@@ -255,7 +253,7 @@ public class Generateur extends JFrame implements ActionListener {
 			l = new JLabel("Amplitude");
 			l.setFont(DEFAULT_FONT);
 			ligne3.add(l);
-			txtFields[1] = new JTextField(Double.toString(sig1.getAmplitude()));
+			txtFields[1] = new JTextField(Double.toString(sig[1].getAmplitude()));
 			txtFields[1].setFont(DEFAULT_FONT);
 			ligne3.add(txtFields[1]);
 			choixUniteAmpl.setFont(DEFAULT_FONT);
