@@ -9,7 +9,7 @@ public class Signal {
 	/** Valeur maximale de l'amplitude d'un signal : 10 V */
 	private final double MAX_AMP = 10.;
 	/** Valeur maximale de la fréquence d'un signal : 2 Ghz. */
-	private final int MAX_FREQ = (int) 2.*Math.pow(10, 9); 
+	private final int MAX_FREQ = (int) (2.*Math.pow(10, 9)); 
 	
 	/** Valeurs possibles des unités ou formes de signal. */
 	public static final String [] SIGNAL_TYPES = {"SIN", "TRI", "REC"}, FREQ_UNITES = {"Hz", "kHz", "MHz", "GHz"},  AMPL_UNITES = {"mV", "V"};
@@ -41,8 +41,8 @@ public class Signal {
 	 * @param f La fréquence souhaitée.
 	 */
 	public void setSignal(double amp, int f) {
-		amplitude = this.setAmplitude(amp);
-		freq = this.setFreq(f);
+		this.setAmplitude(amp);
+		this.setFreq(f);
 	}
 
 	/**
