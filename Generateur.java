@@ -21,7 +21,9 @@ public class Generateur extends JFrame implements ActionListener {
 	
 	/** Les signaux. */
 	private Signal sig1, sig2;
-	private byte aLEcran; // Signal affiché à l'écran.
+	/* Signal affiché à l'écran.
+	* A changer pour passer de byte à Signal. */
+	private byte aLEcran; 
 	
 	/** Les JComponents utilisés. */
 	private PanneauRemplir panSig;
@@ -48,15 +50,16 @@ public class Generateur extends JFrame implements ActionListener {
 		affSup.setBounds(0,0,this.getWidth(), 20);
 		affSup.setLayout(new GridLayout(1,0));
 		for(int i = 0; i < 10; i++){
-			JLabel temp = new JLabel();
-			temp.setOpaque(true);
-			temp.setBackground(Color.WHITE);
-			temp.setForeground(Color.BLACK);
-			temp.setFont(new Font("Courier", Font.BOLD, 15));
-			temp.setHorizontalAlignment(JLabel.CENTER);
-			labels.add(temp);
-			affSup.add(temp);
+			JLabel l = new JLabel();
+			l.setOpaque(true);
+			l.setBackground(Color.WHITE);
+			l.setForeground(Color.BLACK);
+			l.setFont(new Font("Courier", Font.BOLD, 15));
+			l.setHorizontalAlignment(JLabel.CENTER);
+			labels.add(l);
+			affSup.add(l);
 		}
+		// Les cases d'indices 0 et 5 sont invariables.
 		labels.get(0).setText("CH1");
 		labels.get(0).setFont(new Font("Courier", Font.BOLD, 20));
 		labels.get(0).setBackground(Color.LIGHT_GRAY);
@@ -65,7 +68,8 @@ public class Generateur extends JFrame implements ActionListener {
 		labels.get(5).setBackground(Color.LIGHT_GRAY);
 		affSup.setBackground(null);
 		
-		/** Panneau ou on remplit les informations. */
+		/** Panneau ou on remplit les informations. 
+		 * Voir en détail la sous-classe private PanneauRemplir. */
 		panSig = new PanneauRemplir(0, 20, this.getWidth(), this.getHeight()-20-97);
 		
 		/** Boutons en bas. */
@@ -74,8 +78,8 @@ public class Generateur extends JFrame implements ActionListener {
 		boutonsPan.setBackground(Color.CYAN);
 		
 		boutons.add(new JButton("Appliquer"));
-		boutons.add(new JButton());
-		boutons.add(new JButton());
+		boutons.add(new JButton()); // Son texte varie.
+		boutons.add(new JButton()); // Son texte varie.
 		boutons.add(new JButton("Réinitialiser"));
 		for(JButton p : boutons){
 			p.setFont(new Font("Arial", Font.PLAIN, 25));
@@ -94,11 +98,12 @@ public class Generateur extends JFrame implements ActionListener {
 		/** Affichage. */
 		refreshItems();
 		this.setContentPane(mainPanel);
-		this.revalidate();
+		this.revalidate(); // Je sais plus ce que c'est xD.
 		setVisible(true);
 	}
 	
-	/** Re-calcule le texte affiché dans les composants. */
+	/** Re-calcule le texte affiché dans les composants. 
+	 * JComponents affectés : les JLabel en haut et les JButton en bas. */
 	private void refreshItems(){
 		String [] s;
 		
@@ -157,11 +162,13 @@ public class Generateur extends JFrame implements ActionListener {
 		}
 	}
 	
+	/** En cas d'appui sur un bouton.
+	 * @param Informations sur l'action de l'utilisateur. */
 	public void actionPerformed(ActionEvent e){
 		
 		if(e.getSource().equals(boutons.get(0))){ // Bouton APPLIQUER
 			System.out.println("Bouton APPLIQUER");
-			sig1.setAmplitude(sig1.getAmplitude()/5);
+			sig1.setAmplitude(sig1.getAmplitude()/5); // pour un test
 			
 		} else if (e.getSource().equals(boutons.get(1))){ // Bouton ETEINDRE
 			if(aLEcran == 1) {
@@ -187,10 +194,10 @@ public class Generateur extends JFrame implements ActionListener {
 		this.refreshItems();
 	}
 	
-	/** Objet qui contient tous les composants nécessaires
-	 * pour modifier la valeur d'un signal.
-	 */
-	private class PanneauRemplir extends JPanel{
+	/** Objet qui contient tous les JComponents nécessaires
+	 * pour modifier la valeur d'un signal. 
+	 * Placé dans une sous-classe private afin que cela soit plus lisible. */
+	private class PanneauRemplir extends JPanel {
 		
 		private final Font DEFAULT_FONT = new Font("Calibri", Font.PLAIN, 15);
 		private JComboBox<String> choixTypes = new JComboBox<>(Signal.SIGNAL_TYPES);
@@ -269,6 +276,8 @@ public class Generateur extends JFrame implements ActionListener {
 			add(errorField);
 		}
 		
+		/** Re-calcule l'affichage des différentes cases 
+		 * en fonction des propriétés du signal actif. */
 		private void refreshItems() {
 			this.choixTypes.setSelectedItem(activeSig.getForme());
 			this.txtFields[0].setText(Integer.toString(activeSig.getFreq()));
