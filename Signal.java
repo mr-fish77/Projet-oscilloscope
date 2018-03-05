@@ -4,12 +4,12 @@ public class Signal {
 	/** Amplitude du signal en volts. */
 	private double amplitude;
 	/** Frequence du signal en Hz. */
-	private int freq;
+	private double freq;
 	
 	/** Valeur maximale de l'amplitude d'un signal : 10 V */
 	private final double MAX_AMP = 10.;
 	/** Valeur maximale de la fréquence d'un signal : 2 Ghz. */
-	private final int MAX_FREQ = (int) (2.*Math.pow(10, 9)); 
+	private final double MAX_FREQ =  (2.*Math.pow(10, 9)); 
 	
 	/** Valeurs possibles des unités ou formes de signal. */
 	public static final String [] SIGNAL_TYPES = {"SIN", "TRI", "REC"}, FREQ_UNITES = {"Hz", "kHz", "MHz", "GHz"},  AMPL_UNITES = {"mV", "V"};
@@ -48,7 +48,7 @@ public class Signal {
 	/**
 	 * @return La forme du signal.
 	 */
-	public String getForme() {return "SIN";}
+	public String getForme() {return "";}
 
 	/**
 	 * @return L'amplitude du signal.
@@ -60,7 +60,7 @@ public class Signal {
 	/**
 	 * @return La frÃ©quence du signal.
 	 */
-	public int getFreq() {
+	public double getFreq() {
 		return freq;
 	}
 
@@ -86,7 +86,7 @@ public class Signal {
 	public String [] getFreqAsString() {
 		String[] s = new String[2];
 		if (freq < 1000) {
-			s[0] = Integer.toString(freq);
+			s[0] = Double.toString(freq);
 			s[1] = "Hz";
 			return  s;
 		} else if (freq < 1000000) {

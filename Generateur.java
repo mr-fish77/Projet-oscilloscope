@@ -36,7 +36,7 @@ public class Generateur extends JFrame implements ActionListener {
 	 * @param sig2 Le signal du channel 2.
 	 */
 	public Generateur(Signal s1, Signal s2) {
-		super("Générateur");
+		super("Generateur");
 		setSize(600, 600);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -240,7 +240,7 @@ public class Generateur extends JFrame implements ActionListener {
 			l = new JLabel("Fréquence");
 			l.setFont(DEFAULT_FONT);
 			ligne2.add(l);
-			txtFields[0] = new JTextField(Integer.toString(sig[1].getFreq()));
+			txtFields[0] = new JTextField(Double.toString(sig[1].getFreq()));
 			txtFields[0].setFont(DEFAULT_FONT);
 			ligne2.add(txtFields[0]);
 			choixUniteFreq.setFont(DEFAULT_FONT);
@@ -278,7 +278,7 @@ public class Generateur extends JFrame implements ActionListener {
 		 * en fonction des propriétés du signal actif. */
 		private void refreshItems() {
 			this.choixTypes.setSelectedItem(activeSig.getForme());
-			this.txtFields[0].setText(Integer.toString(activeSig.getFreq()));
+			this.txtFields[0].setText(Double.toString(activeSig.getFreq()));
 			this.choixUniteFreq.setSelectedItem(activeSig.getFreqAsString()[1]);
 			this.txtFields[1].setText(Double.toString(activeSig.getAmplitude()));
 			this.choixUniteAmpl.setSelectedItem(activeSig.getForme());
