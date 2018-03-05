@@ -3,6 +3,6 @@ public class Main{
     Signal signal1 = new Signal();
     Signal signal2 = new Signal();
     
-    Generateur gener = new Generateur(signal1, signal2);
+    new Generateur(signal1, signal2);
   }
 }

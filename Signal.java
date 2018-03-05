@@ -1,22 +1,22 @@
 
 public class Signal {
 	
-	/** Amplitude crete-a-crete du signal en volts. */
+	/** Amplitude du signal en volts. */
 	private double amplitude;
 	/** Frequence du signal en Hz. */
-	private int freq;
+	private double freq;
 	
-	/** Valeurs maximales des proprietes du signal. */
-	private final double MAX_AMP = 20.; // 20V crête-à-crête.
-	private final int MAX_FREQ = (int) Math.pow(10, 9); // 1GHz.
+	/** Valeur maximale de l'amplitude d'un signal : 10 V */
+	private final double MAX_AMP = 10.;
+	/** Valeur maximale de la fréquence d'un signal : 2 Ghz. */
+	private final double MAX_FREQ =  (2.*Math.pow(10, 9)); 
 	
-	public static final String [] SIGNAL_TYPES = {"SIN", "TRI", "REC"};
-	public static final String [] FREQ_UNITES = {"Hz", "kHz", "MHz", "GHz"};
-	public static final String [] AMPL_UNITES = {"mV", "V"};
+	/** Valeurs possibles des unités ou formes de signal. */
+	public static final String [] SIGNAL_TYPES = {"SIN", "TRI", "REC"}, FREQ_UNITES = {"Hz", "kHz", "MHz", "GHz"},  AMPL_UNITES = {"mV", "V"};
 
-	/** Actif ou non, affich� ou non. 
+	/** Actif ou non, affiché ou non. 
 	 * Un signal actif est nul.
-	 * Le param�tre displayed devrait �tre dans Channel plutot que Signal non ?
+	 * Le paramètre displayed devrait être dans Channel plutot que Signal non ?
 	 * */
 	private boolean active, displayed;
 	
@@ -24,16 +24,31 @@ public class Signal {
 	 * Constructeur par defaut.
 	 */
 	public Signal() {
-		amplitude = 20.;
-		freq = 50;
+		resetSignal();
 		active = false;
 		displayed = false;
+	}
+	
+	/** Met les attributs du signal à leur valeur par défaut. */
+	public void resetSignal() {
+		amplitude = MAX_AMP;
+		freq = 50;
+	}
+	
+	/** Met les attributs du signal aux valeurs renseignées.
+	 * C'est une sorte de constructeur qui ne réinitialise pas. 
+	 * @param amp L'amplitude désirée.
+	 * @param f La fréquence souhaitée.
+	 */
+	public void setSignal(double amp, int f) {
+		this.setAmplitude(amp);
+		this.setFreq(f);
 	}
 
 	/**
 	 * @return La forme du signal.
 	 */
-	public String getForme() {return "SIN";}
+	public String getForme() {return "";}
 
 	/**
 	 * @return L'amplitude du signal.
@@ -43,15 +58,55 @@ public class Signal {
 	}
 
 	/**
-	 * @return La fréquence du signal.
+	 * @return La frÃ©quence du signal.
 	 */
-	public int getFreq() {
+	public double getFreq() {
 		return freq;
+	}
+
+	/** 
+	 * @return L'amplitude à 3 chiffres significatifs, et son unité.
+	 */
+	public String[] getAmplAsString() {
+		String[] s = new String[2];
+		if(amplitude > 1) {
+			s[0] = Double.toString(amplitude);
+			s[1] = "V";
+			return s;
+		} else {
+			s[0] = Double.toString(amplitude * 1000);
+			s[1] = "mV";
+			return s;
+		}
+	}
+	
+	/** 
+	 * @return La fréquence à 3 chiffres significatifs, et son unité.
+	 */
+	public String [] getFreqAsString() {
+		String[] s = new String[2];
+		if (freq < 1000) {
+			s[0] = Double.toString(freq);
+			s[1] = "Hz";
+			return  s;
+		} else if (freq < 1000000) {
+			s[0] = Double.toString(freq / 1000.);
+			s[1] = "kHz";
+			return s;
+		} else if (freq < 1000000000) {
+			s[0] = Double.toString(freq / 1000000.);
+			s[1] = "MHz";
+			return s;
+		} else {
+			s[0] = Double.toString(freq / 1000000000.);
+			s[1] = "GHz";
+			return s;
+		}
 	}
 
 	/**
 	 * @param amplitude
-	 *            L'amplitude à modifier.
+	 *            L'amplitude Ã  modifier.
 	 * 	      Valeur comprise entre 0.1 et MAX_AMP compris.
 	 */
 	public void setAmplitude(double amplitude) {
@@ -66,7 +121,7 @@ public class Signal {
 
 	/**
 	 * @param freq
-	 *            La fréquence à appliquer.
+	 *            La frÃ©quence Ã  appliquer.
 	 * 	      Valeur comprise entre 1 Hz et MAX_FREQ.
 	 */
 	public void setFreq(int freq) {
@@ -79,19 +134,17 @@ public class Signal {
 		}
 	}
 	
+	/** Active un signal.
+	 * @param b true pour activer, false pour désactiver.
+	 */
 	public void setActive(boolean b) {
 		this.active = b;
 	}
 	
+	/** Indique si un signal est actif ou non.
+	 * @return true si actif, false si inactif.
+	 */
 	public boolean getActive() {
 		return this.active;
-	}
-	
-	public void setDisplayed(boolean b) {
-		this.displayed = b;
-	}
-	
-	public boolean getDisplayed() {
-		return displayed;
 	}
 }
