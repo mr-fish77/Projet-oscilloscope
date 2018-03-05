@@ -1,4 +1,5 @@
 import javax.swing.JLabel;
+import javax.swing.*;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
@@ -12,6 +13,19 @@ public class Potentiometre extends JLabel implements MouseMotionListener, MouseL
   private int[][] octoRotation = {{95, 50},  {81, 81},  {50, 95},  {19, 81},  {5, 50},  {19, 19},  {50, 5},  {81, 19}};   //coordonnees pour l'octogone rotationne
   private double xMem, yMem;            //coordonnees de la souris au precedent cran du potentiometre
   private int cran;                     //cran actuel
+
+  public static void main(String[] args){
+    int t = 50;
+    JFrame fenetre = new JFrame();
+
+    Potentiometre pot = new Potentiometre(t);
+
+    fenetre.add(pot);
+    fenetre.setLayout(null);
+    fenetre.setSize(2*t, 2*t);
+    fenetre.setVisible(true);
+
+  }
 
 
   public Potentiometre(int taille){
@@ -87,6 +101,7 @@ public class Potentiometre extends JLabel implements MouseMotionListener, MouseL
     if(Math.abs(a) > 0.3926990817){ //si l'angle est supperieur à 22,5 degre on change de cran (c'est la moitie d'un angle d'octogone)
 
       cran += (int)(a/Math.abs(a));   //pour savoir dans quel sens on a tourne la molette
+      System.out.println(cran);
 
       xMem = x;   //on change la sauvegarde de la position de la souris au niveau du cran
       yMem = y;
