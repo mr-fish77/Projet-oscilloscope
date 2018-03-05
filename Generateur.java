@@ -17,13 +17,10 @@ import javax.swing.JTextField;
 public class Generateur extends JFrame implements ActionListener {
 	
 	/** Les signaux. L'indice 1 correspond au signal 1, l'indice 2 au signal 2.
-	 * L'indice 0 est le signal � l'�cran. */
+	 * L'indice 0 est le signal � l'ecran. */
 	private Signal [] sig = new Signal[3];
-	/* Signal affiché à l'écran.
-	* A changer pour passer de byte à Signal. */
-	private byte aLEcran; 
 	
-	/** Les JComponents utilisés. */
+	/** Les JComponents utilises. */
 	private PanneauRemplir panSig;
 	private JPanel affSup = new JPanel();
 	private JPanel boutonsPan = new JPanel();
@@ -42,9 +39,9 @@ public class Generateur extends JFrame implements ActionListener {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.sig[1] = s1;
 		this.sig[2] = s2;
-		aLEcran = 1;
+		this.sig[0] = s1;
 		
-		/** Affichage des infos des signaux dans la partie supérieure. */
+		/** Affichage des infos des signaux dans la partie superieure. */
 		affSup.setBounds(0,0,this.getWidth(), 20);
 		affSup.setLayout(new GridLayout(1,0));
 		for(int i = 0; i < 10; i++){
@@ -57,7 +54,7 @@ public class Generateur extends JFrame implements ActionListener {
 			labels.add(l);
 			affSup.add(l);
 		}
-		// Les cases d'indices 0 et 5 sont invariables.
+		// Les cases d'indices 0 et 5 sont constantes.
 		labels.get(0).setText("CH1");
 		labels.get(0).setFont(new Font("Courier", Font.BOLD, 20));
 		labels.get(0).setBackground(Color.LIGHT_GRAY);
@@ -67,7 +64,7 @@ public class Generateur extends JFrame implements ActionListener {
 		affSup.setBackground(null);
 		
 		/** Panneau ou on remplit les informations. 
-		 * Voir en détail la sous-classe private PanneauRemplir. */
+		 * Voir en detail la sous-classe private PanneauRemplir. */
 		panSig = new PanneauRemplir(0, 20, this.getWidth(), this.getHeight()-20-97);
 		
 		/** Boutons en bas. */
@@ -78,7 +75,7 @@ public class Generateur extends JFrame implements ActionListener {
 		boutons.add(new JButton("Appliquer"));
 		boutons.add(new JButton()); // Son texte varie.
 		boutons.add(new JButton()); // Son texte varie.
-		boutons.add(new JButton("Réinitialiser"));
+		boutons.add(new JButton("Reinitialiser"));
 		for(JButton p : boutons){
 			p.setFont(new Font("Arial", Font.PLAIN, 25));
 			p.addActionListener(this);
@@ -100,8 +97,8 @@ public class Generateur extends JFrame implements ActionListener {
 		setVisible(true);
 	}
 	
-	/** Re-calcule le texte affiché dans les composants. 
-	 * JComponents affectés : les JLabel en haut et les JButton en bas. */
+	/** Re-calcule le texte affiche dans les composants. 
+	 * JComponents affectes : les JLabel en haut et les JButton en bas. */
 	private void refreshItems(){
 		String [] s;
 		
@@ -138,7 +135,7 @@ public class Generateur extends JFrame implements ActionListener {
 		labels.get(9).setText(s[0] + " " + s[1]);
 		
 		// Bouton Allumer / Eteindre
-		if (aLEcran == 1) {
+		if (sig[0].equals(sig[1])) {
 			if(sig[1].getActive()) {
 				boutons.get(1).setText("Eteindre");
 			} else {
@@ -153,7 +150,7 @@ public class Generateur extends JFrame implements ActionListener {
 		}
 		
 		// Bouton Changer de canal
-		if(aLEcran == 1) {
+		if(sig[0].equals(sig[1])) {
 			boutons.get(2).setText("Canal 1");
 		} else {
 			boutons.get(2).setText("Canal 2");
@@ -169,32 +166,32 @@ public class Generateur extends JFrame implements ActionListener {
 			sig[1].setAmplitude(sig[1].getAmplitude()/5); // pour un test
 			
 		} else if (e.getSource().equals(boutons.get(1))){ // Bouton ETEINDRE
-			if(aLEcran == 1) {
+			if(sig[0].equals(sig[1])) {
 				sig[1].setActive(!sig[1].getActive());
 			} else {
 				sig[2].setActive(!sig[2].getActive());
 			}
 			
 		} else if (e.getSource().equals(boutons.get(2))) { // Bouton SWITCH
-			if(aLEcran == 1) {
-				aLEcran = 2;
+			if(sig[0].equals(sig[1])) {
+				sig[0] = sig[2];
 				panSig.activeSig = sig[2];
 			} else {
-				aLEcran = 1;
+				sig[0] = sig[1];
 				panSig.activeSig = sig[1];
 			}
 			panSig.refreshItems();
 			
 		} else if (e.getSource().equals(boutons.get(3))) { // Bouton RESET
 			System.out.println("Bouton RESET");
-			panSig.activeSig.resetSignal();
+			panSig.activeSig.setSignal(20, 50);;
 		}
 		this.refreshItems();
 	}
 	
-	/** Objet qui contient tous les JComponents nécessaires
+	/** Objet qui contient tous les JComponents necessaires
 	 * pour modifier la valeur d'un signal. 
-	 * Placé dans une sous-classe private afin que cela soit plus lisible. */
+	 * Place dans une sous-classe private afin que cela soit plus lisible. */
 	private class PanneauRemplir extends JPanel {
 		
 		private final Font DEFAULT_FONT = new Font("Calibri", Font.PLAIN, 15);
@@ -212,12 +209,12 @@ public class Generateur extends JFrame implements ActionListener {
 			this.setBackground(new Color(192, 192, 192));
 			this.setLayout(null);
 			
-			/* Espace supérieur. */
+			/* Espace superieur. */
 			JPanel justBlack = new JPanel();
 			justBlack.setBackground(Color.BLACK);
 			justBlack.setBounds(0, 0, this.getWidth(), 10);
 			
-			JLabel txt1 = new JLabel("Générateur de courant", JLabel.CENTER);
+			JLabel txt1 = new JLabel("Generateur de courant", JLabel.CENTER);
 			txt1.setFont(new Font("Calibri", Font.BOLD + Font.ITALIC, 40));
 			txt1.setBounds(0, 25, this.getWidth(), 40);
 			txt1.setForeground(Color.DARK_GRAY);
@@ -237,7 +234,7 @@ public class Generateur extends JFrame implements ActionListener {
 			ligne2.setBounds(40, 80+30, this.getWidth()-80, 30);
 			ligne2.setLayout(new GridLayout(1,3));
 			
-			l = new JLabel("Fréquence");
+			l = new JLabel("Frequence");
 			l.setFont(DEFAULT_FONT);
 			ligne2.add(l);
 			txtFields[0] = new JTextField(Double.toString(sig[1].getFreq()));
@@ -259,7 +256,7 @@ public class Generateur extends JFrame implements ActionListener {
 			choixUniteAmpl.setFont(DEFAULT_FONT);
 			ligne3.add(choixUniteAmpl);
 			
-			/* Text Area pour les erreurs éventuelles. */
+			/* Text Area pour les erreurs eventuelles. */
 			errorField.setLineWrap(true);
 			errorField.setEditable(false);
 			errorField.setFont(DEFAULT_FONT);
@@ -274,8 +271,8 @@ public class Generateur extends JFrame implements ActionListener {
 			add(errorField);
 		}
 		
-		/** Re-calcule l'affichage des différentes cases 
-		 * en fonction des propriétés du signal actif. */
+		/** Re-calcule l'affichage des differentes cases 
+		 * en fonction des proprietes du signal actif. */
 		private void refreshItems() {
 			this.choixTypes.setSelectedItem(activeSig.getForme());
 			this.txtFields[0].setText(Double.toString(activeSig.getFreq()));

@@ -5,6 +5,8 @@ public class Signal {
 	private double amplitude;
 	/** Frequence du signal en Hz. */
 	private double freq;
+	/** Num�ro du signal : 1 ou 2. */
+	public final int numero;
 	
 	/** Valeur maximale de l'amplitude d'un signal : 10 V */
 	private final double MAX_AMP = 10.;
@@ -16,29 +18,23 @@ public class Signal {
 
 	/** Actif ou non, affiché ou non. 
 	 * Un signal actif est nul.
-	 * Le paramètre displayed devrait être dans Channel plutot que Signal non ?
 	 * */
-	private boolean active, displayed;
+	private boolean active;
 	
 	/**
 	 * Constructeur par defaut.
 	 */
-	public Signal() {
-		resetSignal();
-		active = false;
-		displayed = false;
-	}
-	
-	/** Met les attributs du signal à leur valeur par défaut. */
-	public void resetSignal() {
+	public Signal(int n) {
 		amplitude = MAX_AMP;
 		freq = 50;
+		active = false;
+		numero = n;
 	}
 	
 	/** Met les attributs du signal aux valeurs renseignées.
-	 * C'est une sorte de constructeur qui ne réinitialise pas. 
-	 * @param amp L'amplitude désirée.
-	 * @param f La fréquence souhaitée.
+	 * C'est une sorte de constructeur qui ne reinitialise pas. 
+	 * @param amp L'amplitude desiree.
+	 * @param f La frequence souhaitee.
 	 */
 	public void setSignal(double amp, int f) {
 		this.setAmplitude(amp);
@@ -58,14 +54,14 @@ public class Signal {
 	}
 
 	/**
-	 * @return La frÃ©quence du signal.
+	 * @return La frequence du signal.
 	 */
 	public double getFreq() {
 		return freq;
 	}
 
 	/** 
-	 * @return L'amplitude à 3 chiffres significatifs, et son unité.
+	 * @return L'amplitude a 3 chiffres significatifs, et son unite.
 	 */
 	public String[] getAmplAsString() {
 		String[] s = new String[2];
@@ -81,7 +77,7 @@ public class Signal {
 	}
 	
 	/** 
-	 * @return La fréquence à 3 chiffres significatifs, et son unité.
+	 * @return La frequence a 3 chiffres significatifs, et son unite.
 	 */
 	public String [] getFreqAsString() {
 		String[] s = new String[2];
@@ -106,7 +102,7 @@ public class Signal {
 
 	/**
 	 * @param amplitude
-	 *            L'amplitude Ã  modifier.
+	 *            L'amplitude a modifier.
 	 * 	      Valeur comprise entre 0.1 et MAX_AMP compris.
 	 */
 	public void setAmplitude(double amplitude) {
@@ -121,7 +117,7 @@ public class Signal {
 
 	/**
 	 * @param freq
-	 *            La frÃ©quence Ã  appliquer.
+	 *            La frequence a appliquer.
 	 * 	      Valeur comprise entre 1 Hz et MAX_FREQ.
 	 */
 	public void setFreq(int freq) {
@@ -135,7 +131,7 @@ public class Signal {
 	}
 	
 	/** Active un signal.
-	 * @param b true pour activer, false pour désactiver.
+	 * @param b true pour activer, false pour desactiver.
 	 */
 	public void setActive(boolean b) {
 		this.active = b;
@@ -146,5 +142,13 @@ public class Signal {
 	 */
 	public boolean getActive() {
 		return this.active;
+	}
+	
+	/** Indique si les signaux sont les memes. 
+	 * @param signal1 Le signal a verifier.
+	 * @return true si ce sont les memes, false sinon.
+	 */
+	public boolean equals (Signal signal1) {
+		return signal1.numero == this.numero;
 	}
 }

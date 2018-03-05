@@ -8,7 +8,7 @@ import java.awt.*;
 
 import javax.swing.*;
 
-public class Generateur extends JFrame /*implements ActionListener */{
+public class Generateur2 extends JFrame /*implements ActionListener */{
 	
 	public Signal signal1;
 	public Signal signal2;
@@ -23,11 +23,11 @@ public class Generateur extends JFrame /*implements ActionListener */{
 	public JButton onOff1 = new JButton("OFF"), onOff2 = new JButton("OFF");
 	
 	public static void main (String[] args){
-		new Generateur();
+		new Generateur2();
 	  }
 	
-	public Generateur(){
-		super("Generateur");
+	public Generateur2(){
+		super("Generateur2");
 		signal1 = new Signal();
 		signal2 = new Signal();
 		
@@ -42,10 +42,10 @@ public class Generateur extends JFrame /*implements ActionListener */{
 		this.add(infoSignal, BorderLayout.NORTH);
 		
 		infoSignal.setLayout(new GridLayout(0, 8));
-		freq1 = new JLabel(signal1.getFreqAsString());
-		freq2 = new JLabel(signal2.getFreqAsString());
-		volt1 = new JLabel(signal1.getAmplAsString());
-		volt2 = new JLabel(signal2.getAmplAsString());
+		freq1 = new JLabel(signal1.getFreqAsString()[0]);
+		freq2 = new JLabel(signal2.getFreqAsString()[0]);
+		volt1 = new JLabel(signal1.getAmplAsString()[0]);
+		volt2 = new JLabel(signal2.getAmplAsString()[0]);
 		
 		canal1.setHorizontalAlignment(JLabel.CENTER);
 		canal2.setHorizontalAlignment(JLabel.CENTER);
