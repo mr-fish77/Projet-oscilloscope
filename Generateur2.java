@@ -22,14 +22,10 @@ public class Generateur2 extends JFrame /*implements ActionListener */{
 	
 	public JButton onOff1 = new JButton("OFF"), onOff2 = new JButton("OFF");
 	
-	public static void main (String[] args){
-		new Generateur2();
-	  }
-	
-	public Generateur2(){
+	public Generateur2(Signal s1, Signal s2){
 		super("Generateur2");
-		signal1 = new Signal();
-		signal2 = new Signal();
+		signal1 = s1;
+		signal2 = s2;
 		
 		setSize(600, 600);
 		setMinimumSize(new Dimension(600, 150));
