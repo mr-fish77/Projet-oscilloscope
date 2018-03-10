@@ -1,116 +1,114 @@
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.GridLayout;
 
-import javax.swing.JButton;
-import javax.swing.JComboBox;
+import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
 
-public class Generateur extends JFrame implements ActionListener {
+public class Generateur extends JFrame {
+	/** Les signaux. */
+	private Signal sig1, sig2;
 	
-	/** Les signaux. L'indice 1 correspond au signal 1, l'indice 2 au signal 2.
-	 * L'indice 0 est le signal à l'ecran. */
-	private Signal [] sig = new Signal[3];
+	/** Les JPanel utilises. */
+	private JPanel affInfos = new JPanel(), sigPan1 = new JPanel(), sigPan2 = new JPanel(), mainPanel = new JPanel();
 	
-	/** Les JComponents utilises. */
-	private PanneauRemplir panSig;
-	private JPanel affSup = new JPanel();
-	private JPanel boutonsPan = new JPanel();
-	private JPanel mainPanel = new JPanel();
-	private ArrayList<JButton> boutons = new ArrayList<JButton>();
-	private ArrayList<JLabel> labels = new ArrayList<JLabel>();
+	/** Police par defaut du generateur : Calibri 15. */
+	private final Font DEFAULT_FONT = new Font("Calibri", Font.PLAIN, 15);
+	/** Police Courier. */
+	private final Font COURIER = new Font("Courier", Font.BOLD, 15);
+	/** Police de sous-titre. */
+	private final Font TITLE = new Font ("Arial", Font.BOLD, 30);
+	/** La fenetre est un carre de taille SIZE. */
+	private final int SIZE = 600;
 	
-	/** Constructeur principal.
-	 * @param sig1 Le signal du channel 1.
-	 * @param sig2 Le signal du channel 2.
-	 */
+	
 	public Generateur(Signal s1, Signal s2) {
 		super("Generateur");
-		setSize(600, 600);
+		setSize(SIZE, SIZE);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.sig[1] = s1;
-		this.sig[2] = s2;
-		this.sig[0] = s1;
+		this.sig1 = s1;
+		this.sig2 = s2;
 		
-		/** Affichage des infos des signaux dans la partie superieure. */
-		affSup.setBounds(0,0,this.getWidth(), 20);
-		affSup.setLayout(new GridLayout(1,0));
+		JLabel txt1 = new JLabel("Generateur de courant", JLabel.CENTER);
+		txt1.setFont(new Font("Calibri", Font.BOLD + Font.ITALIC, 40));
+		txt1.setBounds(0, 10, this.getWidth(), 40);
+		txt1.setForeground(Color.DARK_GRAY);
+		
+		JLabel txt2 = new JLabel("Signaux actuels :");
+		txt2.setFont(TITLE);
+		txt2.setBounds(0, 75, this.getWidth(), 30);
+		
+		/** Affichage des infos des signaux. */
+		affInfos.setBounds(0, 115, this.getWidth(), 40);
+		affInfos.setLayout(new GridLayout(2,5));
 		for(int i = 0; i < 10; i++){
 			JLabel l = new JLabel();
 			l.setOpaque(true);
 			l.setBackground(Color.WHITE);
 			l.setForeground(Color.BLACK);
-			l.setFont(new Font("Courier", Font.BOLD, 15));
+			l.setFont(COURIER);
 			l.setHorizontalAlignment(JLabel.CENTER);
-			labels.add(l);
-			affSup.add(l);
+			if (i==0) {
+				l.setText("CH1");
+				l.setBackground(Color.LIGHT_GRAY);
+			} else if (i==5) {
+				l.setText("CH2");
+				l.setBackground(Color.LIGHT_GRAY);
+			}
+			
+			affInfos.add(l);
 		}
-		// Les cases d'indices 0 et 5 sont constantes.
-		labels.get(0).setText("CH1");
-		labels.get(0).setFont(new Font("Courier", Font.BOLD, 20));
-		labels.get(0).setBackground(Color.LIGHT_GRAY);
-		labels.get(5).setText("CH2");
-		labels.get(5).setFont(new Font("Courier", Font.BOLD, 20));
-		labels.get(5).setBackground(Color.LIGHT_GRAY);
-		affSup.setBackground(null);
 		
-		/** Panneau ou on remplit les informations. 
-		 * Voir en detail la sous-classe private PanneauRemplir. */
-		panSig = new PanneauRemplir(0, 20, this.getWidth(), this.getHeight()-20-97);
+		/** Parametres du Signal 1. */
+		SigPan p1 = new SigPan(sig1, 180);
+		SigPan p2 = new SigPan(sig2, 400);
 		
-		/** Boutons en bas. */
-		boutonsPan.setBounds(0, this.getHeight()-97, this.getWidth(), 100);
-		boutonsPan.setLayout(new FlowLayout()); // C'est par defaut mais comme ca c'est propre.
-		boutonsPan.setBackground(Color.CYAN);
-		
-		boutons.add(new JButton("Appliquer"));
-		boutons.add(new JButton()); // Son texte varie.
-		boutons.add(new JButton()); // Son texte varie.
-		boutons.add(new JButton("Reinitialiser"));
-		for(JButton p : boutons){
-			p.setFont(new Font("Arial", Font.PLAIN, 25));
-			p.addActionListener(this);
-			boutonsPan.add(p);
-		}
 		
 		/** Conteneur principal. */
 		mainPanel.setBounds(0, 0, this.getWidth(), this.getHeight());
 		mainPanel.setLayout(null);
 		mainPanel.setBackground(Color.WHITE);
-		mainPanel.add(affSup);
-		mainPanel.add(panSig);
-		mainPanel.add(boutonsPan);
+		mainPanel.add(affInfos);
+		mainPanel.add(p1);
+		mainPanel.add(p2);
+		mainPanel.add(txt1);
+		mainPanel.add(txt2);
 		
 		/** Affichage. */
-		refreshItems();
+		this.refreshItems();
 		this.setContentPane(mainPanel);
-		this.revalidate(); // Je sais plus ce que c'est xD.
 		setVisible(true);
 	}
 	
 	/** Re-calcule le texte affiche dans les composants. 
-	 * JComponents affectes : les JLabel en haut et les JButton en bas. */
+	 * JComponents affectes : les JLabel d'information vers le haut et les JButton en bas. */
 	private void refreshItems(){
-		String [] s;
+		/* Pour stocker les getXxAsString de Signal. */
+		String [] s; 
+		
+		/* Creation d'un ArrayList de JLabel a partir 
+		 * de la liste des composants de affInfos.*/
+		Component[] lab = affInfos.getComponents();
+		ArrayList<JLabel> labels = new ArrayList<JLabel>();
+		for (Component l : lab)
+			labels.add((JLabel)l);
 		
 		// Actif ou non
-		if(sig[1].getActive()){
+		if(sig1.getActive()){
 			labels.get(1).setText("ON");
 			labels.get(1).setForeground(Color.GREEN);
 		} else {
 			labels.get(1).setText("OFF");
 			labels.get(1).setForeground(Color.DARK_GRAY);
 		}
-		if (sig[2].getActive()){
+		if (sig2.getActive()){
 			labels.get(6).setText("ON");
 			labels.get(6).setForeground(Color.GREEN);
 		} else {
@@ -119,168 +117,83 @@ public class Generateur extends JFrame implements ActionListener {
 		}
 		
 		// Types de signaux
-		labels.get(2).setText(sig[1].getForme());
-		labels.get(7).setText(sig[2].getForme());
+		labels.get(2).setText(sig1.getForme());
+		labels.get(7).setText(sig2.getForme());
 		
 		// Frequence
-		s = sig[1].getFreqAsString();
+		s = sig1.getFreqAsString();
 		labels.get(3).setText(s[0] + " " + s[1]);
-		s = sig[2].getFreqAsString();
+		s = sig2.getFreqAsString();
 		labels.get(8).setText(s[0] + " " + s[1]);
 		
 		// Amplitude
-		s = sig[1].getAmplAsString();
+		s = sig1.getAmplAsString();
 		labels.get(4).setText(s[0] + " " + s[1]);
-		s = sig[2].getAmplAsString();
+		s = sig2.getAmplAsString();
 		labels.get(9).setText(s[0] + " " + s[1]);
-		
-		// Bouton Allumer / Eteindre
-		if (sig[0].equals(sig[1])) {
-			if(sig[1].getActive()) {
-				boutons.get(1).setText("Eteindre");
-			} else {
-				boutons.get(1).setText("Allumer");
-			}
-		} else {
-			if(sig[2].getActive()) {
-				boutons.get(1).setText("Eteindre");
-			} else {
-				boutons.get(1).setText("Allumer");
-			}
-		}
-		
-		// Bouton Changer de canal
-		if(sig[0].equals(sig[1])) {
-			boutons.get(2).setText("Canal 1");
-		} else {
-			boutons.get(2).setText("Canal 2");
-		}
 	}
 	
-	/** En cas d'appui sur un bouton.
-	 * @param Informations sur l'action de l'utilisateur. */
-	public void actionPerformed(ActionEvent e){
-		
-		if(e.getSource().equals(boutons.get(0))){ // Bouton APPLIQUER
-			System.out.println("Bouton APPLIQUER");
-			sig[1].setAmplitude(sig[1].getAmplitude()/5); // pour un test
-			
-		} else if (e.getSource().equals(boutons.get(1))){ // Bouton ETEINDRE
-			if(sig[0].equals(sig[1])) {
-				sig[1].setActive(!sig[1].getActive());
-			} else {
-				sig[2].setActive(!sig[2].getActive());
-			}
-			
-		} else if (e.getSource().equals(boutons.get(2))) { // Bouton SWITCH
-			if(sig[0].equals(sig[1])) {
-				sig[0] = sig[2];
-				panSig.activeSig = sig[2];
-			} else {
-				sig[0] = sig[1];
-				panSig.activeSig = sig[1];
-			}
-			panSig.refreshItems();
-			
-		} else if (e.getSource().equals(boutons.get(3))) { // Bouton RESET
-			System.out.println("Bouton RESET");
-			panSig.activeSig.setSignal(20, 50);;
-		}
-		this.refreshItems();
-	}
-	
-	/** Objet qui contient tous les JComponents necessaires
-	 * pour modifier la valeur d'un signal. 
-	 * Place dans une sous-classe private afin que cela soit plus lisible. */
-	private class PanneauRemplir extends JPanel {
-		
-		private final Font DEFAULT_FONT = new Font("Calibri", Font.PLAIN, 15);
-		private JComboBox<String> choixTypes = new JComboBox<>(Signal.SIGNAL_TYPES);
-		private JComboBox<String> choixUniteFreq = new JComboBox<>(Signal.FREQ_UNITES);
-		private JComboBox<String> choixUniteAmpl = new JComboBox<>(Signal.AMPL_UNITES);
-		private JTextField[] txtFields = new JTextField[3];
-		private JTextArea errorField = new JTextArea();
-		private Signal activeSig = sig[1];
+	/** JPanel permettant la modification des informations du signal. */
+	private class SigPan extends JPanel {
 
-		public PanneauRemplir(int posX, int posY, int wid, int hei) {
-			super();
-			this.setLocation(posX, posY);
-			this.setSize(wid, hei);
-			this.setBackground(new Color(192, 192, 192));
-			this.setLayout(null);
-			
-			/* Espace superieur. */
-			JPanel justBlack = new JPanel();
-			justBlack.setBackground(Color.BLACK);
-			justBlack.setBounds(0, 0, this.getWidth(), 10);
-			
-			JLabel txt1 = new JLabel("Generateur de courant", JLabel.CENTER);
-			txt1.setFont(new Font("Calibri", Font.BOLD + Font.ITALIC, 40));
-			txt1.setBounds(0, 25, this.getWidth(), 40);
-			txt1.setForeground(Color.DARK_GRAY);
-			
-			/* Espace de remplissage des composants. */
-			JPanel ligne1 = new JPanel();
-			ligne1.setBounds(40, 80, this.getWidth()-80, 30);
-			ligne1.setLayout(new GridLayout(1,2));
-			
-			JLabel l = new JLabel("Forme");
-			l.setFont(DEFAULT_FONT);
-			ligne1.add(l);
-			choixTypes.setFont(DEFAULT_FONT);
-			ligne1.add(choixTypes);
-			
-			JPanel ligne2 = new JPanel();
-			ligne2.setBounds(40, 80+30, this.getWidth()-80, 30);
-			ligne2.setLayout(new GridLayout(1,3));
-			
-			l = new JLabel("Frequence");
-			l.setFont(DEFAULT_FONT);
-			ligne2.add(l);
-			txtFields[0] = new JTextField(Double.toString(sig[1].getFreq()));
-			txtFields[0].setFont(DEFAULT_FONT);
-			ligne2.add(txtFields[0]);
-			choixUniteFreq.setFont(DEFAULT_FONT);
-			ligne2.add(choixUniteFreq);
-			
-			JPanel ligne3 = new JPanel();
-			ligne3.setBounds(40, 80+30+30, this.getWidth()-80, 30);
-			ligne3.setLayout(new GridLayout(1,3));
-			
-			l = new JLabel("Amplitude");
-			l.setFont(DEFAULT_FONT);
-			ligne3.add(l);
-			txtFields[1] = new JTextField(Double.toString(sig[1].getAmplitude()));
-			txtFields[1].setFont(DEFAULT_FONT);
-			ligne3.add(txtFields[1]);
-			choixUniteAmpl.setFont(DEFAULT_FONT);
-			ligne3.add(choixUniteAmpl);
-			
-			/* Text Area pour les erreurs eventuelles. */
-			errorField.setLineWrap(true);
-			errorField.setEditable(false);
-			errorField.setFont(DEFAULT_FONT);
-			errorField.setBounds(40, 340, 520, 120);
-			
-			/* Assemblage et affichage. */
-			add(justBlack);
-			add(txt1);
-			add(ligne1);
-			add(ligne2);
-			add(ligne3);
-			add(errorField);
-		}
+		private static final long serialVersionUID = 1L;
+		/** Signal concerné. */
+		private Signal s;
 		
-		/** Re-calcule l'affichage des differentes cases 
-		 * en fonction des proprietes du signal actif. */
-		private void refreshItems() {
-			this.choixTypes.setSelectedItem(activeSig.getForme());
-			this.txtFields[0].setText(Double.toString(activeSig.getFreq()));
-			this.choixUniteFreq.setSelectedItem(activeSig.getFreqAsString()[1]);
-			this.txtFields[1].setText(Double.toString(activeSig.getAmplitude()));
-			this.choixUniteAmpl.setSelectedItem(activeSig.getForme());
+		/** Constructeur preferenciel.
+		 * @param sig Signal concerne
+		 * @param posY Position selon y
+		 */
+		private SigPan(Signal sig, int posY) {
+			super();
+			setBounds(0, posY, SIZE, 150);
+			s = sig;
+			setLayout(new GridLayout(4,3));
+			
+			JLabel title = new JLabel("Signal " + s.numero);
+			title.setFont(TITLE);
+			OnOff btn1 = new OnOff();
+			btn1.setLocation(50, 0);
+			add(title);
+			add(new JPanel());
+			add(btn1);
+			add(new JPanel());
+			add(new JPanel());
+			add(new JPanel());
+			add(new JPanel());
+			add(new JPanel());
+			add(new JPanel());
+			add(new JPanel());
+			add(new JPanel());
+			add(new JPanel());
 		}
 	}
 	
-	
+	/** Bouton pour allumer ou eteindre un Signal. 
+	 * Sa couleur indique l'etat (actif ou non) du Signal. */
+	private class OnOff extends JPanel {
+		/** true si signal actif, false si signal inactif. */
+		public boolean soWhat = false;
+		
+		/** Constructeur par défaut. */
+		private OnOff() {
+			super();
+			setSize(30, 30);
+			setBackground(null);
+		}
+		
+		/** Colorie le bouton d'apres la couleur correspondant a l'etat du Signal. */
+		public void paint (Graphics g) {
+			g.drawOval(0, 0, 30, 30);
+			if (soWhat == true) {
+				g.setColor(Color.GREEN);
+			} else {
+				g.setColor(Color.RED);
+			}
+			g.fillOval(1, 1, 28, 28);
+			g.setColor(Color.WHITE);
+			g.drawLine(15, 7, 15, 15);
+			g.drawArc(8, 8, 15, 15, 180, 180);
+		}
+	}
 }
