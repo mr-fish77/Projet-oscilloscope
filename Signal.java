@@ -1,4 +1,3 @@
-
 public class Signal {
 	
 	/** Amplitude du signal en volts. */
@@ -21,12 +20,15 @@ public class Signal {
 	 * */
 	private boolean active;
 	
+	/** Points a afficher. */
+	public double[][] nuagePoint;
+
 	/**
 	 * Constructeur par defaut.
 	 */
 	public Signal(int n) {
-		amplitude = MAX_AMP;
-		freq = 50;
+		amplitude = 5;
+		freq = 100;
 		active = false;
 		numero = n;
 	}
