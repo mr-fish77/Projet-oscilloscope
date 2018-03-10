@@ -48,7 +48,7 @@ public class Rectangle extends Signal {
        
     }
     
-    
-
+    /** Renvoie la forme du Signal, ici : RECT. */
+	public String getForme() {return "RECT";}
 
 }
