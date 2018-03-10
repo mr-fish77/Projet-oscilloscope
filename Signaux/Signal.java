@@ -1,4 +1,4 @@
-public abstract class  Signal {
+public abstract class Signal {
 	
 	/** Amplitude du signal en volts. */
 	private double amplitude;
