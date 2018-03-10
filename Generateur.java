@@ -7,9 +7,14 @@ import java.awt.Graphics;
 import java.awt.GridLayout;
 
 import java.util.ArrayList;
+
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 public class Generateur extends JFrame {
 	/** Les signaux. */
@@ -19,10 +24,10 @@ public class Generateur extends JFrame {
 	private JPanel affInfos = new JPanel(), sigPan1 = new JPanel(), sigPan2 = new JPanel(), mainPanel = new JPanel();
 	
 	/** Police par defaut du generateur : Calibri 15. */
-	private final Font DEFAULT_FONT = new Font("Calibri", Font.PLAIN, 15);
+	private final Font DEFAULT_FONT = new Font("Calibri", Font.PLAIN, 18);
 	/** Police Courier. */
-	private final Font COURIER = new Font("Courier", Font.BOLD, 15);
-	/** Police de sous-titre. */
+	private final Font COURIER = new Font("Courier", Font.BOLD, 20);
+	/** Police de titre de section. */
 	private final Font TITLE = new Font ("Arial", Font.BOLD, 30);
 	/** La fenetre est un carre de taille SIZE. */
 	private final int SIZE = 600;
@@ -46,7 +51,7 @@ public class Generateur extends JFrame {
 		txt2.setBounds(0, 75, this.getWidth(), 30);
 		
 		/** Affichage des infos des signaux. */
-		affInfos.setBounds(0, 115, this.getWidth(), 40);
+		affInfos.setBounds(0, 115, this.getWidth(), 50);
 		affInfos.setLayout(new GridLayout(2,5));
 		for(int i = 0; i < 10; i++){
 			JLabel l = new JLabel();
@@ -55,6 +60,7 @@ public class Generateur extends JFrame {
 			l.setForeground(Color.BLACK);
 			l.setFont(COURIER);
 			l.setHorizontalAlignment(JLabel.CENTER);
+			l.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 			if (i==0) {
 				l.setText("CH1");
 				l.setBackground(Color.LIGHT_GRAY);
@@ -67,7 +73,7 @@ public class Generateur extends JFrame {
 		}
 		
 		/** Parametres du Signal 1. */
-		SigPan p1 = new SigPan(sig1, 180);
+		SigPan p1 = new SigPan(sig1, 200);
 		SigPan p2 = new SigPan(sig2, 400);
 		
 		
@@ -137,8 +143,14 @@ public class Generateur extends JFrame {
 	private class SigPan extends JPanel {
 
 		private static final long serialVersionUID = 1L;
+		
 		/** Signal concerné. */
 		private Signal s;
+		JTextField[] txtField = new JTextField[2];
+		JButton[] boutons = new JButton [3];
+		JComboBox<String> signalType = new JComboBox<String>(Signal.SIGNAL_TYPES);
+		JComboBox<String> ampUnit = new JComboBox<String>(Signal.AMPL_UNITES);
+		JComboBox<String> freqUnit = new JComboBox<String>(Signal.FREQ_UNITES);
 		
 		/** Constructeur preferenciel.
 		 * @param sig Signal concerne
@@ -150,22 +162,41 @@ public class Generateur extends JFrame {
 			s = sig;
 			setLayout(new GridLayout(4,3));
 			
+			/* Initialisation des JTextField et JButton en attributs. */
+			txtField[0] = new JTextField(); // Valeur de l'amplitude.
+			txtField[1] = new JTextField(); // Valeur de la frequence.
+			boutons[0] = new JButton ("Appliquer");
+			boutons[1] = new JButton ("Annuler");
+			boutons[2] = new JButton ("Par défaut");
+			
+			/* Ligne 1 : numero du Signal, Type et Actif ou non. */
 			JLabel title = new JLabel("Signal " + s.numero);
 			title.setFont(TITLE);
+			add(title);
+			add(signalType);
 			OnOff btn1 = new OnOff();
 			btn1.setLocation(50, 0);
-			add(title);
-			add(new JPanel());
 			add(btn1);
-			add(new JPanel());
-			add(new JPanel());
-			add(new JPanel());
-			add(new JPanel());
-			add(new JPanel());
-			add(new JPanel());
-			add(new JPanel());
-			add(new JPanel());
-			add(new JPanel());
+			
+			/* Ligne 2 : Amplitude. */
+			JLabel ampLab = new JLabel("Amplitude");
+			ampLab.setFont(DEFAULT_FONT);
+			add(ampLab);
+			add(txtField[0]);
+			add(ampUnit);
+			
+			/* Ligne 3 : Frequence. */
+			JLabel freqLab = new JLabel("Frequence");
+			freqLab.setFont(DEFAULT_FONT);
+			add(freqLab);
+			add(txtField[1]);
+			add(freqUnit);
+			
+			/* Ligne 4 : les boutons. */
+			for (JButton b : boutons) {
+				b.setFont(DEFAULT_FONT);
+				add(b);
+			}
 		}
 	}
 	
@@ -178,22 +209,23 @@ public class Generateur extends JFrame {
 		/** Constructeur par défaut. */
 		private OnOff() {
 			super();
-			setSize(30, 30);
+			setSize(200, 30);
 			setBackground(null);
+			setOpaque(true);
 		}
 		
 		/** Colorie le bouton d'apres la couleur correspondant a l'etat du Signal. */
 		public void paint (Graphics g) {
-			g.drawOval(0, 0, 30, 30);
+			g.drawOval(85, 0, 30, 30);
 			if (soWhat == true) {
 				g.setColor(Color.GREEN);
 			} else {
 				g.setColor(Color.RED);
 			}
-			g.fillOval(1, 1, 28, 28);
+			g.fillOval(86, 1, 28, 28);
 			g.setColor(Color.WHITE);
-			g.drawLine(15, 7, 15, 15);
-			g.drawArc(8, 8, 15, 15, 180, 180);
+			g.drawLine(100, 7, 100, 15);
+			g.drawArc(93, 8, 15, 15, 180, 180);
 		}
 	}
 }
