@@ -20,6 +20,8 @@ public class Sinus extends Signal {
         echelleY = 1;
     }
     
+    /** Renvoie la forme du Signal, ici : SIN. */
+    public String getForme() {return "SIN";}
     
     public void calculPoint(){ //calcul des points
         

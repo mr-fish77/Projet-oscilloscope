@@ -1,4 +1,4 @@
-public class Signal {
+public abstract class Signal {
 	
 	/** Amplitude du signal en volts. */
 	private double amplitude;
@@ -46,7 +46,7 @@ public class Signal {
 	/**
 	 * @return La forme du signal.
 	 */
-	public String getForme() {return "";}
+	public abstract String getForme();
 
 	/**
 	 * @return L'amplitude du signal.
