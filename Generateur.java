@@ -18,10 +18,12 @@ import javax.swing.JTextField;
 
 public class Generateur extends JFrame {
 	/** Les signaux. */
-	private Signal sig1, sig2;
+	private Signal signal[] = new Signal[2];
 	
 	/** Les JPanel utilises. */
-	private JPanel affInfos = new JPanel(), sigPan1 = new JPanel(), sigPan2 = new JPanel(), mainPanel = new JPanel();
+	private JPanel affInfos = new JPanel(), mainPanel = new JPanel();
+	/** Les SigPan utilises (voir doc plus bas). */
+	private SigPan[] pan = new SigPan[2];
 	
 	/** Police par defaut du generateur : Calibri 15. */
 	private final Font DEFAULT_FONT = new Font("Calibri", Font.PLAIN, 18);
@@ -35,12 +37,13 @@ public class Generateur extends JFrame {
 	
 	public Generateur(Signal s1, Signal s2) {
 		super("Generateur");
-		setSize(SIZE, SIZE);
+		setSize(SIZE, SIZE); // Taille carree.
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.sig1 = s1;
-		this.sig2 = s2;
+		this.signal[0] = s1;
+		this.signal[1]= s2;
 		
+		/* Texte de titre de fenetre. */
 		JLabel txt1 = new JLabel("Generateur de courant", JLabel.CENTER);
 		txt1.setFont(new Font("Calibri", Font.BOLD + Font.ITALIC, 40));
 		txt1.setBounds(0, 10, this.getWidth(), 40);
@@ -50,93 +53,122 @@ public class Generateur extends JFrame {
 		txt2.setFont(TITLE);
 		txt2.setBounds(0, 75, this.getWidth(), 30);
 		
-		/** Affichage des infos des signaux. */
+		/* Affichage des infos des signaux. */
 		affInfos.setBounds(0, 115, this.getWidth(), 50);
 		affInfos.setLayout(new GridLayout(2,5));
 		for(int i = 0; i < 10; i++){
 			JLabel l = new JLabel();
-			l.setOpaque(true);
-			l.setBackground(Color.WHITE);
+			l.setOpaque(true); // Afin de modifier la couleur
 			l.setForeground(Color.BLACK);
-			l.setFont(COURIER);
-			l.setHorizontalAlignment(JLabel.CENTER);
-			l.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+			
 			if (i==0) {
 				l.setText("CH1");
 				l.setBackground(Color.LIGHT_GRAY);
 			} else if (i==5) {
 				l.setText("CH2");
 				l.setBackground(Color.LIGHT_GRAY);
+			} else {
+				l.setBackground(Color.WHITE);
 			}
+			l.setFont(COURIER);
+			l.setHorizontalAlignment(JLabel.CENTER);
+			l.setBorder(BorderFactory.createLineBorder(Color.BLACK)); // Affichage du quadrillage du GridLayout, plus joli.
 			
 			affInfos.add(l);
 		}
 		
-		/** Parametres du Signal 1. */
-		SigPan p1 = new SigPan(sig1, 200);
-		SigPan p2 = new SigPan(sig2, 400);
+		/* Parametres du Signal 1. */
+		pan[0] = new SigPan (1, 200);
+		pan[1] = new SigPan (2, 400);
 		
-		
-		/** Conteneur principal. */
+		/* Conteneur principal. */
 		mainPanel.setBounds(0, 0, this.getWidth(), this.getHeight());
 		mainPanel.setLayout(null);
 		mainPanel.setBackground(Color.WHITE);
 		mainPanel.add(affInfos);
-		mainPanel.add(p1);
-		mainPanel.add(p2);
+		mainPanel.add(pan[0]);
+		mainPanel.add(pan[1]);
 		mainPanel.add(txt1);
 		mainPanel.add(txt2);
 		
-		/** Affichage. */
-		this.refreshItems();
-		this.setContentPane(mainPanel);
+		/* Affichage. */
+		refreshItems();
+		setContentPane(mainPanel);
 		setVisible(true);
 	}
 	
 	/** Re-calcule le texte affiche dans les composants. 
 	 * JComponents affectes : les JLabel d'information vers le haut et les JButton en bas. */
 	private void refreshItems(){
-		/* Pour stocker les getXxAsString de Signal. */
+		// Pour stocker les get-Xx-As-String de Signal.
 		String [] s; 
 		
-		/* Creation d'un ArrayList de JLabel a partir 
-		 * de la liste des composants de affInfos.*/
-		Component[] lab = affInfos.getComponents();
+		// Creation d'un ArrayList de JLabel a partir de la liste des composants de affInfos.
+		Component[] labelTemp = affInfos.getComponents();
 		ArrayList<JLabel> labels = new ArrayList<JLabel>();
-		for (Component l : lab)
+		for (Component l : labelTemp)
 			labels.add((JLabel)l);
 		
-		// Actif ou non
-		if(sig1.getActive()){
-			labels.get(1).setText("ON");
-			labels.get(1).setForeground(Color.GREEN);
-		} else {
-			labels.get(1).setText("OFF");
-			labels.get(1).setForeground(Color.DARK_GRAY);
+		for(int i = 0; i < signal.length ; i++) {
+			// Actif ou non.
+			if (signal[i].getActive()) {
+				labels.get(5*i+1).setText("ON");
+				labels.get(5*i+1).setForeground(Color.GREEN);
+			} else {
+				labels.get(5*i+1).setText("OFF");
+				labels.get(5*i+1).setForeground(Color.DARK_GRAY);
+			}
+			
+			// Types de signaux.
+			labels.get(5*i+2).setText(signal[i].getForme());
+			
+			// Frequence.
+			s = signal[i].getFreqAsString();
+			labels.get(5*i+3).setText(s[0] + " " + s[1]);
+			
+			// Amplitude.
+			s = signal[i].getAmplAsString();
+			labels.get(5*i+4).setText(s[0] + " " + s[1]);
 		}
-		if (sig2.getActive()){
-			labels.get(6).setText("ON");
-			labels.get(6).setForeground(Color.GREEN);
-		} else {
-			labels.get(6).setText("OFF");
-			labels.get(6).setForeground(Color.DARK_GRAY);
+		
+		// MAINTENANT, ON ACTUALISE LES COMPOSANTS DES SIG-PAN.
+		for (int i = 0; i < pan.length; i++) {
+			Component[] tempTab = pan[i].getComponents();
+
+			// Forme du signal.
+			JComboBox<String> tempComboBox = (JComboBox) tempTab[1];
+			if (i==0)
+				tempComboBox.setSelectedItem(sig1.getForme());
+			else
+				tempComboBox.setSelectedItem(sig2.getForme());
+
+			// Couleur du bouton On-Off.
+			OnOff tempOnOff = (OnOff) tempTab[2];
+			if (i==0)
+				tempOnOff.soWhat = sig1.getActive();
+			else
+				tempOnOff.soWhat = sig2.getActive();
+
+			// Amplitude.
+			if (i==0)
+				s = sig1.getAmplAsString();
+			else
+				s = sig2.getAmplAsString();
+			JTextField tempTxtField = (JTextField) tempTab[4];
+			tempTxtField.setText(s[0]);
+			tempComboBox = (JComboBox) tempTab[5];
+			tempComboBox.setSelectedItem(s[1]);
+			
+			// Fréquence.
+			if (i == 0)
+				s = sig1.getFreqAsString();
+			else
+				s = sig2.getFreqAsString();
+			tempTxtField = (JTextField) tempTab[7];
+			tempTxtField.setText(s[0]);
+			tempComboBox = (JComboBox) tempTab[8];
+			tempComboBox.setSelectedItem(s[1]);
 		}
-		
-		// Types de signaux
-		labels.get(2).setText(sig1.getForme());
-		labels.get(7).setText(sig2.getForme());
-		
-		// Frequence
-		s = sig1.getFreqAsString();
-		labels.get(3).setText(s[0] + " " + s[1]);
-		s = sig2.getFreqAsString();
-		labels.get(8).setText(s[0] + " " + s[1]);
-		
-		// Amplitude
-		s = sig1.getAmplAsString();
-		labels.get(4).setText(s[0] + " " + s[1]);
-		s = sig2.getAmplAsString();
-		labels.get(9).setText(s[0] + " " + s[1]);
 	}
 	
 	/** JPanel permettant la modification des informations du signal. */
@@ -144,22 +176,19 @@ public class Generateur extends JFrame {
 
 		private static final long serialVersionUID = 1L;
 		
-		/** Signal concerné. */
-		private Signal s;
-		JTextField[] txtField = new JTextField[2];
-		JButton[] boutons = new JButton [3];
+		JTextField[] txtField = new JTextField[2]; // Initialises dans le constructeur.
+		JButton[] boutons = new JButton [3]; // Initialises dans le constructeur.
 		JComboBox<String> signalType = new JComboBox<String>(Signal.SIGNAL_TYPES);
 		JComboBox<String> ampUnit = new JComboBox<String>(Signal.AMPL_UNITES);
 		JComboBox<String> freqUnit = new JComboBox<String>(Signal.FREQ_UNITES);
 		
-		/** Constructeur preferenciel.
+		/** Constructeur.
 		 * @param sig Signal concerne
 		 * @param posY Position selon y
 		 */
-		private SigPan(Signal sig, int posY) {
+		private SigPan(int n, int posY) {
 			super();
 			setBounds(0, posY, SIZE, 150);
-			s = sig;
 			setLayout(new GridLayout(4,3));
 			
 			/* Initialisation des JTextField et JButton en attributs. */
@@ -170,12 +199,11 @@ public class Generateur extends JFrame {
 			boutons[2] = new JButton ("Par défaut");
 			
 			/* Ligne 1 : numero du Signal, Type et Actif ou non. */
-			JLabel title = new JLabel("Signal " + s.numero);
+			JLabel title = new JLabel("Signal " + n);
 			title.setFont(TITLE);
 			add(title);
 			add(signalType);
 			OnOff btn1 = new OnOff();
-			btn1.setLocation(50, 0);
 			add(btn1);
 			
 			/* Ligne 2 : Amplitude. */

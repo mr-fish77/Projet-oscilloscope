@@ -5,7 +5,7 @@ public abstract class Signal {
 	/** Frequence du signal en Hz. */
 	private double freq;
 	/** Numéro du signal : 1 ou 2. */
-	public final int numero;
+	public final int NUMERO;
 	
 	/** Valeur maximale de l'amplitude d'un signal : 10 V */
 	private final double MAX_AMP = 10.;
@@ -30,7 +30,7 @@ public abstract class Signal {
 		amplitude = 5;
 		freq = 100;
 		active = false;
-		numero = n;
+		NUMERO = n;
 	}
 	
 	/** Met les attributs du signal aux valeurs renseignÃ©es.
@@ -151,6 +151,6 @@ public abstract class Signal {
 	 * @return true si ce sont les memes, false sinon.
 	 */
 	public boolean equals (Signal signal1) {
-		return signal1.numero == this.numero;
+		return signal1.NUMERO == this.NUMERO;
 	}
 }
