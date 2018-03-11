@@ -1,11 +1,15 @@
-
+/**
+ * Classe qui permet de gérer un signal sinusoidale   ===> pb de mise à l'échelle
+ * @author Mathieu
+ *
+ */
 public class Sinus extends Signal {
     
     private final int NB_POINTS = 20; //np de point entre chaque graduation
     private final int CASE_X = 10; //np de graduation selon X
     private final int CASE_Y = 10; //np de graduation selon Y
-    public double echelleX; //valeur d'une graduation selon X
-    public double echelleY; //valeur d'une graduation selon Y
+    public double echelleX; //valeur d'une graduation selon X en s
+    public double echelleY; //valeur d'une graduation selon Y en V
 
 
     public static void main (String[] args){
@@ -31,7 +35,7 @@ public class Sinus extends Signal {
            
                 
                 nuagePoint[i + ((NB_POINTS * CASE_X)/2)][0] = (double) (((i * echelleX))/ NB_POINTS); //mise à l'echlle des x
-                nuagePoint[i + ((NB_POINTS * CASE_X)/2)][1] = (double ) (echelleY *(this.getAmplitude() * Math.sin( getFreq() * 2.* Math.PI * nuagePoint[i + ((NB_POINTS * CASE_X)/2)][0])) / NB_POINTS );  //calcul de y en prenant compte de l'échelle 
+                nuagePoint[i + ((NB_POINTS * CASE_X)/2)][1] = (double ) ((this.getAmplitude() * Math.sin( getFreq() * 2.* Math.PI * nuagePoint[i + ((NB_POINTS * CASE_X)/2)][0])) / echelleY  );  //calcul de y en prenant compte de l'échelle 
                 
                 System.out.print( i +  "  x = " + nuagePoint[i + ((NB_POINTS * CASE_X)/2)][0] ); //return pour debug
                 System.out.println ( "   y = " + nuagePoint[i + ((NB_POINTS * CASE_X)/2)][1] );
