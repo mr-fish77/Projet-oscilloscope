@@ -33,18 +33,8 @@ public abstract class Signal {
 		NUMERO = n;
 	}
 	
-	/** Met les attributs du signal aux valeurs renseignées.
-	 * C'est une sorte de constructeur qui ne reinitialise pas. 
-	 * @param amp L'amplitude desiree.
-	 * @param f La frequence souhaitee.
-	 */
-	public void setSignal(double amp, double f) {
-		this.setAmplitude(amp);
-		this.setFreq(f);
-	}
-
 	/**
-	 * @return La forme du signal.
+	 * @return La forme du signal sous un court String en capitales.
 	 */
 	public abstract String getForme();
 
@@ -148,7 +138,7 @@ public abstract class Signal {
 	
 	/** Indique si les signaux sont les memes. 
 	 * @param signal1 Le signal a verifier.
-	 * @return true si ce sont les memes, false sinon.
+	 * @return true si leurs numéros sont identiques.
 	 */
 	public boolean equals (Signal signal1) {
 		return signal1.NUMERO == this.NUMERO;
