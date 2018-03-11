@@ -91,8 +91,10 @@ public class Generateur extends JFrame implements ActionListener, MouseListener 
 		pan[0] = new SigPan (1, 200);
 		pan[1] = new SigPan (2, 400);
 		for (int i = 0; i < 2; i++) {
-			for(JButton b : pan[i].boutons) {
-				b.addActionListener(this);
+			for(int j = 0; j < 3; j++) {
+				JButton o = pan[i].boutons[j];
+				o.addActionListener(this);
+				o.setActionCommand(o.getActionCommand() + " " + i);
 			}
 			onOff[i] = pan[i].on;
 			onOff[i].addMouseListener(this);
@@ -160,13 +162,14 @@ public class Generateur extends JFrame implements ActionListener, MouseListener 
 		}
 	}
 	
-	/** JPanel permettant la modification des informations du signal. */
+	/** JPanel permettant la modification des informations du signal. 
+	 * Mettre ça dans une sous-classe permet d'alléger le contenu tout en gardant l'accès aux variables. */
 	public class SigPan extends JPanel {
 
 		private static final long serialVersionUID = 1L;
 		
-		JTextField[] txtField = new JTextField[2]; // Initialises dans le constructeur.
-		JButton[] boutons = new JButton [3]; // Initialises dans le constructeur.
+		JTextField[] txtField = new JTextField[2]; // Initialisés dans le constructeur.
+		JButton[] boutons = new JButton [3]; // Initialisés dans le constructeur.
 		OnOff on = new OnOff();
 		JComboBox<String> signalType = new JComboBox<String>(Signal.SIGNAL_TYPES);
 		JComboBox<String> ampUnit = new JComboBox<String>(Signal.AMPL_UNITES);
@@ -255,21 +258,22 @@ public class Generateur extends JFrame implements ActionListener, MouseListener 
 	 */
 	public void actionPerformed(ActionEvent e) {
 		Object src = e.getSource();
+		System.out.println(e.getActionCommand());
 		String source = null;
 		
 		// Détermination de la source sous forme d'un String.
-		for (int i = 0; i < 2; i++) {
-			for(int j = 0; j < 3; j++) {
-				if(src.equals(btns[i][j]));{
-					source = "BTN_" + i + "_" + j;
+		for (int i = 0; i < btns.length; i++) {
+			for(int j = 0; j < btns[i].length; j++) { 
+				if(btns[i][j].equals(src));{
+					source = new String("BTN_" + i + "_" + j);
 					break;
 				}
 			}
 		}
 		
+		System.out.println(source);
 		// Application de la commande.
 		switch (source) {
-		
 		case "BTN_0_0": // Bouton APPLIQUER du signal 1
 			break;
 		case "BTN_1_0": // Bouton APPLIQUER du signal 2
