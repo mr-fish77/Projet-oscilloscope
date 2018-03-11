@@ -9,13 +9,13 @@ public abstract class Signal {
 	
 	/** Valeur maximale de l'amplitude d'un signal : 10 V */
 	private final double MAX_AMP = 10.;
-	/** Valeur maximale de la frÃ©quence d'un signal : 2 Ghz. */
+	/** Valeur maximale de la fréquence d'un signal : 2 Ghz. */
 	private final double MAX_FREQ =  (2.*Math.pow(10, 9)); 
 	
-	/** Valeurs possibles des unitÃ©s ou formes de signal. */
+	/** Valeurs possibles des unités ou formes de signal. */
 	public static final String [] SIGNAL_TYPES = {"SIN", "TRI", "REC"}, FREQ_UNITES = {"Hz", "kHz", "MHz", "GHz"},  AMPL_UNITES = {"mV", "V"};
 
-	/** Actif ou non, affichÃ© ou non. 
+	/** Actif ou non, affiché ou non. 
 	 * Un signal actif est nul.
 	 * */
 	private boolean active;
@@ -33,7 +33,7 @@ public abstract class Signal {
 		NUMERO = n;
 	}
 	
-	/** Met les attributs du signal aux valeurs renseignÃ©es.
+	/** Met les attributs du signal aux valeurs renseignées.
 	 * C'est une sorte de constructeur qui ne reinitialise pas. 
 	 * @param amp L'amplitude desiree.
 	 * @param f La frequence souhaitee.
@@ -63,7 +63,7 @@ public abstract class Signal {
 	}
 
 	/** 
-	 * @return L'amplitude a 3 chiffres significatifs, et son unite.
+	 * @return L'amplitude a 4 chiffres significatifs, et son unite.
 	 */
 	public String[] getAmplAsString() {
 		String[] s = new String[2];
