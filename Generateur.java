@@ -257,34 +257,18 @@ public class Generateur extends JFrame implements ActionListener, MouseListener 
 	 * @param e L'évènement qui contient sa source.
 	 */
 	public void actionPerformed(ActionEvent e) {
-		Object src = e.getSource();
-		System.out.println(e.getActionCommand());
-		String source = null;
+		String command = e.getActionCommand();
 		
-		// Détermination de la source sous forme d'un String.
-		for (int i = 0; i < btns.length; i++) {
-			for(int j = 0; j < btns[i].length; j++) { 
-				if(btns[i][j].equals(src));{
-					source = new String("BTN_" + i + "_" + j);
-					break;
-				}
-			}
-		}
-		
-		System.out.println(source);
-		// Application de la commande.
-		switch (source) {
-		case "BTN_0_0": // Bouton APPLIQUER du signal 1
+		/* Application de la commande. 
+		* Pour ANNULER, il suffit de faire un refreshItems. */
+		switch (command) {
+		case "Appliquer 0": // Bouton APPLIQUER du signal 1
 			break;
-		case "BTN_1_0": // Bouton APPLIQUER du signal 2
+		case "Appliquer 1": // Bouton APPLIQUER du signal 2
 			break;
-		case "BTN_0_1": // Bouton ANNULER du signal 1
+		case "Par défaut 0": // Bouton PAR DEFAUT du signal 1
 			break;
-		case "BTN_1_1": // Bouton ANNULER du signal 2
-			break;
-		case "BTN_0_2": // Bouton PAR DEFAUT du signal 1
-			break;
-		case "BTN_1_2": // Bouton PAR DEFAUT du signal 2
+		case "Par défaut 1": // Bouton PAR DEFAUT du signal 2
 			break;
 		}
 		
