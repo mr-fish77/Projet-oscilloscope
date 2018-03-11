@@ -5,7 +5,8 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridLayout;
-
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -16,7 +17,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class Generateur extends JFrame {
+public class Generateur extends JFrame implements ActionListener {
 	/** Les signaux. */
 	private Signal signal[] = new Signal[2];
 	
@@ -24,12 +25,17 @@ public class Generateur extends JFrame {
 	private JPanel affInfos = new JPanel(), mainPanel = new JPanel();
 	/** Les SigPan utilises (voir doc plus bas). */
 	private SigPan[] pan = new SigPan[2];
+	/** Les JButton a surveiller. 
+	 * Le premier indice indique le numero de signal, le deuxieme le numero du bouton. */
+	private JButton[][] btns = new JButton[2][3];
+	/** Les JPanel a surveiller (comme des JButton). */
+	private OnOff[] onOff = new OnOff[2];
 	
 	/** Police par defaut du generateur : Calibri 15. */
 	private final Font DEFAULT_FONT = new Font("Calibri", Font.PLAIN, 18);
 	/** Police Courier. */
 	private final Font COURIER = new Font("Courier", Font.BOLD, 20);
-	/** Police de titre de section. */
+	/** Police de titre de section : Arial gras 30. */
 	private final Font TITLE = new Font ("Arial", Font.BOLD, 30);
 	/** La fenetre est un carre de taille SIZE. */
 	private final int SIZE = 600;
@@ -80,6 +86,11 @@ public class Generateur extends JFrame {
 		/* Parametres du Signal 1. */
 		pan[0] = new SigPan (1, 200);
 		pan[1] = new SigPan (2, 400);
+		for (SigPan p : pan) {
+			for(JButton b : p.boutons) {
+				b.addActionListener(this);
+			}
+		}
 		
 		/* Conteneur principal. */
 		mainPanel.setBounds(0, 0, this.getWidth(), this.getHeight());
@@ -97,8 +108,7 @@ public class Generateur extends JFrame {
 		setVisible(true);
 	}
 	
-	/** Re-calcule le texte affiche dans les composants. 
-	 * JComponents affectes : les JLabel d'information vers le haut et les JButton en bas. */
+	/** Re-calcule le texte affiché dans tous les composants le nécessitant. */
 	private void refreshItems(){
 		// Pour stocker les get-Xx-As-String de Signal.
 		String [] s; 
@@ -109,7 +119,11 @@ public class Generateur extends JFrame {
 		for (Component l : labelTemp)
 			labels.add((JLabel)l);
 		
+		// Pour chaque signal...
 		for(int i = 0; i < signal.length ; i++) {
+			// Récupération des composants du Sig-Pan
+			Component[] tempTab = pan[i].getComponents();
+			
 			// Actif ou non.
 			if (signal[i].getActive()) {
 				labels.get(5*i+1).setText("ON");
@@ -118,61 +132,34 @@ public class Generateur extends JFrame {
 				labels.get(5*i+1).setText("OFF");
 				labels.get(5*i+1).setForeground(Color.DARK_GRAY);
 			}
+			OnOff tempOnOff = (OnOff) tempTab[2];
+			tempOnOff.soWhat = signal[i].getActive();
 			
 			// Types de signaux.
 			labels.get(5*i+2).setText(signal[i].getForme());
+			JComboBox<String> tempComboBox = (JComboBox) tempTab[1];
+			tempComboBox.setSelectedItem(signal[i].getForme());
 			
 			// Frequence.
 			s = signal[i].getFreqAsString();
 			labels.get(5*i+3).setText(s[0] + " " + s[1]);
+			JTextField tempTxtField = (JTextField) tempTab[7];
+			tempTxtField.setText(s[0]);
+			tempComboBox = (JComboBox) tempTab[8];
+			tempComboBox.setSelectedItem(s[1]);
 			
 			// Amplitude.
 			s = signal[i].getAmplAsString();
 			labels.get(5*i+4).setText(s[0] + " " + s[1]);
-		}
-		
-		// MAINTENANT, ON ACTUALISE LES COMPOSANTS DES SIG-PAN.
-		for (int i = 0; i < pan.length; i++) {
-			Component[] tempTab = pan[i].getComponents();
-
-			// Forme du signal.
-			JComboBox<String> tempComboBox = (JComboBox) tempTab[1];
-			if (i==0)
-				tempComboBox.setSelectedItem(sig1.getForme());
-			else
-				tempComboBox.setSelectedItem(sig2.getForme());
-
-			// Couleur du bouton On-Off.
-			OnOff tempOnOff = (OnOff) tempTab[2];
-			if (i==0)
-				tempOnOff.soWhat = sig1.getActive();
-			else
-				tempOnOff.soWhat = sig2.getActive();
-
-			// Amplitude.
-			if (i==0)
-				s = sig1.getAmplAsString();
-			else
-				s = sig2.getAmplAsString();
-			JTextField tempTxtField = (JTextField) tempTab[4];
+			tempTxtField = (JTextField) tempTab[4];
 			tempTxtField.setText(s[0]);
 			tempComboBox = (JComboBox) tempTab[5];
-			tempComboBox.setSelectedItem(s[1]);
-			
-			// Fréquence.
-			if (i == 0)
-				s = sig1.getFreqAsString();
-			else
-				s = sig2.getFreqAsString();
-			tempTxtField = (JTextField) tempTab[7];
-			tempTxtField.setText(s[0]);
-			tempComboBox = (JComboBox) tempTab[8];
 			tempComboBox.setSelectedItem(s[1]);
 		}
 	}
 	
 	/** JPanel permettant la modification des informations du signal. */
-	private class SigPan extends JPanel {
+	public class SigPan extends JPanel {
 
 		private static final long serialVersionUID = 1L;
 		
@@ -186,7 +173,7 @@ public class Generateur extends JFrame {
 		 * @param sig Signal concerne
 		 * @param posY Position selon y
 		 */
-		private SigPan(int n, int posY) {
+		public SigPan(int n, int posY) {
 			super();
 			setBounds(0, posY, SIZE, 150);
 			setLayout(new GridLayout(4,3));
@@ -230,7 +217,7 @@ public class Generateur extends JFrame {
 	
 	/** Bouton pour allumer ou eteindre un Signal. 
 	 * Sa couleur indique l'etat (actif ou non) du Signal. */
-	private class OnOff extends JPanel {
+	public class OnOff extends JPanel {
 		/** true si signal actif, false si signal inactif. */
 		public boolean soWhat = false;
 		
@@ -255,5 +242,10 @@ public class Generateur extends JFrame {
 			g.drawLine(100, 7, 100, 15);
 			g.drawArc(93, 8, 15, 15, 180, 180);
 		}
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		
 	}
 }
