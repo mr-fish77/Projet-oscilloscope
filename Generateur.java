@@ -27,10 +27,13 @@ public class Generateur extends JFrame implements ActionListener, MouseListener 
 	private JPanel affInfos = new JPanel(), mainPanel = new JPanel();
 	/** Les SigPan utilises (voir doc plus bas). */
 	private SigPan[] pan = new SigPan[2];
+	/** Vaut true lors du premier affichage. */
+	private boolean init_done = false;
+	
 	/** Les JButton a surveiller. 
 	 * Le premier indice indique le numero de signal, le deuxieme le numero du bouton. */
 	private JButton[][] btns = new JButton[2][3];
-	/** Les JPanel a surveiller (comme des JButton). */
+	/** Les OnOff a surveiller (comme des JButton). */
 	private OnOff[] onOff = new OnOff[2];
 	
 	/** Police par defaut du generateur : Calibri 15. */
@@ -41,7 +44,6 @@ public class Generateur extends JFrame implements ActionListener, MouseListener 
 	private final Font TITLE = new Font ("Arial", Font.BOLD, 30);
 	/** La fenetre est un carre de taille SIZE. */
 	private final int SIZE = 600;
-	
 	
 	public Generateur(Signal s1, Signal s2) {
 		super("Generateur");
@@ -109,6 +111,7 @@ public class Generateur extends JFrame implements ActionListener, MouseListener 
 		/* Affichage. */
 		refreshItems();
 		setContentPane(mainPanel);
+		init_done = true;
 		setVisible(true);
 	}
 	
@@ -128,18 +131,12 @@ public class Generateur extends JFrame implements ActionListener, MouseListener 
 			// Récupération des composants du Sig-Pan
 			Component[] tempTab = pan[i].getComponents();
 			
-			// Actif ou non.
-			if (signal[i].getActive()) {
-				labels.get(5*i+1).setText("ON");
-				labels.get(5*i+1).setForeground(Color.GREEN);
-			} else {
+			/* Actif ou non.
+			 * Appelé uniquement une fois, ensuite c'est dans MouseClicked. */
+			if(!init_done) {
 				labels.get(5*i+1).setText("OFF");
 				labels.get(5*i+1).setForeground(Color.DARK_GRAY);
 			}
-			OnOff tempOnOff = (OnOff) tempTab[2];
-			tempOnOff.soWhat = signal[i].getActive();
-			tempOnOff.repaint();
-			
 			// Types de signaux.
 			labels.get(5*i+2).setText(signal[i].getForme());
 			JComboBox<String> tempComboBox = (JComboBox) tempTab[1];
@@ -183,6 +180,7 @@ public class Generateur extends JFrame implements ActionListener, MouseListener 
 			super();
 			setBounds(0, posY, SIZE, 150);
 			setLayout(new GridLayout(4,3));
+			setBackground(Color.WHITE);
 			
 			/* Initialisation des JTextField et JButton en attributs. */
 			txtField[0] = new JTextField(); // Valeur de l'amplitude.
@@ -236,6 +234,8 @@ public class Generateur extends JFrame implements ActionListener, MouseListener 
 		
 		/** Colorie le bouton d'apres la couleur correspondant a l'etat du Signal. */
 		public void paint (Graphics g) {
+			g.setColor(Color.WHITE);
+			g.fillRect(0, 0, this.getWidth(), this.getHeight());
 			g.drawOval(85, 0, 30, 30);
 			if (soWhat == true) {
 				g.setColor(Color.GREEN);
@@ -289,16 +289,28 @@ public class Generateur extends JFrame implements ActionListener, MouseListener 
 
 	/** Se déclenche en cas de clic sur un OnOff.
 	 * Ce sont des JPanel donc le ActionListener ne fonctionne pas sur eux.
+	 * Cette fonction active ou désactive simplement un Signal,
+	 * donc actualise juste le nécessaire.
 	 * @param e L'evenement.
 	 */
 	public void mouseClicked(MouseEvent e) {
-		Component src = e.getComponent();
-		if(src.equals(onOff[0])) {
-			signal[0].setActive(!signal[0].getActive());
+		Component src = e.getComponent(); // Objet source.
+		int n = (src.equals(onOff[0])) ? 0 : 1; // Index du signal.
+		
+		boolean b = !signal[n].getActive(); // Valeur a appliquer
+		signal[n].setActive(b); // On (dés)active le signal.
+		
+		onOff[n].soWhat = b; // On informe le onOff associé.
+		onOff[n].repaint(); // On le repeint.
+		
+		JLabel txt = (JLabel)(affInfos.getComponent(5*n+1));
+		if (b) {
+			txt.setText("ON");
+			txt.setForeground(Color.GREEN);
 		} else {
-			signal[1].setActive(!signal[1].getActive());
+			txt.setText("OFF");
+			txt.setForeground(Color.DARK_GRAY);
 		}
-		refreshItems();
 	}
 
 	public void mousePressed(MouseEvent e) {}
