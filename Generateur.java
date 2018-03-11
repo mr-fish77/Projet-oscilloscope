@@ -7,6 +7,8 @@ import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -17,7 +19,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class Generateur extends JFrame implements ActionListener {
+public class Generateur extends JFrame implements ActionListener, MouseListener {
 	/** Les signaux. */
 	private Signal signal[] = new Signal[2];
 	
@@ -86,10 +88,12 @@ public class Generateur extends JFrame implements ActionListener {
 		/* Parametres du Signal 1. */
 		pan[0] = new SigPan (1, 200);
 		pan[1] = new SigPan (2, 400);
-		for (SigPan p : pan) {
-			for(JButton b : p.boutons) {
+		for (int i = 0; i < 2; i++) {
+			for(JButton b : pan[i].boutons) {
 				b.addActionListener(this);
 			}
+			onOff[i] = pan[i].on;
+			onOff[i].addMouseListener(this);
 		}
 		
 		/* Conteneur principal. */
@@ -134,6 +138,7 @@ public class Generateur extends JFrame implements ActionListener {
 			}
 			OnOff tempOnOff = (OnOff) tempTab[2];
 			tempOnOff.soWhat = signal[i].getActive();
+			tempOnOff.repaint();
 			
 			// Types de signaux.
 			labels.get(5*i+2).setText(signal[i].getForme());
@@ -165,6 +170,7 @@ public class Generateur extends JFrame implements ActionListener {
 		
 		JTextField[] txtField = new JTextField[2]; // Initialises dans le constructeur.
 		JButton[] boutons = new JButton [3]; // Initialises dans le constructeur.
+		OnOff on = new OnOff();
 		JComboBox<String> signalType = new JComboBox<String>(Signal.SIGNAL_TYPES);
 		JComboBox<String> ampUnit = new JComboBox<String>(Signal.AMPL_UNITES);
 		JComboBox<String> freqUnit = new JComboBox<String>(Signal.FREQ_UNITES);
@@ -190,8 +196,7 @@ public class Generateur extends JFrame implements ActionListener {
 			title.setFont(TITLE);
 			add(title);
 			add(signalType);
-			OnOff btn1 = new OnOff();
-			add(btn1);
+			add(on);
 			
 			/* Ligne 2 : Amplitude. */
 			JLabel ampLab = new JLabel("Amplitude");
@@ -244,8 +249,60 @@ public class Generateur extends JFrame implements ActionListener {
 		}
 	}
 
-	@Override
+	/** Se déclenche en cas de clic sur un bouton.
+	 * Pour les OnOff, c'est dans les méthodes de MouseListener.
+	 * @param e L'évènement qui contient sa source.
+	 */
 	public void actionPerformed(ActionEvent e) {
+		Object src = e.getSource();
+		String source = null;
 		
+		// Détermination de la source sous forme d'un String.
+		for (int i = 0; i < 2; i++) {
+			for(int j = 0; j < 3; j++) {
+				if(src.equals(btns[i][j]));{
+					source = "BTN_" + i + "_" + j;
+					break;
+				}
+			}
+		}
+		
+		// Application de la commande.
+		switch (source) {
+		
+		case "BTN_0_0": // Bouton APPLIQUER du signal 1
+			break;
+		case "BTN_1_0": // Bouton APPLIQUER du signal 2
+			break;
+		case "BTN_0_1": // Bouton ANNULER du signal 1
+			break;
+		case "BTN_1_1": // Bouton ANNULER du signal 2
+			break;
+		case "BTN_0_2": // Bouton PAR DEFAUT du signal 1
+			break;
+		case "BTN_1_2": // Bouton PAR DEFAUT du signal 2
+			break;
+		}
+		
+		refreshItems();
 	}
+
+	/** Se déclenche en cas de clic sur un OnOff.
+	 * Ce sont des JPanel donc le ActionListener ne fonctionne pas sur eux.
+	 * @param e L'evenement.
+	 */
+	public void mouseClicked(MouseEvent e) {
+		Component src = e.getComponent();
+		if(src.equals(onOff[0])) {
+			signal[0].setActive(!signal[0].getActive());
+		} else {
+			signal[1].setActive(!signal[1].getActive());
+		}
+		refreshItems();
+	}
+
+	public void mousePressed(MouseEvent e) {}
+	public void mouseReleased(MouseEvent e) {}
+	public void mouseEntered(MouseEvent e) {}
+	public void mouseExited(MouseEvent e) {}
 }
