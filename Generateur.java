@@ -35,7 +35,7 @@ public class Generateur extends JFrame implements ActionListener, MouseListener 
 	 * Le premier indice indique le numero de signal, le deuxieme le numero du bouton. */
 	private JButton[][] btns = new JButton[2][3];
 	/** Les OnOff a surveiller (comme des JButton). */
-	private OnOff[] onOff = new OnOff[2];
+	private Button_OnOff[] onOff = new Button_OnOff[2];
 	
 	/** Police par defaut du generateur : Calibri 15. */
 	private final Font DEFAULT_FONT = new Font("Calibri", Font.PLAIN, 18);
@@ -170,7 +170,7 @@ public class Generateur extends JFrame implements ActionListener, MouseListener 
 		
 		JTextField[] txtField = new JTextField[2]; // Initialisés dans le constructeur.
 		JButton[] boutons = new JButton [3]; // Initialisés dans le constructeur.
-		OnOff on = new OnOff();
+		Button_OnOff on = new Button_OnOff(Color.GREEN, Color.RED);
 		JComboBox<String> signalType = new JComboBox<String>(Signal.SIGNAL_TYPES);
 		JComboBox<String> ampUnit = new JComboBox<String>(Signal.AMPL_UNITES);
 		JComboBox<String> freqUnit = new JComboBox<String>(Signal.FREQ_UNITES);
@@ -221,37 +221,6 @@ public class Generateur extends JFrame implements ActionListener, MouseListener 
 		}
 	}
 	
-	/** Bouton pour allumer ou eteindre un Signal. 
-	 * Sa couleur indique l'etat (actif ou non) du Signal. */
-	public class OnOff extends JPanel {
-		/** true si signal actif, false si signal inactif. */
-		public boolean soWhat = false;
-		
-		/** Constructeur par défaut. */
-		private OnOff() {
-			super();
-			setSize(200, 30);
-			setBackground(null);
-			setOpaque(true);
-		}
-		
-		/** Colorie le bouton d'apres la couleur correspondant a l'etat du Signal. */
-		public void paint (Graphics g) {
-			g.setColor(Color.WHITE);
-			g.fillRect(0, 0, this.getWidth(), this.getHeight());
-			g.drawOval(85, 0, 30, 30);
-			if (soWhat == true) {
-				g.setColor(Color.GREEN);
-			} else {
-				g.setColor(Color.RED);
-			}
-			g.fillOval(86, 1, 28, 28);
-			g.setColor(Color.WHITE);
-			g.drawLine(100, 7, 100, 15);
-			g.drawArc(93, 8, 15, 15, 180, 180);
-		}
-	}
-
 	/** Se déclenche en cas de clic sur un bouton.
 	 * Pour les OnOff, c'est dans les méthodes de MouseListener.
 	 * @param e L'évènement qui contient sa source.
@@ -323,7 +292,7 @@ public class Generateur extends JFrame implements ActionListener, MouseListener 
 		boolean b = !signal[n].getActive(); // Valeur a appliquer
 		signal[n].setActive(b); // On (dés)active le signal.
 		
-		onOff[n].soWhat = b; // On informe le onOff associé.
+		onOff[n].valeur = b; // On informe le onOff associé.
 		onOff[n].repaint(); // On le repeint.
 		
 		JLabel txt = (JLabel)(affInfos.getComponent(5*n+1));
