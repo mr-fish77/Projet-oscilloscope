@@ -16,6 +16,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -258,17 +259,52 @@ public class Generateur extends JFrame implements ActionListener, MouseListener 
 	 */
 	public void actionPerformed(ActionEvent e) {
 		String command = e.getActionCommand();
+		int n = Character.getNumericValue(command.charAt(command.length()-1));
 		
 		/* Application de la commande. 
-		* Pour ANNULER, il suffit de faire un refreshItems. */
-		switch (command) {
-		case "Appliquer 0": // Bouton APPLIQUER du signal 1
+		* Pour ANNULER, il suffit de faire un refreshItems (donc rien a faire ici). */
+		switch (command.charAt(1)) {
+		case 'p':	// Bouton APPLIQUER
+			
+			// On récupère les valeurs saisies par l'utilisateur.
+			double[] valeursSaisies = new double[2];
+			try{
+				for(int i = 0; i < 2; i++) {
+					String tmp = pan[n].txtField[i].getText();
+					valeursSaisies[i] = Double.valueOf(tmp);
+				}
+			} catch (Exception w) {
+				JOptionPane.showMessageDialog(this,"Une erreur de saisie est détectée, veuillez corriger.");
+				break;
+			}
+			String [] unitesChoisies = {(String)pan[n].freqUnit.getSelectedItem(), (String)pan[n].ampUnit.getSelectedItem(), (String)pan[n].signalType.getSelectedItem()};
+			
+			// Amplitude
+			switch (unitesChoisies[1].charAt(0)) {
+			case 'm':
+				signal[n].setAmplitude(valeursSaisies[0] * .001);
+				break;
+			default:
+				signal[n].setAmplitude(valeursSaisies[0]);
+			}
+			
+			// Fréquence
+			switch (unitesChoisies[0].charAt(0)) {
+			case 'k':
+				signal[n].setFreq(valeursSaisies[1] * Math.pow(10, 3));
+				break;
+			case 'M':
+				signal[n].setFreq(valeursSaisies[1] * Math.pow(10, 6));
+				break;
+			case 'G':
+				signal[n].setFreq(valeursSaisies[1] * Math.pow(10, 9));
+				break;
+			default:
+				signal[n].setFreq(valeursSaisies[1]);	
+			}
+			
 			break;
-		case "Appliquer 1": // Bouton APPLIQUER du signal 2
-			break;
-		case "Par défaut 0": // Bouton PAR DEFAUT du signal 1
-			break;
-		case "Par défaut 1": // Bouton PAR DEFAUT du signal 2
+		case 'a': // Bouton PAR DEFAUT
 			break;
 		}
 		
