@@ -30,14 +30,14 @@ public class Oscilloscope extends JFrame{
 	private BoutonTexte runStop = new BoutonTexte("Run/Stop");
 	
 
-	public Oscilloscope(Signal signal1, Signal signal2){
+	public Oscilloscope(Signal[] signaux){
 		super("Oscilloscope");      //constructeur par defaut de la classe JFrame
 		setSize(1200, 600);
 		setMinimumSize(new Dimension(600, 600));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		ch1 = new Channel(signal1, "CH1");	//channels associes au signaux
-		ch2 = new Channel(signal2, "CH2");
+		ch1 = new Channel(signaux[0], "CH1");	//channels associes au signaux
+		ch2 = new Channel(signaux[1], "CH2");
 		
 		
 		JPanel conteneurPrincipal = new JPanel();		//pour ne pas avoir de probleme avec les marges des fenetres

@@ -46,13 +46,12 @@ public class Generateur extends JFrame implements ActionListener, MouseListener 
 	/** La fenetre est un carre de taille SIZE. */
 	private final int SIZE = 600;
 	
-	public Generateur(Signal s1, Signal s2) {
+	public Generateur(Signal[] signaux) {
 		super("Generateur");
 		setSize(SIZE, SIZE); // Taille carree.
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.signal[0] = s1;
-		this.signal[1]= s2;
+		this.signal = signaux;
 		
 		/* Texte de titre de fenetre. */
 		JLabel txt1 = new JLabel("Generateur de courant", JLabel.CENTER);
