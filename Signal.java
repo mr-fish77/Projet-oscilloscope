@@ -28,7 +28,7 @@ public abstract class Signal {
 	 */
 	public Signal(int n) {
 		amplitude = 5;
-		freq = 100;
+		freq = 100.;
 		active = false;
 		NUMERO = n;
 	}
@@ -38,7 +38,7 @@ public abstract class Signal {
 	 * @param amp L'amplitude desiree.
 	 * @param f La frequence souhaitee.
 	 */
-	public void setSignal(double amp, int f) {
+	public void setSignal(double amp, double f) {
 		this.setAmplitude(amp);
 		this.setFreq(f);
 	}
@@ -122,11 +122,11 @@ public abstract class Signal {
 	 *            La frequence a appliquer.
 	 * 	      Valeur comprise entre 1 Hz et MAX_FREQ.
 	 */
-	public void setFreq(int freq) {
+	public void setFreq(double freq) {
 		if (freq > MAX_FREQ) {
 			this.freq = MAX_FREQ;
-		} else if (freq < 1) {
-			this.freq = 1;
+		} else if (freq < 1.) {
+			this.freq = 1.;
 		} else {
 			this.freq = freq;
 		}
