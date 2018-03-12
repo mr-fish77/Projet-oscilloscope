@@ -1,8 +1,6 @@
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
@@ -51,7 +49,7 @@ public class BoutonTexte extends JPanel {
 	 * @param obj Un objet qui implemente ActionListener. */
 	public void addActionListener (ActionListener obj){
 		this.bouton.addActionListener(obj);
-		this.bouton.setActionListener(this.texte.getText());
+		this.bouton.setActionCommand(this.texte.getText());
 	}
 	
 	/** @return le texte du Label. */

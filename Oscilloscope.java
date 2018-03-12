@@ -50,7 +50,7 @@ public class Oscilloscope extends JFrame{
 		conteneurEcran.setLayout(new GridLayout(1,1));
 		add(conteneurEcran);
 		
-		ecran = new Ecran();	//ecran de l'oscilloscope
+		ecran = new Ecran(signaux[0]);	//ecran de l'oscilloscope
 		conteneurEcran.add(ecran);
 		
 		

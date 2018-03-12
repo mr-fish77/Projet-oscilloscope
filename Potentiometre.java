@@ -48,7 +48,6 @@ public class Potentiometre extends JLabel implements MouseMotionListener, MouseL
 
     addMouseListener(this);       //support des clics de la souris
     addMouseMotionListener(this); //et de ses mouvements
-    setOpaque(true);              //pour attribuer une couleur au JLabel (par defaut transparent)
     setSize(taille, taille);      //on lui donne sa taille
   }
 
@@ -85,7 +84,7 @@ public class Potentiometre extends JLabel implements MouseMotionListener, MouseL
 		  X[i] = (int)(octoNormalX[i]*taille/100.0 + decaX);
 		  Y[i] = (int)(octoNormalY[i]*taille/100.0 + decaY);
 	  }
-	  g.drawPolygon(X, Y, 8);
+	  g.fillPolygon(X, Y, 8);
 	  
   	}
   
@@ -102,7 +101,7 @@ public class Potentiometre extends JLabel implements MouseMotionListener, MouseL
   		  Y[i] = (int)(octoRotationY[i]*taille/100.0 + decaY);
   		}
   		
-  		g.drawPolygon(X, Y, 8);
+  		g.fillPolygon(X, Y, 8);
   	}
 
 
@@ -150,7 +149,7 @@ public class Potentiometre extends JLabel implements MouseMotionListener, MouseL
   }
 	
 	public void setText(String s){}
-	public String getText(){return "";]
+	public String getText(){return "";}
 
   public void mouseEntered(MouseEvent m){}
   public void mouseExited(MouseEvent m){}
