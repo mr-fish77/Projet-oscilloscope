@@ -7,11 +7,7 @@
 
 public class Rectangle extends Signal {
     
-    private final int NB_POINTS = 50; //np de point entre chaque graduation
-    private final int CASE_X = 10; //nb de graduation selon X
-    private final int CASE_Y = 10; //nb de graduation selon Y
-    public double echelleX; //valeur d'une graduation selon X en s
-    public double echelleY; //valeur d'une graduation selon Y en V
+   
 
 
     public static void main (String[] args){
@@ -24,6 +20,7 @@ public class Rectangle extends Signal {
         super(n);
         echelleX = 0.05;
         echelleY = 5;
+        this.nuagePoint = new double[NB_POINTS * CASE_X ][2]; 
     }
     
     

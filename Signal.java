@@ -24,11 +24,11 @@ public abstract class Signal {
 	public double[][] nuagePoint;
     
     
-    public final int NB_POINTS = 50;
-    public  int nbPixelX; // = 75; 
-    public  int nbPixelY; // = 75;
-    public  int ox; // = 296;
-    public  int oy; // = 280;
+    public final int NB_POINTS = 50; //nb de point par graduation
+    public  int nbPixelX; // nb de pixel par graduation X
+    public  int nbPixelY; // nb de pixel par graduation Y
+    public  int ox; // origine
+    public  int oy; // origine
     public  final int CASE_X = 8; //nb de graduation selon X
     public  final int CASE_Y = 8; //nb de graduation selon Y
     public double echelleX; //valeur d'une graduation selon X en s
@@ -160,12 +160,14 @@ public abstract class Signal {
     
     public abstract void calculPoint();
     
+    /** met à l'echelle le signal 
+	 * @param taille affichage x
+     * @param taille affichage y
+	 */
     public void miseAEchelle(double x, double y){
         
         nbPixelX = (int) x / CASE_X;
         nbPixelY = (int) y / CASE_Y;
-        
-         
         
         ox = (int) x / 2;
         oy = (int) y / 2;
