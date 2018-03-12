@@ -9,15 +9,16 @@ import javax.swing.JPanel;
  *
  */
 public class Ecran extends JPanel{
-	private Color arrierePlan = Color.BLACK;	//on peut changer les couleurs de l'ecran
-	private Color avantPlan = Color.WHITE;
-	
+	private Color arrierePlan = Color.WHITE;	//on peut changer les couleurs de l'ecran
+	private Color avantPlan = Color.BLACK;
+	private Signal s1;
 	/**
 	 * Constructeur par defaut de la classe
 	 */
-	public Ecran() {
+	public Ecran(Signal s1) {
 		super();
 		setBackground(arrierePlan);
+        this.s1 = s1;
 	}
 	
 	
@@ -29,6 +30,18 @@ public class Ecran extends JPanel{
 		super.paint(g);	//on appelle la methode mere (pour l'arriere plan du jpanel)
 		
 		afficheQuadrillage(g);
+        int a = 0;
+        g.setColor(Color.BLUE);
+        s1.calculPoint();
+        System.out.println(s1.nuagePoint.length);
+        while(a < (s1.nuagePoint.length-1)){
+             System.out.println( a +  "  x = " + (int) s1.nuagePoint[a][0] );
+            g.drawLine((int) s1.nuagePoint[a][0], (int) s1.nuagePoint[a][1],(int) s1.nuagePoint[a+1][0],(int) s1.nuagePoint[a+1][1]);
+            a++;
+        }
+        
+        
+        
 	}
 	
 	

@@ -7,5 +7,6 @@ public class Main{
 		
 		new Generateur (signaux);
 		new Oscilloscope (signaux);
+        
 	}
 }
