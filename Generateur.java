@@ -219,12 +219,13 @@ public class Generateur extends JFrame implements ActionListener, MouseListener 
 	}
 	
 	/** Se declenche en cas de clic sur un bouton.
+	 * Selon le bouton, modifie la valeur des JTextField et ou du signal.
 	 * Pour les OnOff, c'est dans les methodes de MouseListener.
 	 * @param e L'evènement qui contient sa source.
 	 */
 	public void actionPerformed(ActionEvent e) {
-		String command = e.getActionCommand();
-		int n = Character.getNumericValue(command.charAt(command.length()-1));
+		String command = e.getActionCommand(); // Bouton source = commande sous forme de String.
+		int n = Character.getNumericValue(command.charAt(command.length()-1)); // Numero du Signal.
 		
 		/* Application de la commande. 
 		* Pour ANNULER, il suffit de faire un refreshItems (donc rien a faire ici). */
@@ -243,6 +244,21 @@ public class Generateur extends JFrame implements ActionListener, MouseListener 
 				break;
 			}
 			String [] unitesChoisies = {(String)pan[n].freqUnit.getSelectedItem(), (String)pan[n].ampUnit.getSelectedItem(), (String)pan[n].signalType.getSelectedItem()};
+			
+			// Forme (donc re-creation d'une instance).
+			if(this.signal[n].getForme() != unitesChoisies[2]) {
+				switch (unitesChoisies[2]) {
+				case "REC":
+					this.signal[n] = new Rectangle(n);
+					break;
+				case "TRI":
+					this.signal[n] = new Triangle(n);
+					break;
+				case "SIN":
+					this.signal[n] = new Sinus(n);
+					break;
+				}
+			}
 			
 			// Amplitude
 			switch (unitesChoisies[1].charAt(0)) {
@@ -270,12 +286,19 @@ public class Generateur extends JFrame implements ActionListener, MouseListener 
 			
 			break;
 		case 'a': // Bouton PAR DEFAUT
+			this.signal[n] = new Sinus(n); // Reinitialise un Signal en recreant une instance.
+			onOff[n].setValeur(false); // Dit au Bouton_OnOff de s'eteindre.
+			
+			// On actualise l'affichage du JLabel en haut associé.
+			JLabel txt = (JLabel)(affInfos.getComponent(5*n+1));
+			txt.setText("OFF");
+			txt.setForeground(Color.DARK_GRAY);
 			break;
 		}
 		
 		refreshItems();
 	}
-
+	
 	/** Se declenche en cas de clic sur un Button_OnOff.
 	 * Ce sont des JPanel donc le ActionListener ne fonctionne pas sur eux.
 	 * Cette fonction active ou desactive simplement un Signal,

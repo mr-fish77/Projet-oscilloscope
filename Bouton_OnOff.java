@@ -56,4 +56,10 @@ public class Bouton_OnOff extends JPanel {
 		valeur = !valeur;
 		repaint();
 	}
+	
+	/** @param b La valeur a appliquer. */
+	public void setValeur(boolean b) {
+		valeur = b;
+		repaint();
+	}
 }
