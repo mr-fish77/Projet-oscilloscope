@@ -15,9 +15,10 @@ public abstract class Signal {
 	/** Valeurs possibles des unites ou formes de signal. */
 	public static final String [] SIGNAL_TYPES = {"SIN", "TRI", "REC"}, FREQ_UNITES = {"Hz", "kHz", "MHz", "GHz"},  AMPL_UNITES = {"mV", "V"};
 
-	/** Actif ou non, affiche ou non. 
-	 * Un signal actif est nul.
-	 * */
+	/** Valeurs par defaut lors de la creation d'un signal. */
+	public static final double DEF_AMP = 5., DEF_FREQ = 50.;
+	
+	/** true si le Signal est actif, false sinon. Un signal inactif est nul. */
 	private boolean active;
 	
 	/** Points a afficher. */
@@ -41,8 +42,8 @@ public abstract class Signal {
 	 * Constructeur par defaut.
 	 */
 	public Signal(int n) {
-		amplitude = 5;
-		freq = 1;
+		amplitude = DEF_AMP;
+		freq = DEF_FREQ;
 		active = false;
 		NUMERO = n;
 	}
@@ -151,13 +152,14 @@ public abstract class Signal {
 	}
 	
 	/** Indique si les signaux sont les memes. 
-	 * @param signal1 Le signal a verifier.
+	 * @param sig Le signal a verifier.
 	 * @return true si leurs numeros sont identiques.
 	 */
-	public boolean equals (Signal signal1) {
-		return signal1.NUMERO == this.NUMERO;
+	public boolean equals (Signal sig) {
+		return sig.NUMERO == this.NUMERO;
 	}
     
+	/** Re-calcule les points pour l'affichage. */
     public abstract void calculPoint();
     
     /** met à l'echelle le signal 

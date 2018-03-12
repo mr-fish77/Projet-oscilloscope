@@ -64,7 +64,7 @@ public class Rectangle extends Signal {
        
     }
     
-    /** Renvoie la forme du Signal, ici : RECT. */
-	public String getForme() {return "RECT";}
+    /** Renvoie la forme du Signal, ici : REC. */
+	public String getForme() {return SIGNAL_TYPES[2];}
 
 }

@@ -1,5 +1,5 @@
 /**
- * Classe qui permet de gérer un signal sinusoidale   ===> pb de mise à l'échelle
+ * Classe qui permet de gerer un signal sinusoidale   ===> pb de mise a l'echelle
  * @author Mathieu
  *
  */
@@ -30,7 +30,7 @@ public class Sinus extends Signal {
     }
     
     /** Renvoie la forme du Signal, ici : SIN. */
-    public String getForme() {return "SIN";}
+    public String getForme() {return SIGNAL_TYPES[0];}
     
     /** calcul les points du signal pour l'affichage **/
     public void calculPoint(){ //calcul des points
