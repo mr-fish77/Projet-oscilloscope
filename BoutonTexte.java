@@ -1,7 +1,7 @@
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -12,13 +12,14 @@ import javax.swing.JPanel;
  * @author Pierre-Yves
  *
  */
-public class BoutonTexte extends JPanel{
-	public JButton bouton;	//bouton qui est accessible de l'exterieur
-	private JLabel texte;	//Label qui contient le texte fourni en parametre
+public class BoutonTexte extends JPanel {
+	/** Bouton. */
+	private JButton bouton;	
+	/** Label contenant le texte en paramètre du constructeur. */
+	private JLabel texte;
 	
-	/**
-	 * Constructeur qui permet de generer le bouton avec son texte
-	 * @param String texte : le texte a afficher dans le bouton
+	/** Constructeur qui permet de generer le bouton avec son texte.
+	 * @param String texte : le texte a afficher dans le bouton.
 	 */
 	public BoutonTexte(String texte) {
 		super();
@@ -42,5 +43,23 @@ public class BoutonTexte extends JPanel{
 		contraintes.gridy = 1;	//ligne 1
 		contraintes.fill = GridBagConstraints.VERTICAL;
 		add(this.texte, contraintes);
+	}
+	
+	/** Ajoute un ActionListener sur le bouton. 
+	 * @param obj Un objet qui implemente ActionListener. */
+	public void addActionListener (ActionListener obj){
+		this.bouton.addActionListener(obj);
+		this.bouton.setActionCommand(this.texte.getText());
+	}
+	
+	/** @return le texte du Label. */
+	public void setText(String s){
+		this.texte.setText(s);
+	}
+	
+	/** Modifie le text du Label.
+	 *@param le texte a modifier. */
+	public String getText(){
+		return this.texte.getText();
 	}
 }

@@ -6,19 +6,32 @@ import java.awt.event.MouseMotionListener;
 
 import javax.swing.JLabel;
 
+/** Objet permettant l'affichage d'un potentiometre.
+ * L'objet herite de JLabel donc on peut y appliquer les memes methodes (hormis setText et getText).
+ * Le constructeur par defaut cree un potentiometre normal donc la valeur est nulle.
+ */
+
 public class Potentiometre extends JLabel implements MouseMotionListener, MouseListener{
-  private int taille;                   //la taille du Potentiometre
-  private boolean switchAffichage;      //switch pour affichage de l'octogone normal ou rotationne
+  /** La taille du potentiometre. */
+  private int taille;
+  /** switch pour affichage de l'octogone normal ou rotationne.
+   * Vaut true si l'octogone est normal, false si l'octogone est penche. */
+  private boolean switchAffichage;
+  /** Couleur d'arriere-plan. */
   private Color couleurPolygone = Color.GRAY;
   
-  private int[] octoNormalX = {90, 90, 66, 33, 10, 10, 33, 66};	//coordonnees X et Y octogone normal
-  private int[] octoNormalY = {33, 66, 90, 90, 67, 33, 10, 10};
-  private int[] octoRotationX = {95, 81, 50, 19, 5, 19, 50, 81};//coordonnees X et Y octogone penche
-  private int[] octoRotationY = {50, 81, 95, 81, 50, 19, 5, 19};
-  private int[] X = new int[8], Y = new int[8];	//coordonnees modifiees
-  private double decaX, decaY;			//decalage de l'octogone
-  private double xMem, yMem;            //coordonnees de la souris au precedent cran du potentiometre
-  private int cran;                     //cran actuel
+  /** Coordonnees de l'octogone normal. */
+  private int[] octoNormalX = {90, 90, 66, 33, 10, 10, 33, 66}, octoNormalY = {33, 66, 90, 90, 67, 33, 10, 10};
+  /** Coordonnees de l'octogone penche.*/
+  private int[] octoRotationX = {95, 81, 50, 19, 5, 19, 50, 81},  octoRotationY = {50, 81, 95, 81, 50, 19, 5, 19};
+  /** Coordonnees modifiees. */
+  private int[] X = new int[8], Y = new int[8];
+  /** Decalage de l'octogone. */
+  private double decaX, decaY;
+  /** Coordonnees de la souris au precedent cran du potentiometre. */
+  private double xMem, yMem;
+  /** Cran actuel. */
+  private int cran;
 
 
   /**
@@ -31,18 +44,17 @@ public class Potentiometre extends JLabel implements MouseMotionListener, MouseL
 	setForeground(Color.BLACK);
 	
     cran = 0;
-    switchAffichage= true;
+    switchAffichage = true; 	  // On commence par un octogone normal.
 
     addMouseListener(this);       //support des clics de la souris
     addMouseMotionListener(this); //et de ses mouvements
-    setOpaque(true);              //pour attribuer une couleur au JLabel (par defaut transparent)
     setSize(taille, taille);      //on lui donne sa taille
   }
 
 
   /**
    * Methode qui gere l'affichage du potentiometre a l'ecran
-   * @param Graphics g : l'objet graphique
+   * @param g : objet Graphics l'objet graphique
    */
   public void paint(Graphics g){
 	  super.paint(g);       //pour peindre l'arriere plan automatiquement
@@ -62,9 +74,9 @@ public class Potentiometre extends JLabel implements MouseMotionListener, MouseL
   
   /**
    * Methode qui affiche un octogone normal
-   * @param Graphics g : pour peindre le JPanel
+   * @param g : objet Graphics pour peindre le JPanel
    */
-  public void affichageNormal(Graphics g){    //affichage normal de l'octogone
+  public void affichageNormal(Graphics g){
 	  g.setColor(couleurPolygone);
 	  
 	  
@@ -72,16 +84,16 @@ public class Potentiometre extends JLabel implements MouseMotionListener, MouseL
 		  X[i] = (int)(octoNormalX[i]*taille/100.0 + decaX);
 		  Y[i] = (int)(octoNormalY[i]*taille/100.0 + decaY);
 	  }
-	  g.drawPolygon(X, Y, 8);
+	  g.fillPolygon(X, Y, 8);
 	  
   	}
   
 
   /**
    * Methode qui affiche un octogone penche
-   * @param Graphics g : pour peindre le JPanel
+   * @param g : objet Graphics pour peindre le JPanel
    */
-  	public void affichageRotation(Graphics g){  //affichage rotationne de l'octogone
+  	public void affichageRotation(Graphics g){
   		g.setColor(couleurPolygone);
   		
   		for(int i=0; i<8; i++) {
@@ -89,14 +101,14 @@ public class Potentiometre extends JLabel implements MouseMotionListener, MouseL
   		  Y[i] = (int)(octoRotationY[i]*taille/100.0 + decaY);
   		}
   		
-  		g.drawPolygon(X, Y, 8);
+  		g.fillPolygon(X, Y, 8);
   	}
 
 
   /**
    * Detection du clic de souris, pour mettre le potentiometre en vert
-   */
-  public void mousePressed(MouseEvent m){ //detection du clic dans le potentiometre pour le mettre en vert
+   * @param m Informations sur l'emplacement de la souris. */
+  public void mousePressed(MouseEvent m){ 
     xMem = m.getX() - taille/2;       //position initiale de la souris (relative par rapport au centre du potentiometre)
     yMem = m.getY() - taille/2;
     couleurPolygone = Color.GREEN;    //on le met en vert pour montrer qu'il est actif
@@ -105,7 +117,8 @@ public class Potentiometre extends JLabel implements MouseMotionListener, MouseL
   
 
   /**
-   * Detection du relachement du clic de souris, pour mettre le potentiometre en gris
+   * Detection du relachement du clic de souris, pour mettre le potentiometre en gris.
+   * @param m Informations sur l'evenement. 
    */
   public void mouseReleased(MouseEvent m){  //on desactive le bouton
 	  couleurPolygone = Color.GRAY;
@@ -114,9 +127,10 @@ public class Potentiometre extends JLabel implements MouseMotionListener, MouseL
 
 
   /**
-   * Detectection lorsqu'il y a mouvement de la souris, bouton appuye
+   * Detection lorsqu'il y a mouvement de la souris, bouton appuye.
+   * @param m Informations sur l'emplacement de la souris.
    */
-  public void mouseDragged(MouseEvent m){   //detection de la position quand le clic de souris est enclenche
+  public void mouseDragged(MouseEvent m){
     double x = m.getX() - decaX;   //on recupere la position relative par rapport au centre
     double y = m.getY() - decaY;
 
@@ -133,6 +147,9 @@ public class Potentiometre extends JLabel implements MouseMotionListener, MouseL
       repaint();
     }
   }
+	
+	public void setText(String s){}
+	public String getText(){return "";}
 
   public void mouseEntered(MouseEvent m){}
   public void mouseExited(MouseEvent m){}

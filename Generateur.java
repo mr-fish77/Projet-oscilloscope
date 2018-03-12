@@ -117,7 +117,7 @@ public class Generateur extends JFrame implements ActionListener, MouseListener 
 		setVisible(true);
 	}
 	
-	/** Re-calcule le texte affiché dans tous les composants le nécessitant. */
+	/** Re-calcule le texte affiche dans tous les composants le necessitant. */
 	private void refreshItems(){
 		// Pour stocker les get-Xx-As-String de Signal.
 		String [] s; 
@@ -130,11 +130,11 @@ public class Generateur extends JFrame implements ActionListener, MouseListener 
 		
 		// Pour chaque signal...
 		for(int i = 0; i < signal.length ; i++) {
-			// Récupération des composants du Sig-Pan
+			// Recuperation des composants du Sig-Pan
 			Component[] tempTab = pan[i].getComponents();
 			
 			/* Actif ou non.
-			 * Appelé uniquement une fois, ensuite c'est dans MouseClicked. */
+			 * Appele uniquement une fois, ensuite c'est dans MouseClicked. */
 			if(!init_done) {
 				labels.get(5*i+1).setText("OFF");
 				labels.get(5*i+1).setForeground(Color.DARK_GRAY);
@@ -163,14 +163,20 @@ public class Generateur extends JFrame implements ActionListener, MouseListener 
 	}
 	
 	/** JPanel permettant la modification des informations du signal. 
-	 * Mettre ça dans une sous-classe permet d'alléger le contenu tout en gardant l'accès aux variables. */
+	 * Mettre ca dans une sous-classe permet d'alleger le contenu tout en gardant l'acces aux variables. */
 	public class SigPan extends JPanel {
 
 		private static final long serialVersionUID = 1L;
 		
+<<<<<<< HEAD
 		JTextField[] txtField = new JTextField[2]; // Initialisés dans le constructeur.
 		JButton[] boutons = new JButton [3]; // Initialisés dans le constructeur.
 		Bouton_OnOff on = new Bouton_OnOff(Color.GREEN, Color.RED);
+=======
+		JTextField[] txtField = new JTextField[2]; // Initialises dans le constructeur.
+		JButton[] boutons = new JButton [3]; // Initialises dans le constructeur.
+		OnOff on = new OnOff();
+>>>>>>> 67161d130e17809a77ecab762ef2199efeb3239b
 		JComboBox<String> signalType = new JComboBox<String>(Signal.SIGNAL_TYPES);
 		JComboBox<String> ampUnit = new JComboBox<String>(Signal.AMPL_UNITES);
 		JComboBox<String> freqUnit = new JComboBox<String>(Signal.FREQ_UNITES);
@@ -190,7 +196,7 @@ public class Generateur extends JFrame implements ActionListener, MouseListener 
 			txtField[1] = new JTextField(); // Valeur de la frequence.
 			boutons[0] = new JButton ("Appliquer");
 			boutons[1] = new JButton ("Annuler");
-			boutons[2] = new JButton ("Par défaut");
+			boutons[2] = new JButton ("Par defaut");
 			
 			/* Ligne 1 : numero du Signal, Type et Actif ou non. */
 			JLabel title = new JLabel("Signal " + n);
@@ -221,9 +227,46 @@ public class Generateur extends JFrame implements ActionListener, MouseListener 
 		}
 	}
 	
+<<<<<<< HEAD
 	/** Se déclenche en cas de clic sur un bouton.
 	 * Pour les OnOff, c'est dans les méthodes de MouseListener.
 	 * @param e L'évènement qui contient sa source.
+=======
+	/** Bouton pour allumer ou eteindre un Signal. 
+	 * Sa couleur indique l'etat (actif ou non) du Signal. */
+	public class OnOff extends JPanel {
+		/** true si signal actif, false si signal inactif. */
+		public boolean soWhat = false;
+		
+		/** Constructeur par defaut. */
+		private OnOff() {
+			super();
+			setSize(200, 30);
+			setBackground(null);
+			setOpaque(true);
+		}
+		
+		/** Colorie le bouton d'apres la couleur correspondant a l'etat du Signal. */
+		public void paint (Graphics g) {
+			g.setColor(Color.WHITE);
+			g.fillRect(0, 0, this.getWidth(), this.getHeight());
+			g.drawOval(85, 0, 30, 30);
+			if (soWhat == true) {
+				g.setColor(Color.GREEN);
+			} else {
+				g.setColor(Color.RED);
+			}
+			g.fillOval(86, 1, 28, 28);
+			g.setColor(Color.WHITE);
+			g.drawLine(100, 7, 100, 15);
+			g.drawArc(93, 8, 15, 15, 180, 180);
+		}
+	}
+
+	/** Se declenche en cas de clic sur un bouton.
+	 * Pour les OnOff, c'est dans les methodes de MouseListener.
+	 * @param e L'evenement qui contient sa source.
+>>>>>>> 67161d130e17809a77ecab762ef2199efeb3239b
 	 */
 	public void actionPerformed(ActionEvent e) {
 		String command = e.getActionCommand();
@@ -234,7 +277,7 @@ public class Generateur extends JFrame implements ActionListener, MouseListener 
 		switch (command.charAt(1)) {
 		case 'p':	// Bouton APPLIQUER
 			
-			// On récupère les valeurs saisies par l'utilisateur.
+			// On recupere les valeurs saisies par l'utilisateur.
 			double[] valeursSaisies = new double[2];
 			try{
 				for(int i = 0; i < 2; i++) {
@@ -242,7 +285,7 @@ public class Generateur extends JFrame implements ActionListener, MouseListener 
 					valeursSaisies[i] = Double.valueOf(tmp);
 				}
 			} catch (Exception w) {
-				JOptionPane.showMessageDialog(this,"Une erreur de saisie est détectée, veuillez corriger.");
+				JOptionPane.showMessageDialog(this,"Une erreur de saisie est detectee, veuillez corriger.");
 				break;
 			}
 			String [] unitesChoisies = {(String)pan[n].freqUnit.getSelectedItem(), (String)pan[n].ampUnit.getSelectedItem(), (String)pan[n].signalType.getSelectedItem()};
@@ -256,7 +299,7 @@ public class Generateur extends JFrame implements ActionListener, MouseListener 
 				signal[n].setAmplitude(valeursSaisies[0]);
 			}
 			
-			// Fréquence
+			// Frequence
 			switch (unitesChoisies[0].charAt(0)) {
 			case 'k':
 				signal[n].setFreq(valeursSaisies[1] * Math.pow(10, 3));
@@ -279,10 +322,14 @@ public class Generateur extends JFrame implements ActionListener, MouseListener 
 		refreshItems();
 	}
 
+<<<<<<< HEAD
 	/** Se déclenche en cas de clic sur un Button_OnOff.
+=======
+	/** Se declenche en cas de clic sur un OnOff.
+>>>>>>> 67161d130e17809a77ecab762ef2199efeb3239b
 	 * Ce sont des JPanel donc le ActionListener ne fonctionne pas sur eux.
-	 * Cette fonction active ou désactive simplement un Signal,
-	 * donc actualise juste le nécessaire.
+	 * Cette fonction active ou desactive simplement un Signal,
+	 * donc actualise juste le necessaire.
 	 * @param e L'evenement.
 	 */
 	public void mouseClicked(MouseEvent e) {
@@ -290,9 +337,14 @@ public class Generateur extends JFrame implements ActionListener, MouseListener 
 		int n = (src.equals(onOff[0])) ? 0 : 1; // Index du signal.
 		
 		boolean b = !signal[n].getActive(); // Valeur a appliquer
-		signal[n].setActive(b); // On (dés)active le signal.
+		signal[n].setActive(b); // On (des)active le signal.
 		
+<<<<<<< HEAD
 		onOff[n].changeValeur(); // On informe le Bouton_OnOff associé.
+=======
+		onOff[n].soWhat = b; // On informe le onOff associe.
+		onOff[n].repaint(); // On le repeint.
+>>>>>>> 67161d130e17809a77ecab762ef2199efeb3239b
 		
 		JLabel txt = (JLabel)(affInfos.getComponent(5*n+1));
 		if (b) {

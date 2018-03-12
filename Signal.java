@@ -4,31 +4,45 @@ public abstract class Signal {
 	private double amplitude;
 	/** Frequence du signal en Hz. */
 	private double freq;
-	/** Numéro du signal : 1 ou 2. */
+	/** Numero du signal : 1 ou 2. */
 	public final int NUMERO;
 	
 	/** Valeur maximale de l'amplitude d'un signal : 10 V */
 	private final double MAX_AMP = 10.;
-	/** Valeur maximale de la fréquence d'un signal : 2 Ghz. */
+	/** Valeur maximale de la frequence d'un signal : 2 Ghz. */
 	private final double MAX_FREQ =  (2.*Math.pow(10, 9)); 
 	
-	/** Valeurs possibles des unités ou formes de signal. */
+	/** Valeurs possibles des unites ou formes de signal. */
 	public static final String [] SIGNAL_TYPES = {"SIN", "TRI", "REC"}, FREQ_UNITES = {"Hz", "kHz", "MHz", "GHz"},  AMPL_UNITES = {"mV", "V"};
 
-	/** Actif ou non, affiché ou non. 
+	/** Actif ou non, affiche ou non. 
 	 * Un signal actif est nul.
 	 * */
 	private boolean active;
 	
 	/** Points a afficher. */
 	public double[][] nuagePoint;
+    
+    
+    public final int NB_POINTS = 50; //nb de point par graduation
+    public  int nbPixelX; // nb de pixel par graduation X
+    public  int nbPixelY; // nb de pixel par graduation Y
+    public  int ox; // origine
+    public  int oy; // origine
+    public  final int CASE_X = 8; //nb de graduation selon X
+    public  final int CASE_Y = 8; //nb de graduation selon Y
+    public double echelleX; //valeur d'une graduation selon X en s
+    public double echelleY; //valeur d'une graduation selon Y en V
+
+    
+    
 
 	/**
 	 * Constructeur par defaut.
 	 */
 	public Signal(int n) {
 		amplitude = 5;
-		freq = 100.;
+		freq = 1;
 		active = false;
 		NUMERO = n;
 	}
@@ -138,9 +152,26 @@ public abstract class Signal {
 	
 	/** Indique si les signaux sont les memes. 
 	 * @param signal1 Le signal a verifier.
-	 * @return true si leurs numéros sont identiques.
+	 * @return true si leurs numeros sont identiques.
 	 */
 	public boolean equals (Signal signal1) {
 		return signal1.NUMERO == this.NUMERO;
 	}
+    
+    public abstract void calculPoint();
+    
+    /** met à l'echelle le signal 
+	 * @param taille affichage x
+     * @param taille affichage y
+	 */
+    public void miseAEchelle(double x, double y){
+        
+        nbPixelX = (int) x / CASE_X;
+        nbPixelY = (int) y / CASE_Y;
+        
+        ox = (int) x / 2;
+        oy = (int) y / 2;
+
+    }
+    
 }
