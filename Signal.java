@@ -22,13 +22,27 @@ public abstract class Signal {
 	
 	/** Points a afficher. */
 	public double[][] nuagePoint;
+    
+    
+    public final int NB_POINTS = 50;
+    public  int nbPixelX; // = 75; 
+    public  int nbPixelY; // = 75;
+    public  int ox; // = 296;
+    public  int oy; // = 280;
+    public  final int CASE_X = 8; //nb de graduation selon X
+    public  final int CASE_Y = 8; //nb de graduation selon Y
+    public double echelleX; //valeur d'une graduation selon X en s
+    public double echelleY; //valeur d'une graduation selon Y en V
+
+    
+    
 
 	/**
 	 * Constructeur par defaut.
 	 */
 	public Signal(int n) {
 		amplitude = 5;
-		freq = 100.;
+		freq = 1;
 		active = false;
 		NUMERO = n;
 	}
@@ -143,4 +157,19 @@ public abstract class Signal {
 	public boolean equals (Signal signal1) {
 		return signal1.NUMERO == this.NUMERO;
 	}
+    
+    public abstract void calculPoint();
+    
+    public void miseAEchelle(double x, double y){
+        
+        nbPixelX = (int) x / CASE_X;
+        nbPixelY = (int) y / CASE_Y;
+        
+         
+        
+        ox = (int) x / 2;
+        oy = (int) y / 2;
+
+    }
+    
 }
