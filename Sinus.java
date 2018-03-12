@@ -32,6 +32,7 @@ public class Sinus extends Signal {
     /** Renvoie la forme du Signal, ici : SIN. */
     public String getForme() {return "SIN";}
     
+    /** calcul les points du signal pour l'affichage **/
     public void calculPoint(){ //calcul des points
         
        

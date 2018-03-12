@@ -32,13 +32,13 @@ public class Rectangle extends Signal {
         this.nuagePoint = new double[NB_POINTS * CASE_X ][2]; 
     }
     
-    
+     /** calcul les points du signal pour l'affichage **/
     public void calculPoint(){ //calcul des points
         
        this.nuagePoint = new double[NB_POINTS * CASE_X ][2]; 
        double signe = 1;
        double periode = 1/ this.getFreq();
-       System.out.println( periode );
+       //System.out.println( periode );
        
        
        double  xChangement =   ((((NB_POINTS * CASE_X)/2)) * echelleX)/ NB_POINTS; //pt de départ
@@ -52,7 +52,6 @@ public class Rectangle extends Signal {
                       xChangement= (double) ((i * echelleX)/ NB_POINTS);
                       if(signe == -1) signe = 1;
                       else if(signe == 1) signe = - 1;
-                        System.out.println( signe + " xch: " + xChangement + " i :" + ((i * echelleX)/ NB_POINTS) );
 
                 }
                 nuagePoint[i + ((NB_POINTS * CASE_X)/2)][1] = (double)   ((this.getAmplitude() * signe  * nbPixelY ) / this.echelleY )   + oy; //valeur du signal
