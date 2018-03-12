@@ -28,9 +28,6 @@ public class Generateur extends JFrame implements ActionListener, MouseListener 
 	/** Vaut true lors du premier affichage. */
 	private boolean init_done = false;
 	
-	/** Les JButton a surveiller. 
-	 * Le premier indice indique le numero de signal, le deuxieme le numero du bouton. */
-	private JButton[][] btns = new JButton[2][3];
 	/** Les OnOff a surveiller (comme des JButton). */
 	private Bouton_OnOff[] onOff = new Bouton_OnOff[2];
 	
