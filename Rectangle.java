@@ -32,7 +32,7 @@ public class Rectangle extends Signal {
        this.nuagePoint = new double[NB_POINTS * CASE_X ][2]; 
        double signe = 1;
        
-       double xChangement =  ((-((NB_POINTS * CASE_X)/2)) * echelleX)/ NB_POINTS; //pt de départ
+       double  xChangement =  ((-((NB_POINTS * CASE_X)/2)) * echelleX)/ NB_POINTS; //pt de départ
     
        for(int i = (int) (-((NB_POINTS * CASE_X)/2)) ; i < (nuagePoint.length /2) ; i++){ //soustraction pour remplir les nb négatifs
            
