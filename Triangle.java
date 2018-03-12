@@ -64,7 +64,7 @@ public class Triangle extends Signal {
        
     }
     
-    /** Renvoie la forme du Signal, ici : RECT. */
-	public String getForme() {return "RECT";}
+    /** @return la forme du Signal, ici : TRI. */
+	public String getForme() {return "TRI";}
 
 }
