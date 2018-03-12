@@ -25,10 +25,10 @@ public abstract class Signal {
     
     
     public final int NB_POINTS = 50;
-    public  int nbPixelX = 75; 
-    public  int nbPixelY = 75;
-    public  int ox = 296;
-    public  int oy = 280;
+    public  int nbPixelX; // = 75; 
+    public  int nbPixelY; // = 75;
+    public  int ox; // = 296;
+    public  int oy; // = 280;
     public  final int CASE_X = 8; //nb de graduation selon X
     public  final int CASE_Y = 8; //nb de graduation selon Y
     public double echelleX; //valeur d'une graduation selon X en s
@@ -159,5 +159,17 @@ public abstract class Signal {
 	}
     
     public abstract void calculPoint();
+    
+    public void miseAEchelle(double x, double y){
+        
+        nbPixelX = (int) x / CASE_X;
+        nbPixelY = (int) y / CASE_Y;
+        
+         
+        
+        ox = (int) x / 2;
+        oy = (int) y / 2;
+
+    }
     
 }
