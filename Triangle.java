@@ -32,12 +32,12 @@ public class Triangle extends Signal {
        double coefDirecteur = 2 * this.getAmplitude();
        double ordonneO = this.getAmplitude();
        double iChangement = 0;
-       double periode = 1/ this.getFreq(); //période
+       double periode = 1/ this.getFreq(); //periode
     
-       for(int i = (int) (-((NB_POINTS * CASE_X)/2)) ; i < (nuagePoint.length /2) ; i++){ //soustraction pour remplir les nb négatifs
+       for(int i = (int) (-((NB_POINTS * CASE_X)/2)) ; i < (nuagePoint.length /2) ; i++){ //soustraction pour remplir les nb negatifs
            
                 
-                nuagePoint[i + ((NB_POINTS * CASE_X)/2)][0] = (double) ( (  (((i * echelleX))/ NB_POINTS)) * nbPixelX / this.echelleX )   + ox; //mise à l'echlle des x
+                nuagePoint[i + ((NB_POINTS * CASE_X)/2)][0] = (double) ( (  (((i * echelleX))/ NB_POINTS)) * nbPixelX / this.echelleX )   + ox; //mise a l'echlle des x
                 
                       
                 if( (Math.abs( (double) (((i * echelleX)/ NB_POINTS) ) -  xChangement)) >= periode/2 ){ //chagement de coef directeur toutes les demi-périodes

@@ -26,12 +26,10 @@ public class Sinus extends Signal {
         this.nuagePoint = new double[NB_POINTS * CASE_X ][2]; 
     }
     
-<<<<<<< HEAD
-=======
-    /** Renvoie la forme du Signal, ici : SIN. */
-    public String getForme() {return SIGNAL_TYPES[0];}
+
     
->>>>>>> e9ca9f035a2a78fae9fb8e6ffdf33e3e39b95a03
+    
+
     /** calcul les points du signal pour l'affichage **/
     public void calculPoint(){ //calcul des points
         
@@ -49,5 +47,5 @@ public class Sinus extends Signal {
     }
     
     /** Renvoie la forme du Signal, ici : SIN. */
-    public String getForme() {return "SIN";}
+    public String getForme() {return SIGNAL_TYPES[0];}
 }
