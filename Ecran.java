@@ -23,21 +23,20 @@ public class Ecran extends JPanel{
 	
 	
 	/**
-	 * Methode qui gere l'affichage de l'element
+	 * Methode qui gere l'affichage de l'element et du signal
 	 * @param Graphics g : l'objet graphique
 	 */
 	public void paint(Graphics g) {
 		super.paint(g);	//on appelle la methode mere (pour l'arriere plan du jpanel)
 		
-        s1.miseAEchelle((double) getWidth() , (double) getHeight());
-		afficheQuadrillage(g);
+        s1.miseAEchelle((double) getWidth() , (double) getHeight()); //on recupuere la taille de l'écran pour generer un signal à l'echelle
+		afficheQuadrillage(g); 
+        
         int a = 0;
-        g.setColor(Color.BLUE);
-        s1.calculPoint();
-        //System.out.println(s1.nuagePoint.length);
+        g.setColor(Color.BLUE);//couleur d'affichage du signal
+        s1.calculPoint(); //calule des points à afficher
         while(a < (s1.nuagePoint.length-1)){
-            //System.out.println( a +  "  x = " + (int) s1.nuagePoint[a][0] );
-            g.drawLine((int) s1.nuagePoint[a][0], (int) s1.nuagePoint[a][1],(int) s1.nuagePoint[a+1][0],(int) s1.nuagePoint[a+1][1]);
+            g.drawLine((int) s1.nuagePoint[a][0], (int) s1.nuagePoint[a][1],(int) s1.nuagePoint[a+1][0],(int) s1.nuagePoint[a+1][1]); //on relit les points calcules pour afficher le signal
             a++;
         }
         
