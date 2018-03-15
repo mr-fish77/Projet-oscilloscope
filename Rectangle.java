@@ -1,3 +1,5 @@
+import java.awt.Color;
+
 /**
  * Classe qui permet de generer un signal rectangle  
  * @author Mathieu

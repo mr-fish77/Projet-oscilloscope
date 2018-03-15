@@ -16,6 +16,8 @@ public class Oscilloscope extends JFrame{
 	private Channel ch1;		//channel du premier signal
 	private Channel ch2;		//channel du deuxieme signal
 	
+	private Generateur generateur;	//Pour pouvoir interagir avec le generateur
+	
 	private Ecran ecran;		//ecran d'affichage de l'oscilloscope
 	
 	//boutons du menu du haut de l'oscilloscope
@@ -30,14 +32,16 @@ public class Oscilloscope extends JFrame{
 	private BoutonTexte runStop = new BoutonTexte("Run/Stop");
 	
 
-	public Oscilloscope(Signal[] signaux){
+	public Oscilloscope(Signal[] signaux, Generateur generateur){
 		super("Oscilloscope");      //constructeur par defaut de la classe JFrame
 		setSize(1200, 600);
 		setMinimumSize(new Dimension(600, 600));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		ch1 = new Channel(signaux[0], "CH1");	//channels associes au signaux
-		ch2 = new Channel(signaux[1], "CH2");
+		ch1 = new Channel(signaux, 1, "CH1");	//channels associes au signaux
+		ch2 = new Channel(signaux, 2, "CH2");
+		
+		this.generateur = generateur;			//Genrateur de signaux
 		
 		
 		JPanel conteneurPrincipal = new JPanel();		//pour ne pas avoir de probleme avec les marges des fenetres
@@ -50,7 +54,8 @@ public class Oscilloscope extends JFrame{
 		conteneurEcran.setLayout(new GridLayout(1,1));
 		add(conteneurEcran);
 		
-		ecran = new Ecran(signaux[0]);	//ecran de l'oscilloscope
+		ecran = new Ecran(signaux);	//ecran de l'oscilloscope
+		generateur.setEcran(ecran);
 		conteneurEcran.add(ecran);
 		
 		

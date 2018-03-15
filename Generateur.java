@@ -20,6 +20,8 @@ import javax.swing.JTextField;
 public class Generateur extends JFrame implements ActionListener, MouseListener {
 	/** Les signaux. */
 	private Signal signal[] = new Signal[2];
+	/** L'ecran de l'oscilloscope */
+	private Ecran ecran;
 	
 	/** Les JPanel utilises. */
 	private JPanel affInfos = new JPanel(), mainPanel = new JPanel();
@@ -111,6 +113,14 @@ public class Generateur extends JFrame implements ActionListener, MouseListener 
 		setVisible(true);
 	}
 	
+	/** Re-calcule les items necessaires dans l'oscillo (affichage ecran) */
+	public void refreshOscillo() {
+		if(ecran != null) {
+			ecran.repaint();
+		}
+	}
+	
+	
 	/** Re-calcule le texte affiche dans tous les composants le necessitant. */
 	private void refreshItems(){
 		// Pour stocker les get-Xx-As-String de Signal.
@@ -154,6 +164,11 @@ public class Generateur extends JFrame implements ActionListener, MouseListener 
 			tempComboBox = (JComboBox) tempTab[5];
 			tempComboBox.setSelectedItem(s[1]);
 		}
+	}
+	
+	/** Permet de recevoir l'ecran de l'oscilloscope */
+	public void setEcran(Ecran ecran) {
+		this.ecran = ecran;
 	}
 	
 	/** JPanel permettant la modification des informations du signal. 
@@ -246,13 +261,14 @@ public class Generateur extends JFrame implements ActionListener, MouseListener 
 			if(this.signal[n].getForme() != unitesChoisies[2]) {
 				switch (unitesChoisies[2]) {
 				case "REC":
-					this.signal[n] = new Rectangle(n);
+					this.signal[n] = new Rectangle(n + 1);
+					
 					break;
 				case "TRI":
-					this.signal[n] = new Triangle(n);
+					this.signal[n] = new Triangle(n + 1);
 					break;
 				case "SIN":
-					this.signal[n] = new Sinus(n);
+					this.signal[n] = new Sinus(n + 1);
 					break;
 				}
 			}
@@ -283,7 +299,7 @@ public class Generateur extends JFrame implements ActionListener, MouseListener 
 			
 			break;
 		case 'a': // Bouton PAR DEFAUT
-			this.signal[n] = new Sinus(n); // Reinitialise un Signal en recreant une instance.
+			this.signal[n] = new Sinus(n + 1); // Reinitialise un Signal en recreant une instance.
 			onOff[n].setValeur(false); // Dit au Bouton_OnOff de s'eteindre.
 			
 			// On actualise l'affichage du JLabel en haut associé.
@@ -294,6 +310,7 @@ public class Generateur extends JFrame implements ActionListener, MouseListener 
 		}
 		
 		refreshItems();
+		refreshOscillo();
 	}
 	
 	/** Se declenche en cas de clic sur un Button_OnOff.
@@ -319,6 +336,7 @@ public class Generateur extends JFrame implements ActionListener, MouseListener 
 			txt.setText("OFF");
 			txt.setForeground(Color.DARK_GRAY);
 		}
+		refreshOscillo();
 	}
 
 	public void mousePressed(MouseEvent e) {}

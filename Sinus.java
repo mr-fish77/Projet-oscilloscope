@@ -1,3 +1,5 @@
+import java.awt.Color;
+
 /**
 <<<<<<< HEAD
  * Classe qui permet de generer un signal sinusoidale   

@@ -10,7 +10,8 @@ import javax.swing.JPanel;
  *
  */
 public class Channel extends JPanel{
-	private Signal signal;	//signal qui est gere par le channel
+	private Signal[] signaux;		//tableau de signal (on est oblige car on cree souvent de nouveaux signaux)
+	private int n;					//indice du signal
 	
 	private Potentiometre potPos = new Potentiometre();	//potentiometre position verticale
 	private Potentiometre potDiv = new Potentiometre();	//potentiometre volts/div
@@ -22,8 +23,9 @@ public class Channel extends JPanel{
 	 * @param Signal signal : le signal associe au channel
 	 * @param String nomChannel : le nom du channel
 	 */
-	public Channel(Signal signal, String nomChannel){
-		this.signal = signal;
+	public Channel(Signal[] signaux, int n,  String nomChannel){
+		this.signaux = signaux;
+		this.n = n-1;
 		
 		setLayout(new GridBagLayout());//Layout plus complique mais permet de gerer a peu pres bien
 		GridBagConstraints contraintes = new GridBagConstraints();

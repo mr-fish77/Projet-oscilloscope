@@ -1,3 +1,6 @@
+import java.awt.Color;
+import java.awt.Graphics;
+
 public abstract class Signal {
 	
 	/** Amplitude du signal en volts. */
@@ -23,6 +26,11 @@ public abstract class Signal {
 	
 	/** Points a afficher. */
 	public double[][] nuagePoint;
+	
+	/** Couleur de la courbe */
+	private Color couleur;
+	/** Tableau de couleur par signal */
+	private static Color[] COULEURS_SIGNAUX = {Color.BLUE, Color.GREEN};
     
     /**nb de point par graduation*/
     public final int NB_POINTS = 50; 
@@ -54,6 +62,7 @@ public abstract class Signal {
 		freq = DEF_FREQ;
 		active = false;
 		NUMERO = n;
+		couleur = COULEURS_SIGNAUX[n-1];
 	}
 	
 	/**
@@ -174,14 +183,32 @@ public abstract class Signal {
 	 * @param taille affichage x
      * @param taille affichage y
 	 */
-    public void miseAEchelle(double x, double y){
+    public void miseAEchelle(int x, int y){
         
-        nbPixelX = (int) x / CASE_X;
-        nbPixelY = (int) y / CASE_Y;
+        nbPixelX = x / CASE_X;
+        nbPixelY = y / CASE_Y;
         
-        ox = (int) x / 2;
-        oy = (int) y / 2;
+        ox = x / 2;
+        oy = y / 2;
 
+    }
+    
+    
+    /** Dessine la courbe si elle doit etre affichee
+     * @param Graphics g : pour peindre la courbe
+     */
+    public void dessineCourbe(Graphics g) {
+    	if(active) {		//on regarde si le signal doit etre affiche
+	        g.setColor(couleur);
+	        calculPoint();	//on recalcule les point
+	        
+	        int a = 0;
+	        while(a < (nuagePoint.length-1)){
+	            g.drawLine((int) nuagePoint[a][0], (int) nuagePoint[a][1],(int) nuagePoint[a+1][0],(int) nuagePoint[a+1][1]);
+	            a++;
+	        }
+    	}
+	    	
     }
     
 }
