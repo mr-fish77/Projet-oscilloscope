@@ -28,23 +28,22 @@ public class Sinus extends Signal {
         this.nuagePoint = new double[NB_POINTS * CASE_X ][2]; 
     }
     
+    public Sinus(Signal s) {
+    	super(s);
+    	this.nuagePoint = new double[NB_POINTS * CASE_X ][2]; 
+    }
 
     
     
 
     /** calcul les points du signal pour l'affichage **/
     public void calculPoint(){ //calcul des points
-        
-       
-       
        for(int i = (int) (-((NB_POINTS * CASE_X)/2)) ; i < (nuagePoint.length /2) ; i++){ //soustraction pour remplir les nb negatifs
-           
+    	   nuagePoint[i + (int)((NB_POINTS * CASE_X)/2)][0] = (double) (i * echelleX/ NB_POINTS * (nbPixelX / this.echelleX) + ox); //mise à l'echlle des x
+           nuagePoint[i + (int)((NB_POINTS * CASE_X)/2)][1] = (double) (this.getAmplitude() * Math.sin( (getFreq() * 2.* Math.PI * i ) * echelleX/ NB_POINTS- decalageX*CASE_X)   * nbPixelY / this.echelleY ) + oy;  //calcul de y en prenant compte de l'echelle 
                 
-                nuagePoint[i + ((NB_POINTS * CASE_X)/2)][0] = (double) ( (  (((i * echelleX))/ NB_POINTS)) * nbPixelX / this.echelleX )   + ox; //mise à l'echlle des x
-                nuagePoint[i + ((NB_POINTS * CASE_X)/2)][1] = (double ) (this.getAmplitude() * Math.sin( getFreq() * 2.* Math.PI * ((i * echelleX)/ NB_POINTS))   * nbPixelY / this.echelleY ) + oy;  //calcul de y en prenant compte de l'echelle 
-                
-                //System.out.print( i +  "  x = " + nuagePoint[i + ((NB_POINTS * CASE_X)/2)][0] ); //return pour debug
-                //System.out.println ( "   y = " + nuagePoint[i + ((NB_POINTS * CASE_X)/2)][1] );
+           //System.out.println( i +  "  x = " + nuagePoint[i + (int)((NB_POINTS * CASE_X)/2)][0]); //return pour debug
+           //System.out.println ( "   y = " + nuagePoint[i + ((NB_POINTS * CASE_X)/2)][1] );
         }
     }
     

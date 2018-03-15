@@ -30,7 +30,7 @@ public abstract class Signal {
 	/** Couleur de la courbe */
 	private Color couleur;
 	/** Tableau de couleur par signal */
-	private static Color[] COULEURS_SIGNAUX = {Color.BLUE, Color.GREEN};
+	private static final Color[] COULEURS_SIGNAUX = {Color.BLUE, Color.ORANGE};
     
     /**nb de point par graduation*/
     public final int NB_POINTS = 50; 
@@ -50,8 +50,11 @@ public abstract class Signal {
     public double echelleX; 
     /**valeur d'une graduation selon Y en V*/
     public double echelleY; 
+    /**decalage suivant X en %/div */
+    public double decalageX = 0;
+    /**decalage suivant Y en %/div */
+    public double decalageY = 0;
 
-    
     
 
 	/**
@@ -63,6 +66,33 @@ public abstract class Signal {
 		active = false;
 		NUMERO = n;
 		couleur = COULEURS_SIGNAUX[n-1];
+		
+		echelleX = 5;
+		echelleY = 1;
+		decalageX = 0;
+		decalageY = 0;
+	}
+	
+	/**
+	 * Constructeur pour reconstruction
+	 */
+	public Signal(Signal s) {
+		amplitude = s.amplitude;
+		freq = s.freq;
+		active = s.active;
+		NUMERO = s.NUMERO;
+		couleur = s.couleur;
+		
+		nbPixelX = s.nbPixelX;
+		nbPixelY = s.nbPixelY;
+		ox = s.ox;
+		oy = s.oy;
+		echelleX = s.echelleX;
+		echelleY = s.echelleY;
+		decalageX = s.decalageX;
+		decalageY = s.decalageY;
+		
+		
 	}
 	
 	/**
@@ -204,7 +234,7 @@ public abstract class Signal {
 	        
 	        int a = 0;
 	        while(a < (nuagePoint.length-1)){
-	            g.drawLine((int) nuagePoint[a][0], (int) nuagePoint[a][1],(int) nuagePoint[a+1][0],(int) nuagePoint[a+1][1]);
+	            g.drawLine((int) (nuagePoint[a][0]), (int) (nuagePoint[a][1] + decalageY*nbPixelY),(int) (nuagePoint[a+1][0]),(int) (nuagePoint[a+1][1]+ decalageY*nbPixelY));
 	            a++;
 	        }
     	}

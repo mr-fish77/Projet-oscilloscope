@@ -27,9 +27,14 @@ public class Rectangle extends Signal {
         this.nuagePoint = new double[NB_POINTS * CASE_X ][2]; 
     }
     
+    public Rectangle(Signal s) {
+    	super(s);
+    	this.nuagePoint = new double[NB_POINTS * CASE_X ][2]; 
+    }
+    
      /** 
       * calcul les points du signal pour l'affichage
-      *  **/
+      */
     public void calculPoint(){ 
         
        this.nuagePoint = new double[NB_POINTS * CASE_X ][2]; 
@@ -45,13 +50,13 @@ public class Rectangle extends Signal {
                 
                 nuagePoint[i + ((NB_POINTS * CASE_X)/2)][0] = (double) ( (  (((i * echelleX))/ NB_POINTS)) * nbPixelX / this.echelleX )   + ox; //mise à l'echlle des x
                 
-               if( (Math.abs( (double) (((i * echelleX)/ NB_POINTS) ) -  xChangement)) >= periode/2 ){ //chagement de signe toutes les demi-periodes
+               if( (Math.abs( (double) (((i * echelleX)/ NB_POINTS)) -  xChangement )) >= periode/2 ){ //chagement de signe toutes les demi-periodes
                       xChangement= (double) ((i * echelleX)/ NB_POINTS);
                       if(signe == -1) signe = 1;
                       else if(signe == 1) signe = - 1;
 
                 }
-                nuagePoint[i + ((NB_POINTS * CASE_X)/2)][1] = (double)   ((this.getAmplitude() * signe  * nbPixelY ) / this.echelleY )   + oy; //valeur du signal
+                nuagePoint[i + ((NB_POINTS * CASE_X)/2)][1] = (double)   ((this.getAmplitude() * signe  * nbPixelY ) / this.echelleY)   + oy; //valeur du signal
                 
                 //System.out.print( i +  "  x = " + nuagePoint[i + ((NB_POINTS * CASE_X)/2)][0] ); //return pour debug
                 //System.out.println ( "   y = " + nuagePoint[i + ((NB_POINTS * CASE_X)/2)][1] );

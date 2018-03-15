@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 public class Oscilloscope extends JFrame{
 	private Channel ch1;		//channel du premier signal
 	private Channel ch2;		//channel du deuxieme signal
+	private GestionTemps gestionTemps;	//Permet de gerer le temps (position et echelle)
 	
 	private Generateur generateur;	//Pour pouvoir interagir avec le generateur
 	
@@ -37,13 +38,9 @@ public class Oscilloscope extends JFrame{
 		setSize(1200, 600);
 		setMinimumSize(new Dimension(600, 600));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		ch1 = new Channel(signaux, 1, "CH1");	//channels associes au signaux
-		ch2 = new Channel(signaux, 2, "CH2");
-		
+
 		this.generateur = generateur;			//Genrateur de signaux
-		
-		
+
 		JPanel conteneurPrincipal = new JPanel();		//pour ne pas avoir de probleme avec les marges des fenetres
 		conteneurPrincipal.setLayout(new GridLayout());
 		setContentPane(conteneurPrincipal);
@@ -78,6 +75,10 @@ public class Oscilloscope extends JFrame{
 		conteneurGestion.add(boutonsAffichageMenus, contraintes);
 		
 		//conteneur du milieu, contient la gestion des channels, du temps et du trigger
+		ch1 = new Channel(signaux, 1, "CH1", ecran);	//channels associes au signaux
+		ch2 = new Channel(signaux, 2, "CH2", ecran);
+		gestionTemps = new GestionTemps(signaux, ecran);
+		
 		JPanel affichageGestionChannels = new JPanel();
 		affichageGestionChannels.setLayout(new GridLayout(1, 4));
 		affichageGestionChannels.setBackground(Color.GREEN);
@@ -118,8 +119,9 @@ public class Oscilloscope extends JFrame{
 	 * @param JPanel affichageGestionChannels : le conteneur central
 	 */
 	public void ajouterGestionChannels(JPanel affichageGestionChannels) {
-		affichageGestionChannels.add(ch1);	//on ajoute progressivement
+		affichageGestionChannels.add(ch1);			//Channels
 		affichageGestionChannels.add(ch2);
+		affichageGestionChannels.add(gestionTemps);	//Gestion du temps
 		
 	}
 }

@@ -5,37 +5,29 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
- * Classe qui permet de gerer un channel
+ * Classe qui permet de gerer le temps
  * @author Pierre-Yves
  *
  */
-public class Channel extends JPanel implements PotentiometreListener{
+public class GestionTemps extends JPanel implements PotentiometreListener{
 	private Signal[] signaux;		//tableau de signal (on est oblige car on cree souvent de nouveaux signaux)
-	private int n;					//indice du signal
-	
-	private Ecran ecran;	//l'ecran pour gerer les repaint()
 	
 	private Potentiometre potPos;	//potentiometre position verticale
 	private Potentiometre potDiv;	//potentiometre volts/div
 	private BoutonTexte chMenu;		//bouton affichage menu du signal
 	
-	private double decalage = 0.0;		//decalage en hauteur du signal
+	private Ecran ecran;
 	
-	//Echelles des ordonnees du signal
-	private static final double[] ECHELLES = {10.0, 5.0, 2.0, 1.0, 0.5, 0.2, 0.1, 0.05};
-	private int compteurEchelle = 1;	//position dans le tableau du dessus
-	
-	
-	
+	private double decalage;
+	private static final double[] ECHELLES = {1, 0.5, 0.2, 0.1, 0.01, 0.005, 0.001, 0.0005, 0.0001, 0.00005, 0.00001, 0.000005, 0.000001, 0.0000005, 0.0000001};
+	private int compteurEchelle = 0;
 	
 	/**
 	 * Constructeur qui cree l'interface graphique du channel
-	 * @param Signal signal : le signal associe au channel
-	 * @param String nomChannel : le nom du channel
+	 * Signal[] signaux : les signaux
 	 */
-	public Channel(Signal[] signaux, int n,  String nomChannel, Ecran ecran){
+	public GestionTemps(Signal[] signaux, Ecran ecran){
 		this.signaux = signaux;
-		this.n = n-1;
 		this.ecran = ecran;
 		
 		setLayout(new GridBagLayout());//Layout plus complique mais permet de gerer a peu pres bien
@@ -45,11 +37,11 @@ public class Channel extends JPanel implements PotentiometreListener{
 		contraintes.fill = GridBagConstraints.BOTH;
 		
 		//Nom du channel
-		JLabel titreChannel = new JLabel(nomChannel);
+		JLabel titreTemps = new JLabel("Temps");
 		contraintes.weighty = 0.5;
 		contraintes.gridy++;
-		add(titreChannel, contraintes);
-		
+		add(titreTemps, contraintes);
+				
 		//texte au dessus du potentiometre de position
 		JLabel descriptionPotPos = new JLabel("Position");
 		contraintes.gridy++;
@@ -64,13 +56,13 @@ public class Channel extends JPanel implements PotentiometreListener{
 		add(potPos, contraintes);
 		
 		//bouton d'affichage du menu du channel
-		chMenu = new BoutonTexte(nomChannel + " Menu");
+		chMenu = new BoutonTexte("HORIZONTAL Menu");
 		contraintes.weighty = 0.5;
 		contraintes.gridy++;
 		add(chMenu, contraintes);
 		
 		//texte au dessus du potentiometre de volts/div
-		JLabel descriptionPotDiv = new JLabel("Volts/Div");
+		JLabel descriptionPotDiv = new JLabel("Sec/Div");
 		contraintes.gridy++;
 		add(descriptionPotDiv, contraintes);
 		
@@ -82,20 +74,25 @@ public class Channel extends JPanel implements PotentiometreListener{
 		add(potDiv, contraintes);
 	}
 	
+	
 	/** Permet l'interaction avec un potentiometre
 	 * @param Potentiometre potentiometre : la source de l'evenement
 	 * @param int evolutionCran : + ou -1
 	 */
 	public void potentiometrePerformed(Potentiometre potentiometre, int evolutionCran) {
-		if(potentiometre.equals(potPos)) {	//reglage du deltaY
-			decalage += 0.04*evolutionCran;	//reglage par defaut de l'oscillo
-			signaux[n].decalageY = decalage;
+		if(potentiometre.equals(potPos)) {	//si c'est le potentiometre de position
+			decalage += 0.04*evolutionCran;	//on implemente/reduit le decalage (0.04 correspond au reglage sur le vrai oscillo)
+			//on l'attribue a chacun des signaux
+			signaux[0].decalageX = decalage;
+			signaux[1].decalageX = decalage;
 			ecran.repaint();
 			
-		}else if(potentiometre.equals(potDiv)) {	//reglage de l'echelle
+		}else if(potentiometre.equals(potDiv)){	//reglage echele
 			if((compteurEchelle >= 0 && compteurEchelle < (ECHELLES.length - 1) && evolutionCran > 0) || (compteurEchelle < (ECHELLES.length) && compteurEchelle > 0 && evolutionCran < 0)) {	//on regarde qu'on est toujours dans les clous du tableau
 				compteurEchelle += evolutionCran;
-				signaux[n].echelleY = ECHELLES[compteurEchelle];
+				//attribution au 2 signaux
+				signaux[0].echelleX = ECHELLES[compteurEchelle];
+				signaux[1].echelleX = ECHELLES[compteurEchelle];
 				ecran.repaint();
 			}
 			

@@ -22,7 +22,11 @@ public class Triangle extends Signal {
         echelleX = 1;
         echelleY = 5;
         this.nuagePoint = new double[NB_POINTS * CASE_X ][2]; 
-
+    }
+    
+    public Triangle(Signal s) {
+    	super(s);
+    	this.nuagePoint = new double[NB_POINTS * CASE_X ][2]; 
     }
     
     /** calcul les points du signal pour l'affichage **/

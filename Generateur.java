@@ -261,14 +261,14 @@ public class Generateur extends JFrame implements ActionListener, MouseListener 
 			if(this.signal[n].getForme() != unitesChoisies[2]) {
 				switch (unitesChoisies[2]) {
 				case "REC":
-					this.signal[n] = new Rectangle(n + 1);
+					this.signal[n] = new Rectangle(signal[n]);
 					
 					break;
 				case "TRI":
-					this.signal[n] = new Triangle(n + 1);
+					this.signal[n] = new Triangle(signal[n]);
 					break;
 				case "SIN":
-					this.signal[n] = new Sinus(n + 1);
+					this.signal[n] = new Sinus(signal[n]);
 					break;
 				}
 			}
