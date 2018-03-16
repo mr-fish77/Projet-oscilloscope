@@ -47,6 +47,19 @@ public class FonctionMath{
 		return(resultat3);
 	}
 	
+	public double[][] multiplication( double[][] nuagePoint1,double[][] nuagePoint2){ /*multiplie ch2 a ch1 */
+		double[][] resultat4 = new double[nuagePoint1.length][nuagePoint1[0].length];
+		for (int i = 0; i < nuagePoint1.length; i++)
+		{
+			for (int j = 0; i < nuagePoint1[0].length ; i++)
+			{
+				resultat4[i][j]=nuagePoint1[i][j]*nuagePoint2[i][j];
+			}
+			
+		}
+		return(resultat4);
+	}
+	
 	
 }	
 
