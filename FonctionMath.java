@@ -1,3 +1,11 @@
+/**
+ * Classe qui defini les fonctions du menu maths
+ * @author Anas
+ *
+ */
+
+
+
 public class FonctionMath{
 	
 	public double[][] nuagePoint1;
