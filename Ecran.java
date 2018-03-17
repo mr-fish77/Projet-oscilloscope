@@ -9,8 +9,11 @@ import javax.swing.JPanel;
  *
  */
 public class Ecran extends JPanel{
-	private Color arrierePlan = Color.WHITE;	//on peut changer les couleurs de l'ecran
-	private Color avantPlan = Color.BLACK;
+	/** Couleur d'arriere-plan ou d'avant-plan. */
+	public final static Color arrierePlan = Color.WHITE, avantPlan = Color.BLACK;
+	/** Objets graphiques utilisés. */
+	public Grille grille; private MenuManager menus; private MenuDuBas bas;
+	/** Les signaux. */
 	private Signal[] signaux;
 	
 	/**
@@ -19,58 +22,27 @@ public class Ecran extends JPanel{
 	public Ecran(Signal[]signaux) {
 		super();
 		setBackground(arrierePlan);
+		setLayout(null);
 		
         this.signaux = signaux;
+        grille = new Grille(signaux);
+        menus = new MenuManager(signaux);
+        bas = new MenuDuBas(signaux);
+        add(grille);
+        add(menus);
+        add(bas);
 	}
 	
-	
-	/**
-	 * Methode qui gere l'affichage de l'element
-	 * @param Graphics g : l'objet graphique
-	 */
-	public void paint(Graphics g) {
-		super.paint(g);	//on appelle la methode mere (pour l'arriere plan du jpanel)
+	public void paint (Graphics g) {
+		// On recupere la taille de la fenetre.
+		double actualWidth = this.getWidth();
+		double actualHeight = this.getHeight();
 		
-		afficheQuadrillage(g);
-		
-		signaux[0].miseAEchelle(getWidth(), getHeight());
-		signaux[0].dessineCourbe(g);
-		
-		signaux[1].miseAEchelle(getWidth(), getHeight());
-		signaux[1].dessineCourbe(g);
+		// On modifie la taille des JPanel.
+		grille.setBounds(0, 0, (int)(.75*actualWidth), (int)(.95*actualHeight));
+		menus.setBounds((int)(.75*actualWidth), 0, (int)(.25*actualWidth), (int)(.95*actualHeight));
+		bas.setBounds(0, (int)(.95*actualHeight), (int)actualWidth, (int)(.05*actualHeight));
+		grille.repaint(); menus.repaint(); bas.repaint();
 	}
-	
-	
-	/**
-	 * Methode qui permet d'afficher la grille adaptee a la taille de l'ecran
-	 * @param Graphics g : l'objet graphique
-	 */
-	public void afficheQuadrillage(Graphics g) {
-		int hauteur = getHeight();	//on recupere la taille du jpanel et donc de l'ecran
-		int largeur = getWidth();
-		
-		int dHauteur = hauteur/2;	//millieu de l'ecran
-		int dLargeur = largeur/2;
-		
-		int hGrandeGrad = hauteur/8;//espace entre carreaux du grand quadrillage
-		int lGrandeGrad = largeur/8;
-		
-		int hPetiteGrad = hauteur/40;//espace entre les petites graduations
-		int lPetiteGrad = largeur/40;
-		
-		g.setColor(avantPlan);
-		
-		for(int i = 0; i<8; i++) {
-			g.drawLine(0, i*hGrandeGrad, largeur, i*hGrandeGrad);	//quadrillage vertical
-			g.drawLine(i*lGrandeGrad, 0, i*lGrandeGrad, hauteur);	//quadrillage horizontal
-			
-			//on est oblige de faire cette boucle dans la precedente, a cause des pixels qui sont des int, on finit par se decaler beaucoup du quadrillage initial
-			for(int j = 1; j < 5; j++) {
-				g.drawLine(i*lGrandeGrad + j*lPetiteGrad, dHauteur - hPetiteGrad/2, i*lGrandeGrad + j*lPetiteGrad, dHauteur + hPetiteGrad/2);	//graduation axe horizontal
-				g.drawLine(dLargeur - lPetiteGrad/2, i*hGrandeGrad + j*hPetiteGrad, dLargeur + lPetiteGrad/2, i*hGrandeGrad + j*hPetiteGrad);	//graduation axe vertical
-			}
-		}
-		
-	}
-	
+
 }

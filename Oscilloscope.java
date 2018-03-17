@@ -77,7 +77,7 @@ public class Oscilloscope extends JFrame{
 		//conteneur du milieu, contient la gestion des channels, du temps et du trigger
 		ch1 = new Channel(signaux, 1, "CH1", ecran);	//channels associes au signaux
 		ch2 = new Channel(signaux, 2, "CH2", ecran);
-		gestionTemps = new GestionTemps(signaux, ecran);
+		gestionTemps = new GestionTemps(signaux, ecran.grille);
 		
 		JPanel affichageGestionChannels = new JPanel();
 		affichageGestionChannels.setLayout(new GridLayout(1, 4));
@@ -94,6 +94,8 @@ public class Oscilloscope extends JFrame{
 		contraintes.weighty = 0.5;
 		conteneurGestion.add(branchementChannels, contraintes);
 		
+		// Derniers preparatifs puis affichage.
+		ecran.repaint();
 		setVisible(true);
 	}
 
