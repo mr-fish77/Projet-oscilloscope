@@ -42,6 +42,9 @@ public class Generateur extends JFrame implements ActionListener, MouseListener 
 	/** La fenetre est un carre de taille SIZE. */
 	private final int SIZE = 600;
 	
+	/** Cree un generateur de taille carree 600*600. 
+	 * @param signaux Les signaux.
+	 */
 	public Generateur(Signal[] signaux) {
 		super("Generateur");
 		setSize(SIZE, SIZE); // Taille carree.
@@ -252,7 +255,7 @@ public class Generateur extends JFrame implements ActionListener, MouseListener 
 					valeursSaisies[i] = Double.valueOf(tmp);
 				}
 			} catch (Exception w) {
-				JOptionPane.showMessageDialog(this,"Une erreur de saisie est detectee, veuillez corriger.");
+				JOptionPane.showMessageDialog(this,"Une erreur de saisie est detectee.");
 				break;
 			}
 			String [] unitesChoisies = {(String)pan[n].freqUnit.getSelectedItem(), (String)pan[n].ampUnit.getSelectedItem(), (String)pan[n].signalType.getSelectedItem()};
