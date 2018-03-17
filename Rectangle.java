@@ -22,8 +22,6 @@ public class Rectangle extends Signal {
 	 */
     public Rectangle(int n){
         super(n);
-        echelleX = 0.5;
-        echelleY = 5;
         this.nuagePoint = new double[NB_POINTS * CASE_X ][2]; 
     }
     

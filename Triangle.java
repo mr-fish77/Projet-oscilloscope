@@ -19,8 +19,6 @@ public class Triangle extends Signal {
 	 */
     public Triangle(int n){
         super(n);
-        echelleX = 1;
-        echelleY = 5;
         this.nuagePoint = new double[NB_POINTS * CASE_X ][2]; 
     }
     
@@ -46,7 +44,7 @@ public class Triangle extends Signal {
                 nuagePoint[i + ((NB_POINTS * CASE_X)/2)][0] = (double) ( (  (((i * echelleX))/ NB_POINTS)) * nbPixelX / this.echelleX )   + ox; //mise a l'echlle des x
                 
                       
-                if( (Math.abs( (double) (((i * echelleX)/ NB_POINTS) ) -  xChangement)) >= periode/2 ){ //chagement de coef directeur toutes les demi-périodes
+                if( (Math.abs( (double) (((i * echelleX)/ NB_POINTS)) -  xChangement)) >= periode/2 ){ //chagement de coef directeur toutes les demi-périodes
                       xChangement= (double) ((i * echelleX)/ NB_POINTS);  
                       iChangement = (double) (((i * echelleX))/ NB_POINTS);
                       
@@ -67,7 +65,7 @@ public class Triangle extends Signal {
                 }
                 nuagePoint[i + ((NB_POINTS * CASE_X)/2)][1] = ( coefDirecteur * ( ((double) i * echelleX/ NB_POINTS) -  iChangement) +  ordonneO  )      * nbPixelY  / this.echelleY    + oy; //valeur du signal avec mise à l'echelle
 
-                //System.out.print( i +  "  x = " + nuagePoint[i + ((NB_POINTS * CASE_X)/2)][0] ); //return pour debug
+                //System.out.println( i +  "  x = " + nuagePoint[i + ((NB_POINTS * CASE_X)/2)][0] ); //return pour debug
                 //System.out.println ( "   y = " + nuagePoint[i + ((NB_POINTS * CASE_X)/2)][1] );
             
         }

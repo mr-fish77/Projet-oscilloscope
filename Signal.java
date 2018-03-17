@@ -4,16 +4,16 @@ import java.awt.Graphics;
 public abstract class Signal {
 	
 	/** Amplitude du signal en volts. */
-	private double amplitude;
+	protected double amplitude;
 	/** Frequence du signal en Hz. */
-	private double freq;
+	protected double freq;
 	/** Numero du signal : 1 ou 2. */
 	public final int NUMERO;
 	
 	/** Valeur maximale de l'amplitude d'un signal : 10 V */
-	private final double MAX_AMP = 10.;
+	protected final double MAX_AMP = 10.;
 	/** Valeur maximale de la frequence d'un signal : 2 Ghz. */
-	private final double MAX_FREQ =  (2.*Math.pow(10, 9)); 
+	protected final double MAX_FREQ =  (2.*Math.pow(10, 9)); 
 	
 	/** Valeurs possibles des unites ou formes de signal. */
 	public static final String [] SIGNAL_TYPES = {"SIN", "TRI", "REC"}, FREQ_UNITES = {"Hz", "kHz", "MHz", "GHz"},  AMPL_UNITES = {"mV", "V"};
@@ -22,21 +22,21 @@ public abstract class Signal {
 	public static final double DEF_AMP = 5., DEF_FREQ = 50.;
 	
 	/** true si le Signal est actif, false sinon. Un signal inactif est nul. */
-	private boolean active;
+	protected boolean active;
 	
 	/** Points a afficher. */
 	public double[][] nuagePoint;
 	
 	/** Couleur de la courbe */
-	private Color couleur;
+	protected Color couleur;
 	/** Tableau de couleur par signal */
-	private static final Color[] COULEURS_SIGNAUX = {Color.BLUE, Color.ORANGE};
+	protected static final Color[] COULEURS_SIGNAUX = {Color.BLUE, Color.ORANGE};
     
     /**nb de point par graduation*/
     public final int NB_POINTS = 50; 
-    /**nb de point par graduation X*/
+    /**nb de pixels par graduation X*/
     public  int nbPixelX; 
-    /**nb de pixel par graduation Y*/
+    /**nb de pixels par graduation Y*/
     public  int nbPixelY; 
     /** origine X*/
     public  int ox; 
