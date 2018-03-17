@@ -209,7 +209,7 @@ public abstract class Signal {
 	/** Re-calcule les points pour l'affichage. */
     public abstract void calculPoint();
     
-    /** met à l'echelle le signal 
+    /** met a l'echelle le signal 
 	 * @param taille affichage x
      * @param taille affichage y
 	 */

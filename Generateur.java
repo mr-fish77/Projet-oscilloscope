@@ -172,7 +172,7 @@ public class Generateur extends JFrame implements ActionListener, MouseListener 
 	}
 	
 	/** JPanel permettant la modification des informations du signal. 
-	 * Mettre ca dans une sous-classe permet d'alleger le contenu tout en gardant l'accès aux variables. */
+	 * Mettre ca dans une sous-classe permet d'alleger le contenu tout en gardant l'acces aux variables. */
 	public class SigPan extends JPanel {
 
 		private static final long serialVersionUID = 1L;
@@ -233,7 +233,7 @@ public class Generateur extends JFrame implements ActionListener, MouseListener 
 	/** Se declenche en cas de clic sur un bouton.
 	 * Selon le bouton, modifie la valeur des JTextField et ou du signal.
 	 * Pour les OnOff, c'est dans les methodes de MouseListener.
-	 * @param e L'evènement qui contient sa source.
+	 * @param e L'evenement qui contient sa source.
 	 */
 	public void actionPerformed(ActionEvent e) {
 		String command = e.getActionCommand(); // Bouton source = commande sous forme de String.
@@ -244,7 +244,7 @@ public class Generateur extends JFrame implements ActionListener, MouseListener 
 		switch (command.charAt(1)) {
 		case 'p':	// Bouton APPLIQUER
 			
-			// On recupère les valeurs saisies par l'utilisateur.
+			// On recupere les valeurs saisies par l'utilisateur.
 			double[] valeursSaisies = new double[2];
 			try{
 				for(int i = 0; i < 2; i++) {
@@ -302,7 +302,7 @@ public class Generateur extends JFrame implements ActionListener, MouseListener 
 			this.signal[n] = new Sinus(n + 1); // Reinitialise un Signal en recreant une instance.
 			onOff[n].setValeur(false); // Dit au Bouton_OnOff de s'eteindre.
 			
-			// On actualise l'affichage du JLabel en haut associé.
+			// On actualise l'affichage du JLabel en haut associe.
 			JLabel txt = (JLabel)(affInfos.getComponent(5*n+1));
 			txt.setText("OFF");
 			txt.setForeground(Color.DARK_GRAY);

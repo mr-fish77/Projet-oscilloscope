@@ -5,7 +5,7 @@ public class FonctionMath{
 	
 	public FonctionMath (Signal signal1,Signal signal2){
 		nuagePoint1= signal1.nuagePoint;/* il faut definir deux signaux */
-		nuagePoint2= signal1.nuagePoint;
+		nuagePoint2= signal2.nuagePoint;
 	}
 	
 	public double[][] Addition( double[][] nuagePoint1,double[][] nuagePoint2){
@@ -47,17 +47,30 @@ public class FonctionMath{
 		return(resultat3);
 	}
 	
-	public double[][] multiplication( double[][] nuagePoint1,double[][] nuagePoint2){ /*multiplie ch2 a ch1 */
+	public double[][] inverse1( double[][] nuagePoint1 ){ /*inverse ch1 */
 		double[][] resultat4 = new double[nuagePoint1.length][nuagePoint1[0].length];
 		for (int i = 0; i < nuagePoint1.length; i++)
 		{
 			for (int j = 0; i < nuagePoint1[0].length ; i++)
 			{
-				resultat4[i][j]=nuagePoint1[i][j]*nuagePoint2[i][j];
+				resultat4[i][j]=1/(nuagePoint1[i][j]);
 			}
 			
 		}
 		return(resultat4);
+	}
+	
+	public double[][] inverse2( double[][] nuagePoint2 ){ /*inverse ch2 */
+		double[][] resultat5 = new double[nuagePoint2.length][nuagePoint2[0].length];
+		for (int i = 0; i < nuagePoint2.length; i++)
+		{
+			for (int j = 0; i < nuagePoint2[0].length ; i++)
+			{
+				resultat5[i][j]=1/(nuagePoint2[i][j]);
+			}
+			
+		}
+		return(resultat5);
 	}
 	
 	
