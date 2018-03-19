@@ -8,13 +8,16 @@ import javax.swing.JPanel;
  * Par defaut, la valeur est false. 
  * Lors d'une modification de la valeur, il faut  
  * Sa couleur indique l'etat (actif ou non) du Signal. */
-public class Bouton_OnOff extends JPanel {
+public class Bouton_OnOff extends JPanel implements MouseListener {
 	
 	/** true si signal actif, false si signal inactif. */
 	private boolean valeur = false;
 	
 	/** Couleurs du bouton, non modifiables. */
 	public final Color COLOR_ON, COLOR_OFF;
+	
+	/** Listener. */
+	Bouton_OnOff_Listener listener;
 	
 	/** Constructeur par defaut. 
 	 * Cree un bouton de taille 200*30 mais affiche comme un cercle de rayon 30 au centre.
@@ -75,5 +78,43 @@ public class Bouton_OnOff extends JPanel {
 	public void setValeur(boolean b) {
 		valeur = b;
 		repaint();
+	}
+	
+		/** En cas de clic sur un Button_OnOff, cree un Bouton_OnOff_Event.
+	 * @param e L'evenement.
+	 */
+	public void mouseClicked(MouseEvent e) {
+		Component src = e.getComponent(); // Objet source.
+		int n = (src.equals(onOff[0])) ? 0 : 1; // Index du signal.
+		
+		boolean b = !signal[n].getActive(); // Valeur a appliquer
+		signal[n].setActive(b); // On (des)active le signal.
+		
+		onOff[n].changeValeur(); // On informe le Bouton_OnOff associe.
+		
+		JLabel txt = (JLabel)(affInfos.getComponent(5*n+1));
+		if (b) {
+			txt.setText("ON");
+			txt.setForeground(Color.GREEN);
+		} else {
+			txt.setText("OFF");
+			txt.setForeground(Color.DARK_GRAY);
+		}
+		refreshOscillo();
+	}
+
+	public void mousePressed(MouseEvent e) {}
+	public void mouseReleased(MouseEvent e) {}
+	public void mouseEntered(MouseEvent e) {}
+	public void mouseExited(MouseEvent e) {}
+	
+	/** Ajoute un Listener au Bouton_OnOff.
+	 * @param l Objet qui implemente Bouton_OnOff_Listener. */
+	public void addListener (Bouton_OnOff_Listener l){
+		listener = l;
+	}
+	
+	public interface Bouton_OnOff_Listener{
+		public void btnClicked(Bouton_OnOff btn, boolean valeur);
 	}
 }
