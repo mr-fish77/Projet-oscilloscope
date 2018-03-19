@@ -20,7 +20,7 @@ import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.JTextField;
 
-public class Generateur extends JFrame implements ActionListener, MouseListener {
+public class Generateur extends JFrame implements ActionListener, Bouton_OnOff_Listener {
 	/** Les signaux. */
 	private Signal signal[] = new Signal[2];
 	/** L'ecran de l'oscilloscope */
@@ -99,7 +99,7 @@ public class Generateur extends JFrame implements ActionListener, MouseListener 
 				o.setActionCommand(o.getActionCommand() + " " + i);
 			}
 			onOff[i] = pan[i].on;
-			onOff[i].addMouseListener(this);
+			onOff[i].addListener(this, "Btn_signal_"+i);
 		}
 		
 		/* Conteneur principal. */
@@ -353,9 +353,9 @@ public class Generateur extends JFrame implements ActionListener, MouseListener 
 	 * donc actualise juste le necessaire.
 	 * @param e L'evenement.
 	 */
-	public void mouseClicked(MouseEvent e) {
-		Component src = e.getComponent(); // Objet source.
-		int n = (src.equals(onOff[0])) ? 0 : 1; // Index du signal.
+	public void btnClicked(Bouton_OnOff_Event evt) {
+		Bouton_OnOff src = evt.getSourceAsBtn(); // Objet source.
+		int n = evt.getActionCommand().charAt(evt.getActionCommand().length()-1); // Index du signal.
 		
 		boolean b = !signal[n].getActive(); // Valeur a appliquer
 		signal[n].setActive(b); // On (des)active le signal.
@@ -372,9 +372,4 @@ public class Generateur extends JFrame implements ActionListener, MouseListener 
 		}
 		refreshOscillo();
 	}
-
-	public void mousePressed(MouseEvent e) {}
-	public void mouseReleased(MouseEvent e) {}
-	public void mouseEntered(MouseEvent e) {}
-	public void mouseExited(MouseEvent e) {}
 }
