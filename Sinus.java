@@ -39,7 +39,7 @@ public class Sinus extends Signal {
     public void calculPoint(){ //calcul des points
        for(int i = (int) (-((NB_POINTS * CASE_X)/2)) ; i < (nuagePoint.length /2) ; i++){ //soustraction pour remplir les nb negatifs
     	   nuagePoint[i + (int)(NB_POINTS * CASE_X/2)][0] = ox + (double)((i * nbPixelX/NB_POINTS)); //mise a l'echelle des x
-    	   nuagePoint[i + (int)(NB_POINTS * CASE_X/2)][1] = oy - (double) (Math.sin( 2.*Math.PI*freq * ( (i * echelleX / NB_POINTS) - decalageX * echelleX)) * (amplitude / echelleY) * nbPixelY);
+    	   nuagePoint[i + (int)(NB_POINTS * CASE_X/2)][1] = oy - (double) (Math.sin( 2.*Math.PI*freq * ( (i * echelleX / NB_POINTS) - decalageX * echelleX - dephasage*echelleX/(2*Math.PI*freq))) * (amplitude / echelleY) * nbPixelY);
     	   
            //System.out.println( i +  "  x = " + nuagePoint[i + (int)((NB_POINTS * CASE_X)/2)][0]); //return pour debug
            //System.out.println ( "   y = " + nuagePoint[i + ((NB_POINTS * CASE_X)/2)][1] );
