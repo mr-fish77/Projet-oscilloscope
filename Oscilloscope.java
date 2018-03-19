@@ -7,12 +7,13 @@ import java.awt.GridLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import java.awt.event.*;
 /**
  * Classe qui gere l'affichage de l'oscilloscope a l'ecran
  * @author Pierre-Yves
  *
  */
-public class Oscilloscope extends JFrame{
+public class Oscilloscope extends JFrame implements ActionListener {
 	private Channel ch1;		//channel du premier signal
 	private Channel ch2;		//channel du deuxieme signal
 	private GestionTemps gestionTemps;	//Permet de gerer le temps (position et echelle)
@@ -32,12 +33,16 @@ public class Oscilloscope extends JFrame{
 	private BoutonTexte recopie = new BoutonTexte("Recopie");
 	private BoutonTexte runStop = new BoutonTexte("Run/Stop");
 	
+	private Signal[] signaux;  //j en ai besoin pour la methode action listenner
+	
 
 	public Oscilloscope(Signal[] signaux, Generateur generateur){
 		super("Oscilloscope");      //constructeur par defaut de la classe JFrame
 		setSize(1200, 600);
 		setMinimumSize(new Dimension(600, 600));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		this.signaux=signaux;
 
 		this.generateur = generateur;			//Genrateur de signaux
 
@@ -73,6 +78,7 @@ public class Oscilloscope extends JFrame{
 		contraintes.gridy = 0;
 		contraintes.weighty = 0.5;
 		conteneurGestion.add(boutonsAffichageMenus, contraintes);
+		mesures.addActionListener(this); //ajout des actions listenner
 		
 		//conteneur du milieu, contient la gestion des channels, du temps et du trigger
 		ch1 = new Channel(signaux, 1, "CH1", ecran);	//channels associes au signaux
@@ -116,6 +122,7 @@ public class Oscilloscope extends JFrame{
 		boutonsAffichageMenus.add(runStop);
 	}
 	
+	
 	/**
 	 * Methode deportee pour ajouter tous les elements a l'espace central : channel, temps, trigger...
 	 * @param JPanel affichageGestionChannels : le conteneur central
@@ -125,5 +132,12 @@ public class Oscilloscope extends JFrame{
 		affichageGestionChannels.add(ch2);
 		affichageGestionChannels.add(gestionTemps);	//Gestion du temps
 		
+	}
+	
+	
+	public void actionPerformed (ActionEvent e){	//gere les actions apres un clic sur les boutons de selection des menus a gauche de l ecran
+		if (e.getSource()== mesures){
+			ecran.menus = new MenuMesures (signaux);		
+		}
 	}
 }
