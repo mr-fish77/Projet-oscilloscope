@@ -8,7 +8,7 @@ public class Grille extends JPanel {
 	/** Les signaux. */
 	Signal[] signaux;
 	
-	/** Couleur d'arrière-plan ou d'avant-plan. */
+	/** Couleur d'arriere-plan ou d'avant-plan. */
 	Color arrierePlan = Ecran.arrierePlan, avantPlan = Ecran.avantPlan;
 	
 	/** Cree la grille.
