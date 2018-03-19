@@ -198,8 +198,7 @@ public abstract class Signal {
 	 * @param p Phase à appliquer, sa valeur est entre -pi et pi.
 	 */
 	public void setDephasage(double p){
-		p = p % (2*Math.PI);
-		dephasage = p - Math.PI;
+		dephasage = p % (2*Math.PI);
 	}
 	
 	/** Active un signal.
