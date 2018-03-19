@@ -16,7 +16,7 @@ public class GestionTemps extends JPanel implements PotentiometreListener{
 	private Potentiometre potDiv;	//potentiometre volts/div
 	private BoutonTexte chMenu;		//bouton affichage menu du signal
 	
-	private Grille grille;
+	private Ecran ecran;
 	
 	private double decalage;
 	private static final double[] ECHELLES = {1, 0.5, 0.2, 0.1, 0.01, 0.005, 0.001, 0.0005, 0.0001, 0.00005, 0.00001, 0.000005, 0.000001, 0.0000005, 0.0000001};
@@ -26,9 +26,11 @@ public class GestionTemps extends JPanel implements PotentiometreListener{
 	 * Constructeur qui cree l'interface graphique du channel
 	 * Signal[] signaux : les signaux
 	 */
-	public GestionTemps(Signal[] signaux, Grille grille){
+	public GestionTemps(Signal[] signaux, Ecran ecran){
 		this.signaux = signaux;
-		this.grille = grille;
+		this.ecran = ecran;
+		
+		ecran.bas.setTemps("Temps : " + ECHELLES[compteurEchelle] + " Sec/div");
 		
 		setLayout(new GridBagLayout());//Layout plus complique mais permet de gerer a peu pres bien
 		GridBagConstraints contraintes = new GridBagConstraints();
@@ -85,7 +87,8 @@ public class GestionTemps extends JPanel implements PotentiometreListener{
 			//on l'attribue a chacun des signaux
 			signaux[0].decalageX = decalage;
 			signaux[1].decalageX = decalage;
-			grille.repaint();
+			ecran.bas.setText("Decalage temps : " + (double)(Math.round(decalage*100))/100 + " div");
+			ecran.repaint();
 			
 		}else if(potentiometre.equals(potDiv)){	//reglage echele
 			if((compteurEchelle >= 0 && compteurEchelle < (ECHELLES.length - 1) && evolutionCran > 0) || (compteurEchelle < (ECHELLES.length) && compteurEchelle > 0 && evolutionCran < 0)) {	//on regarde qu'on est toujours dans les clous du tableau
@@ -93,7 +96,8 @@ public class GestionTemps extends JPanel implements PotentiometreListener{
 				//attribution au 2 signaux
 				signaux[0].echelleX = ECHELLES[compteurEchelle];
 				signaux[1].echelleX = ECHELLES[compteurEchelle];
-				grille.repaint();
+				ecran.bas.setTemps("Temps : " + ECHELLES[compteurEchelle] + " Sec/div");
+				ecran.repaint();
 			}
 			
 		}
