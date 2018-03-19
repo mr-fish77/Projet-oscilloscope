@@ -3,6 +3,7 @@ import java.util.ArrayList;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JButton;
 
 public class MenuManager extends JPanel {
 	
@@ -13,7 +14,7 @@ public class MenuManager extends JPanel {
 	private JLabel titre = new JLabel ();
 	
 	/** Les 5 menus. */
-	protected ArrayList<JPanel> menus = new ArrayList<JPanel>();
+	protected ArrayList<JButton> menus = new ArrayList<JButton>();
 	
 	public MenuManager(Signal[] s) {
 		signaux = s;

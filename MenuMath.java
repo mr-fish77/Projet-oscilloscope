@@ -9,7 +9,7 @@ import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
 
-public class MenuMath extends JFrame implements ActionListener{
+public class MenuMath extends MenuManager implements ActionListener{
 	
 	private JButton Ajouter = new JButton("Ajouter");
 	private JButton Soustraire1= new JButton("Soustraction de ch1 a ch2");
@@ -17,18 +17,23 @@ public class MenuMath extends JFrame implements ActionListener{
 	private JButton Inverser1= new JButton("inverser CH1 ");
 	private JButton Inverser2= new JButton("inverser CH2 ");
 	private JButton Math= new JButton("Math");
-	private JPanel Menu= new JPanel();
 	
-	/*Math.addActionListener(this);
-	Ajouter.addActionListener(this);
-	Soustraire1.addActionListener(this);
-	Soustraire2.addActionListener(this);
-	Inverser.addActionListener(this);
+	public MenuMath(Signal[] tableauDeSignaux){
+		nuagePoint1= tableauDeSignaux[0].nuagePoint;
+		nuagePoint2= tableauDeSignaux[1].nuagePoint;
+		Ajouter.addActionListener(this);
+		Soustraire1.addActionListener(this);
+		Soustraire2.addActionListener(this);
+		Inverser1.addActionListener(this);
+		Inverser2.addActionListener(this);
 	
-	Menu.add( Ajouter, Soustraire, Multiplication);
-	Ajouter.setBounds();
-	Multiplier.setBounds();
-	Soustraction.setBounds();*/ //jai un petit problème là
+		menus.add(Ajouter);
+		menus.add(Soustraire1);
+		menus.add(Soustraire2);
+		menus.add(Inverser1);
+		menus.add(Inverser2);
+	}
+
 	
 	public void actionPerformed( ActionEvent e){
 		Menu.setBounds(0,0,0,0);/*a definir avec vous aussi */
