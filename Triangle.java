@@ -42,29 +42,7 @@ public class Triangle extends Signal {
            
                 
                 nuagePoint[i + ((NB_POINTS * CASE_X)/2)][0] = (double) ( (  (((i * echelleX))/ NB_POINTS)) * nbPixelX / this.echelleX )   + ox; //mise a l'echlle des x
-                
-                      
-                if( (Math.abs( (double) (((i * echelleX)/ NB_POINTS)) -  xChangement)) >= periode/2 ){ //chagement de coef directeur toutes les demi-périodes
-                      xChangement= (double) ((i * echelleX)/ NB_POINTS);  
-                      iChangement = (double) (((i * echelleX))/ NB_POINTS);
-                      
-                       if(coefDirecteur > 0){
-                            coefDirecteur = - (2 * this.getAmplitude()) / ((1/this.getFreq())/2);
-                            ordonneO = this.getAmplitude();
-                            //System.out.println( " changement de coef  " );
-
-                            }
-                      else if(coefDirecteur < 0){
-                           coefDirecteur = (2 * this.getAmplitude()) / ((1/this.getFreq())/2);
-                           ordonneO = - this.getAmplitude();
-                            //System.out.println( " changement de coef  " );
-
-                       }
-                      
-                      
-                }
-                nuagePoint[i + ((NB_POINTS * CASE_X)/2)][1] = ( coefDirecteur * ( ((double) i * echelleX/ NB_POINTS) -  iChangement) +  ordonneO  )      * nbPixelY  / this.echelleY    + oy; //valeur du signal avec mise à l'echelle
-
+				nuagePoint[i + ((NB_POINTS * CASE_X)/2)][1] = (double) (-fctTriangle(freq * ((i * echelleX / NB_POINTS) - decalageX * echelleX)) * (amplitude / echelleY) * nbPixelY + oy);
                 //System.out.println( i +  "  x = " + nuagePoint[i + ((NB_POINTS * CASE_X)/2)][0] ); //return pour debug
                 //System.out.println ( "   y = " + nuagePoint[i + ((NB_POINTS * CASE_X)/2)][1] );
             
@@ -72,6 +50,32 @@ public class Triangle extends Signal {
        
        
     }
+    
+    public double fctTriangle(double x){
+		if(x<0){
+			x = (-x)%1;
+			
+			if(x<=0.25){
+				return(-4*x);
+			}else if(x<=0.75){
+				return(-2 + 4*x);
+			}else{
+				return(4 - 4*x);
+			}
+		
+		}else{
+			x = x%1;
+			
+			if(x<=0.25){
+				return(4*x);
+			}else if(x<=0.75){
+				return(2 - 4*x);
+			}else{
+				return(-4 + 4*x);
+			}
+		}
+		
+	}
     
     /** @return la forme du Signal, ici : TRI. */
 	public String getForme() {return SIGNAL_TYPES[1];}
