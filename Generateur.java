@@ -110,7 +110,8 @@ public class Generateur extends JFrame implements ActionListener, MouseListener 
 		mainPanel.add(txt2);
 		
 		/* Affichage. */
-		refreshItems();
+		refreshItems(0);
+		refreshItems(1);
 		setContentPane(mainPanel);
 		init_done = true;
 		setVisible(true);
@@ -123,9 +124,10 @@ public class Generateur extends JFrame implements ActionListener, MouseListener 
 		}
 	}
 	
-	
-	/** Re-calcule le texte affiche dans tous les composants le necessitant. */
-	private void refreshItems(){
+	/** Re-calcule le texte affiche dans tous les composants le necessitant. 
+	 * @param i Numero du signal dont il faut actualiser les composants. 
+	 * */
+	private void refreshItems(int i){
 		// Pour stocker les get-Xx-As-String de Signal.
 		String [] s; 
 		
@@ -135,41 +137,40 @@ public class Generateur extends JFrame implements ActionListener, MouseListener 
 		for (Component l : labelTemp)
 			labels.add((JLabel)l);
 		
-		// Pour chaque signal...
-		for(int i = 0; i < signal.length ; i++) {
-			// Recuperation des composants du Sig-Pan
-			Component[] tempTab = pan[i].getComponents();
-			
-			/* Actif ou non.
-			 * Appele uniquement une fois, ensuite c'est dans MouseClicked. */
-			if(!init_done) {
-				labels.get(5*i+1).setText("OFF");
-				labels.get(5*i+1).setForeground(Color.DARK_GRAY);
-			}
-			// Types de signaux.
-			labels.get(5*i+2).setText(signal[i].getForme());
-			JComboBox<String> tempComboBox = (JComboBox) tempTab[1];
-			tempComboBox.setSelectedItem(signal[i].getForme());
-			
-			// Frequence.
-			s = signal[i].getFreqAsString();
-			labels.get(5*i+3).setText(s[0] + " " + s[1]);
-			JTextField tempTxtField = (JTextField) tempTab[7];
-			tempTxtField.setText(s[0]);
-			tempComboBox = (JComboBox) tempTab[8];
-			tempComboBox.setSelectedItem(s[1]);
-			
-			// Amplitude.
-			s = signal[i].getAmplAsString();
-			labels.get(5*i+4).setText(s[0] + " " + s[1]);
-			tempTxtField = (JTextField) tempTab[4];
-			tempTxtField.setText(s[0]);
-			tempComboBox = (JComboBox) tempTab[5];
-			tempComboBox.setSelectedItem(s[1]);
+		// Recuperation des composants du Sig-Pan
+		Component[] tempTab = pan[i].getComponents();
+		
+		/* Actif ou non.
+		 * Appele uniquement une fois, ensuite c'est dans MouseClicked. */
+		if(!init_done) {
+			labels.get(5*i+1).setText("OFF");
+			labels.get(5*i+1).setForeground(Color.DARK_GRAY);
 		}
+		
+		// Types de signaux.
+		labels.get(5*i+2).setText(signal[i].getForme());
+		JComboBox<String> tempComboBox = (JComboBox) tempTab[1];
+		tempComboBox.setSelectedItem(signal[i].getForme());
+		
+		// Frequence.
+		s = signal[i].getFreqAsString();
+		labels.get(5*i+3).setText(s[0] + " " + s[1]);
+		JTextField tempTxtField = (JTextField) tempTab[7];
+		tempTxtField.setText(s[0]);
+		tempComboBox = (JComboBox) tempTab[8];
+		tempComboBox.setSelectedItem(s[1]);
+		
+		// Amplitude.
+		s = signal[i].getAmplAsString();
+		labels.get(5*i+4).setText(s[0] + " " + s[1]);
+		tempTxtField = (JTextField) tempTab[4];
+		tempTxtField.setText(s[0]);
+		tempComboBox = (JComboBox) tempTab[5];
+		tempComboBox.setSelectedItem(s[1]);
 	}
 	
-	/** Permet de recevoir l'ecran de l'oscilloscope */
+	/** Permet de recevoir l'ecran de l'oscilloscope. 
+	 * @param ecran L'ecran a mettre en parametre. */
 	public void setEcran(Ecran ecran) {
 		this.ecran = ecran;
 	}
@@ -299,7 +300,7 @@ public class Generateur extends JFrame implements ActionListener, MouseListener 
 			default:
 				signal[n].setFreq(valeursSaisies[1]);	
 			}
-			
+			refreshItems(n);
 			break;
 		case 'a': // Bouton PAR DEFAUT
 			this.signal[n] = new Sinus(n + 1); // Reinitialise un Signal en recreant une instance.
@@ -309,10 +310,11 @@ public class Generateur extends JFrame implements ActionListener, MouseListener 
 			JLabel txt = (JLabel)(affInfos.getComponent(5*n+1));
 			txt.setText("OFF");
 			txt.setForeground(Color.DARK_GRAY);
+			refreshItems(n);
 			break;
+		case 'n':
+			refreshItems(n);
 		}
-		
-		refreshItems();
 		refreshOscillo();
 	}
 	
