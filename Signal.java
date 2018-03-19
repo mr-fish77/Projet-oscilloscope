@@ -118,9 +118,9 @@ public abstract class Signal {
 	}
 	
 	/** 
-	 * @return L'amplitude en radians. 
+	 * @return Le dephasage en radians. 
 	 */
-	public double getPhase(){
+	public double getDephasage(){
 		return dephasage;
 	}
 

@@ -9,12 +9,15 @@ import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.ChangeEvent;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JSlider;
 import javax.swing.JTextField;
 
 public class Generateur extends JFrame implements ActionListener, MouseListener {
@@ -167,6 +170,12 @@ public class Generateur extends JFrame implements ActionListener, MouseListener 
 		tempTxtField.setText(s[0]);
 		tempComboBox = (JComboBox) tempTab[5];
 		tempComboBox.setSelectedItem(s[1]);
+		
+		// Dephasage.
+		double phase = (signal[i].getDephasage());
+		pan[i].slider.setValue((int)(phase*100.));
+		tempTxtField = (JTextField) tempTab[10];
+		tempTxtField.setText(Double.toString(phase));
 	}
 	
 	/** Permet de recevoir l'ecran de l'oscilloscope. 
@@ -187,15 +196,16 @@ public class Generateur extends JFrame implements ActionListener, MouseListener 
 		JComboBox<String> signalType = new JComboBox<String>(Signal.SIGNAL_TYPES);
 		JComboBox<String> ampUnit = new JComboBox<String>(Signal.AMPL_UNITES);
 		JComboBox<String> freqUnit = new JComboBox<String>(Signal.FREQ_UNITES);
+		JSlider slider = new JSlider(JSlider.HORIZONTAL, 0, (int)(100*Math.PI), 0);
 		
 		/** Constructeur.
-		 * @param sig Signal concerne
+		 * @param n Indice du signal concerne
 		 * @param posY Position selon y
 		 */
 		public SigPan(int n, int posY) {
 			super();
 			setBounds(0, posY, SIZE, 150);
-			setLayout(new GridLayout(4,3));
+			setLayout(new GridLayout(5,3));
 			setBackground(Color.WHITE);
 			
 			/* Initialisation des JTextField et JButton en attributs. */
@@ -226,7 +236,22 @@ public class Generateur extends JFrame implements ActionListener, MouseListener 
 			add(txtField[1]);
 			add(freqUnit);
 			
-			/* Ligne 4 : les boutons. */
+			/* Ligne 4 : le dephasage. */
+			JTextField sliderLabel = new JTextField("0.0");
+			sliderLabel.setFont(DEFAULT_FONT);
+			sliderLabel.setEditable(false);
+			slider.addChangeListener(new ChangeListener(){
+				@Override
+				public void stateChanged(ChangeEvent e){
+					double valueToSet = (double)(slider.getValue())/100.;
+					sliderLabel.setText(Double.toString(valueToSet));
+				}
+			});
+			add(slider);
+			add(sliderLabel);
+			add(new JPanel());
+			
+			/* Ligne 5 : les boutons. */
 			for (JButton b : boutons) {
 				b.setFont(DEFAULT_FONT);
 				add(b);
@@ -300,6 +325,10 @@ public class Generateur extends JFrame implements ActionListener, MouseListener 
 			default:
 				signal[n].setFreq(valeursSaisies[1]);	
 			}
+			
+			// Dephasage
+			signal[n].setDephasage((double)(pan[n].slider.getValue())/100.);
+			
 			refreshItems(n);
 			break;
 		case 'a': // Bouton PAR DEFAUT
