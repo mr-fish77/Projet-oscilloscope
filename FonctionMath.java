@@ -3,83 +3,93 @@
  * @author Anas
  *
  */
-
+import java.awt.*;
+import javax.swing.*;
+import java.awt.event.*;
 
 
 public class FonctionMath{
 	
+	public double[][] resultat;
 	public double[][] nuagePoint1;
 	public double[][] nuagePoint2;
+	public boolean active;
 	
-	public FonctionMath (Signal signal1,Signal signal2){
-		nuagePoint1= signal1.nuagePoint;/* il faut definir deux signaux */
-		nuagePoint2= signal2.nuagePoint;
+	
+	public FonctionMath (Signal[] signaux){
+		nuagePoint1= signaux[0].nuagePoint;
+		nuagePoint2= signaux[1].nuagePoint;
+		active=true;
 	}
 	
-	public double[][] Addition( double[][] nuagePoint1,double[][] nuagePoint2){
+	public void  Addition( ){
 		double[][] resultat1 = new double[nuagePoint1.length][nuagePoint1[0].length];
 		for (int i = 0; i < nuagePoint1.length; i++)
 		{
 			for (int j = 0; i < nuagePoint1[0].length ; i++)
 			{
-				resultat1[i][j]=nuagePoint1[i][j]+nuagePoint2[i][j];
+				resultat[i][j]=nuagePoint1[i][j]+nuagePoint2[i][j];
 			}
 			
 		}
-		return(resultat1);
 	}
 	
-	public double[][] Soustraction1( double[][] nuagePoint1,double[][] nuagePoint2){ /*soustrait ch1 a ch2 */
-		double[][] resultat2 = new double[nuagePoint1.length][nuagePoint1[0].length];
+	public void Soustraction1( ){ /*soustrait ch1 a ch2 */
 		for (int i = 0; i < nuagePoint1.length; i++)
 		{
 			for (int j = 0; i < nuagePoint1[0].length ; i++)
 			{
-				resultat2[i][j]=nuagePoint1[i][j]-nuagePoint2[i][j];
+				resultat[i][j]=nuagePoint1[i][j]-nuagePoint2[i][j];
 			}
 			
 		}
-		return(resultat2);
 	}
 	
-	public double[][] Soustraction2( double[][] nuagePoint1,double[][] nuagePoint2){ /*soustrait ch2 a ch1 */
-		double[][] resultat3 = new double[nuagePoint1.length][nuagePoint1[0].length];
+	public void Soustraction2( ){ /*soustrait ch2 a ch1 */
 		for (int i = 0; i < nuagePoint1.length; i++)
 		{
 			for (int j = 0; i < nuagePoint1[0].length ; i++)
 			{
-				resultat3[i][j]=nuagePoint1[i][j]-nuagePoint2[i][j];
+				resultat[i][j]=nuagePoint1[i][j]-nuagePoint2[i][j];
 			}
 			
 		}
-		return(resultat3);
 	}
 	
-	public double[][] inverse1( double[][] nuagePoint1 ){ /*inverse ch1 */
-		double[][] resultat4 = new double[nuagePoint1.length][nuagePoint1[0].length];
+	public void inverse1( ){ /*inverse ch1 */
 		for (int i = 0; i < nuagePoint1.length; i++)
 		{
 			for (int j = 0; i < nuagePoint1[0].length ; i++)
 			{
-				resultat4[i][j]=1/(nuagePoint1[i][j]);
+				resultat[i][j]=1/(nuagePoint1[i][j]);
 			}
 			
 		}
-		return(resultat4);
 	}
 	
-	public double[][] inverse2( double[][] nuagePoint2 ){ /*inverse ch2 */
-		double[][] resultat5 = new double[nuagePoint2.length][nuagePoint2[0].length];
+	public void inverse2( ){ /*inverse ch2 */
 		for (int i = 0; i < nuagePoint2.length; i++)
 		{
 			for (int j = 0; i < nuagePoint2[0].length ; i++)
 			{
-				resultat5[i][j]=1/(nuagePoint2[i][j]);
+				resultat[i][j]=1/(nuagePoint2[i][j]);
 			}
 			
 		}
-		return(resultat5);
 	}
+	
+	public void dessineCourbe(Graphics g) {
+    	if(active) {		//on regarde si le signal doit etre affiche
+	        g.setColor(Color.RED);
+	        
+	        int a = 0;
+	        while(a < (resultat.length-1)){
+	            g.drawLine((int) (resultat[a][0]), (int) (resultat[a][1]),(int) (resultat[a+1][0]),(int) (resultat[a+1][1]));
+	            a++;
+	        }
+    	}
+	    	
+    }
 	
 	
 }	

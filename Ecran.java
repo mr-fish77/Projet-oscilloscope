@@ -11,7 +11,7 @@ import javax.swing.JPanel;
 public class Ecran extends JPanel{
 	/** Couleur d'arriere-plan ou d'avant-plan. */
 	public final static Color arrierePlan = Color.WHITE, avantPlan = Color.BLACK;
-	/** Objets graphiques utilisés. */
+	/** Objets graphiques utilises. */
 	public Grille grille; public MenuManager menus; private MenuDuBas bas;
 	/** Les signaux. */
 	private Signal[] signaux;

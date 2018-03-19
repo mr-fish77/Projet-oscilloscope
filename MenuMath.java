@@ -18,9 +18,8 @@ public class MenuMath extends MenuManager implements ActionListener{
 	private JButton Inverser2= new JButton("inverser CH2 ");
 	private JButton Math= new JButton("Math");
 	
-	public MenuMath(Signal[] tableauDeSignaux){
-		nuagePoint1= tableauDeSignaux[0].nuagePoint;
-		nuagePoint2= tableauDeSignaux[1].nuagePoint;
+	public MenuMath(Signal[] s){
+		super(s);
 		Ajouter.addActionListener(this);
 		Soustraire1.addActionListener(this);
 		Soustraire2.addActionListener(this);

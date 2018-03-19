@@ -24,9 +24,7 @@ public class MenuManager extends JPanel implements ActionListener{
 	/** Ecrit le titre et affiche les 5 boutons. 
 	 * @param g L'element graphique fort appreciable. */
 	public void paint (Graphics g) {
-		super.repaint();
-		g.setColor(java.awt.Color.BLACK);
-		g.fillRect(0, 0, this.getWidth(), this.getHeight());
+		super.paint(g);
 		
 		int titreHeight = 50;
 		titre.setBounds(0, 0, this.getWidth(), titreHeight);

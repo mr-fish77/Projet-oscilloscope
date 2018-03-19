@@ -8,6 +8,9 @@ public class Grille extends JPanel {
 	/** Les signaux. */
 	Signal[] signaux;
 	
+	/**fonctionMath**/
+	FonctionMath smaths;
+	
 	/** Couleur d'arriere-plan ou d'avant-plan. */
 	Color arrierePlan = Ecran.arrierePlan, avantPlan = Ecran.avantPlan;
 	
@@ -32,6 +35,7 @@ public class Grille extends JPanel {
 		
 		signaux[1].miseAEchelle(getWidth(), getHeight());
 		signaux[1].dessineCourbe(g);
+		
 	}
 	
 	/**
