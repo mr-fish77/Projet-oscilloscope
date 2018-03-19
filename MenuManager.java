@@ -1,4 +1,5 @@
 import java.awt.Graphics;
+import java.awt.Color;
 import java.util.ArrayList;
 
 import javax.swing.JLabel;
@@ -17,15 +18,15 @@ public class MenuManager extends JPanel {
 	protected ArrayList<JButton> menus = new ArrayList<JButton>();
 	
 	public MenuManager(Signal[] s) {
+		super();
+		setBackground(Color.BLACK);
 		signaux = s;
 	}
 	
 	/** Ecrit le titre et affiche les 5 boutons. 
 	 * @param g L'element graphique fort appreciable. */
 	public void paint (Graphics g) {
-		super.repaint();
-		g.setColor(java.awt.Color.BLACK);
-		g.fillRect(0, 0, this.getWidth(), this.getHeight());
+		super.paint(g);
 		
 		int titreHeight = 50;
 		titre.setBounds(0, 0, this.getWidth(), titreHeight);

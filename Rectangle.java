@@ -47,15 +47,7 @@ public class Rectangle extends Signal {
            
                 
                 nuagePoint[i + ((NB_POINTS * CASE_X)/2)][0] = (double) ( (  (((i * echelleX))/ NB_POINTS)) * nbPixelX / this.echelleX )   + ox; //mise à l'echlle des x
-                
-               if( (Math.abs( (double) (((i * echelleX)/ NB_POINTS)) -  xChangement )) >= periode/2 ){ //chagement de signe toutes les demi-periodes
-                      xChangement= (double) ((i * echelleX)/ NB_POINTS);
-                      if(signe == -1) signe = 1;
-                      else if(signe == 1) signe = - 1;
-
-                }
-                nuagePoint[i + ((NB_POINTS * CASE_X)/2)][1] = (double)   ((this.getAmplitude() * signe  * nbPixelY ) / this.echelleY)   + oy; //valeur du signal
-                
+				nuagePoint[i + ((NB_POINTS * CASE_X)/2)][1] = (double) (-fctRectangle(freq * ((i * echelleX / NB_POINTS) - decalageX * echelleX)) * (amplitude / echelleY) * nbPixelY + oy);                
                 //System.out.print( i +  "  x = " + nuagePoint[i + ((NB_POINTS * CASE_X)/2)][0] ); //return pour debug
                 //System.out.println ( "   y = " + nuagePoint[i + ((NB_POINTS * CASE_X)/2)][1] );
             
@@ -63,6 +55,29 @@ public class Rectangle extends Signal {
        
        
     }
+    
+     public double fctRectangle(double x){
+		if(x<0){
+			x = (-x)%1;
+			
+			if(x<=0.5){
+				return(-1);
+			}else{
+				return(1);
+			}
+		
+		}else{
+			x = x%1;
+			
+			if(x<=0.5){
+				return(1);
+			}else{
+				return(-1);
+			}
+		}
+		
+	}
+    
     
     /** Renvoie la forme du Signal, ici : REC. */
 	public String getForme() {return SIGNAL_TYPES[2];}

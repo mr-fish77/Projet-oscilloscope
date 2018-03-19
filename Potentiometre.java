@@ -71,8 +71,6 @@ public class Potentiometre extends JLabel implements MouseMotionListener, MouseL
       }else{
         affichageRotation(g);
       }
-      
-
   }
 
   
@@ -118,8 +116,8 @@ public class Potentiometre extends JLabel implements MouseMotionListener, MouseL
    * Detection du clic de souris, pour mettre le potentiometre en vert
    * @param m Informations sur l'emplacement de la souris. */
   public void mousePressed(MouseEvent m){ 
-    xMem = m.getX() - decaX;       //position initiale de la souris (relative par rapport au centre du potentiometre)
-    yMem = m.getY() - decaY;
+    xMem = m.getX() - decaX - taille/2;       //position initiale de la souris (relative par rapport au centre du potentiometre)
+    yMem = m.getY() - decaY - taille/2;
     couleurPolygone = Color.GREEN;    //on le met en vert pour montrer qu'il est actif
     repaint();
   }
@@ -140,12 +138,12 @@ public class Potentiometre extends JLabel implements MouseMotionListener, MouseL
    * @param m Informations sur l'emplacement de la souris.
    */
   public void mouseDragged(MouseEvent m){
-    double x = m.getX() - decaX;   //on recupere la position relative par rapport au centre
-    double y = m.getY() - decaY;
+    double x = m.getX() - decaX - taille/2;   //on recupere la position relative par rapport au centre
+    double y = m.getY() - decaY - taille/2;
 
     double a = Math.atan2( xMem*y - yMem*x, xMem*x + yMem*y );  //on en deduit l'angle par rapport au precedent cran (formule d'internet)
 
-    if(Math.abs(a) > 0.3926990817){ //si l'angle est supperieur à 22,5 degre on change de cran (c'est la moitie d'un angle d'octogone)
+    if(Math.abs(a) > 1){ //si l'angle est supperieur à 22,5 degre on change de cran (c'est la moitie d'un angle d'octogone)
       if(listener != null) {
     	listener.potentiometrePerformed(this, (int)(a/Math.abs(a)));
       }
