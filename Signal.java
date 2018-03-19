@@ -7,6 +7,8 @@ public abstract class Signal {
 	protected double amplitude;
 	/** Frequence du signal en Hz. */
 	protected double freq;
+	/** Dephasage en radians.*/
+	protected double dephasage;
 	/** Numero du signal : 1 ou 2. */
 	public final int NUMERO;
 	
@@ -66,6 +68,7 @@ public abstract class Signal {
 		active = false;
 		NUMERO = n;
 		couleur = COULEURS_SIGNAUX[n-1];
+		dephasage = 0;
 		
 		echelleX = 5;
 		echelleY = 1;
@@ -112,6 +115,13 @@ public abstract class Signal {
 	 */
 	public double getFreq() {
 		return freq;
+	}
+	
+	/** 
+	 * @return L'amplitude en radians. 
+	 */
+	public double getPhase(){
+		return dephasage;
 	}
 
 	/** 
@@ -169,7 +179,7 @@ public abstract class Signal {
 		}
 	}
 
-	/**
+	/** Modifie la valeur de la frequence.
 	 * @param freq
 	 *            La frequence a appliquer.
 	 * 	      Valeur comprise entre 1 Hz et MAX_FREQ.
@@ -182,6 +192,14 @@ public abstract class Signal {
 		} else {
 			this.freq = freq;
 		}
+	}
+	
+	/** Modifie la valeur du dephasage.
+	 * @param p Phase à appliquer, sa valeur est entre -pi et pi.
+	 */
+	public void setDephasage(double p){
+		p = p % (2*Math.PI);
+		dephasage = p - Math.PI;
 	}
 	
 	/** Active un signal.
@@ -198,7 +216,7 @@ public abstract class Signal {
 		return this.active;
 	}
 	
-	/** Indique si les signaux sont les memes. 
+	/** Indique si les signaux sont les memes. La verification se fait sur leurs numeros. 
 	 * @param sig Le signal a verifier.
 	 * @return true si leurs numeros sont identiques.
 	 */
