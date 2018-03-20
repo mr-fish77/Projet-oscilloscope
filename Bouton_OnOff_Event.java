@@ -11,6 +11,10 @@ public class Bouton_OnOff_Event {
 	 * normalement renseignee par l'utilisateur. */
 	private String actionCommand;
 	
+	/** Si c'est le cas, valeur numerique 
+	 * du dernier caractere de l'ActionCommand. */
+	private int chiffre;
+	
 	/** Valeur du Bouton_OnOff lors d'un clic. */
 	private boolean actualValue;
 	
@@ -28,6 +32,9 @@ public class Bouton_OnOff_Event {
 		actualValue = btn.valeur();
 		
 		time = System.currentTimeMillis();
+		
+		char lastChar = actionCommand.charAt(actionCommand.length()-1);
+		chiffre = Character.getNumericValue(lastChar);
 	}
 	
 	/** @return Le Bouton_OnOff source sous forme de Component. */
@@ -53,5 +60,13 @@ public class Bouton_OnOff_Event {
 	/** @return L'heure de l'evenement. */
 	public long getTime() {
 		return time;
+	}
+	
+	/** @return Le dernier chiffre de l'ActionCommand. */
+	public int getChiffre() {
+		if (this.chiffre == -1) {
+			System.out.println("Warning : getChiffre() returns an invalid value.");
+		}
+		return this.chiffre;
 	}
 }

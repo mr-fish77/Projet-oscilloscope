@@ -133,6 +133,7 @@ public class Bouton_OnOff extends JPanel implements MouseListener {
 	 *            Chaine de caracteres qui caracterise l'action.
 	 */
 	public void addListener(Bouton_OnOff_Listener l, String actionCommand) {
+		this.addMouseListener(this);
 		listener = l;
 		this.actionCommand = actionCommand;
 	}

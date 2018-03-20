@@ -12,7 +12,7 @@ public class Ecran extends JPanel{
 	/** Couleur d'arriere-plan ou d'avant-plan. */
 	public final static Color arrierePlan = Color.WHITE, avantPlan = Color.BLACK;
 	/** Objets graphiques utilises. */
-	public Grille grille; public MenuManager menus; private MenuDuBas bas;
+	public Grille grille; public MenuManager menus; public MenuDuBas bas;
 	/** Les signaux. */
 	private Signal[] signaux;
 	
@@ -33,6 +33,9 @@ public class Ecran extends JPanel{
         add(bas);
 	}
 	
+	/** Actualise l'affichage de l'ecran.
+	 * @param g L'element graphique toujours le bienvenu.
+	 */
 	public void paint (Graphics g) {
 		// On recupere la taille de la fenetre.
 		double actualWidth = this.getWidth();
@@ -42,7 +45,5 @@ public class Ecran extends JPanel{
 		grille.setBounds(0, 0, (int)(.75*actualWidth), (int)(.95*actualHeight));
 		menus.setBounds((int)(.75*actualWidth), 0, (int)(.25*actualWidth), (int)(.95*actualHeight));
 		bas.setBounds(0, (int)(.95*actualHeight), (int)actualWidth, (int)(.05*actualHeight));
-		grille.repaint(); menus.repaint(); bas.repaint();
 	}
-
 }

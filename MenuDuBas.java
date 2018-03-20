@@ -3,19 +3,23 @@ import javax.swing.JLabel;
 import java.awt.*;
 
 public class MenuDuBas extends JPanel {
-	// informations generales
+	/** Informations generales. */
 	private JLabel texte;
+	/** Les signaux. */
+	Signal[] signaux;
 	
-	// JLabel associes a chaque information de volts/div ou sec/div
-	private JLabel texteCh1;
-	private JLabel texteCh2;
-	private JLabel texteTemps;
-	private JPanel conteneurInfo;	//contient les 3 precedents JLabels
+	/** JLabel associes a chaque information de volts/div ou sec/div. */
+	private JLabel texteCh1, texteCh2, texteTemps;
+	/** Contient l'ensemble des JLabel. */
+	private JPanel conteneurInfo;
 	
 	/**
 	 * Constructeur du menu du bas
+	 * @param s Les signaux.
 	 */
-	public MenuDuBas() {
+	public MenuDuBas(Signal[] s) {
+		signaux = s;
+		
 		setLayout(new BorderLayout());
 		
 		//informations generales

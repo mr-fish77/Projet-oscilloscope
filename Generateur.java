@@ -174,7 +174,7 @@ public class Generateur extends JFrame implements ActionListener, Bouton_OnOff_L
 		// Dephasage.
 		double phase = (signal[i].getDephasage());
 		pan[i].slider.setValue((int)(phase*100.));
-		tempTxtField = (JTextField) tempTab[10];
+		tempTxtField = (JTextField) tempTab[11];
 		tempTxtField.setText(Double.toString(phase));
 	}
 	
@@ -237,19 +237,21 @@ public class Generateur extends JFrame implements ActionListener, Bouton_OnOff_L
 			add(freqUnit);
 			
 			/* Ligne 4 : le dephasage. */
-			JTextField sliderLabel = new JTextField("0.0");
+			JLabel phaseLab = new JLabel("Dephasage");
+			phaseLab.setFont(DEFAULT_FONT);
+			add(phaseLab);
+			JTextField sliderLabel = new JTextField("0.0 rad");
 			sliderLabel.setFont(DEFAULT_FONT);
 			sliderLabel.setEditable(false);
 			slider.addChangeListener(new ChangeListener(){
 				@Override
 				public void stateChanged(ChangeEvent e){
 					double valueToSet = (double)(slider.getValue())/100.;
-					sliderLabel.setText(Double.toString(valueToSet));
+					sliderLabel.setText(Double.toString(valueToSet) + " rad");
 				}
 			});
 			add(slider);
 			add(sliderLabel);
-			add(new JPanel());
 			
 			/* Ligne 5 : les boutons. */
 			for (JButton b : boutons) {
@@ -355,7 +357,7 @@ public class Generateur extends JFrame implements ActionListener, Bouton_OnOff_L
 	 */
 	public void btnClicked(Bouton_OnOff_Event evt) {
 		Bouton_OnOff src = evt.getSourceAsBtn(); // Objet source.
-		int n = evt.getActionCommand().charAt(evt.getActionCommand().length()-1); // Index du signal.
+		int n = evt.getChiffre(); // Index du signal.
 		
 		boolean b = !signal[n].getActive(); // Valeur a appliquer
 		signal[n].setActive(b); // On (des)active le signal.
