@@ -8,8 +8,15 @@ import javax.swing.JPanel;
 
 /**
  * Bouton a deux position : ON et OFF. Son constructeur permet de parametrer ses
- * couleurs. Par defaut, la valeur est false. Lors d'une modification de la
- * valeur, il faut Sa couleur indique l'etat (actif ou non) du Signal.
+ * couleurs. Par defaut, la valeur est false. 
+ * Pour l'utiliser, on l'initialise avec ses couleurs d'arriere et d'avant-plan.
+ * Il faut aussi lui definir un Listener et une actionCommand avec la methode 
+ * setListener(Bouton_OnOff_Listener l, String actionCommand). Lors d'un clic, 
+ * le Bouton_OnOff change sa valeur, sa couleur, et envoie un Bouton_OnOff_Event.
+ * On peut aussi le forcer a adopter une certaine position.
+ * Un Bouton_OnOff ne peut accepter qu'un unique objet Bouton_OnOff_Listener.
+ * Visuellement, la couleur du bouton indique sa valeur. 
+ * Il herite de JPanel donc toutes les methodes inherentes a JPanel sont possibles. 
  */
 public class Bouton_OnOff extends JPanel implements MouseListener {
 
@@ -23,10 +30,10 @@ public class Bouton_OnOff extends JPanel implements MouseListener {
 	private Bouton_OnOff_Listener listener;
 
 	/** Texte lie a l'action du Listener. */
-	private String actionCommand = "Bouton_OnOff" + this.hashCode();
+	private String actionCommand = "Bouton_OnOff: " + this.hashCode();
 
 	/**
-	 * Constructeur par defaut. Cree un bouton de taille 200*30 mais affiche comme
+	 * Constructeur par defaut. Cree un bouton de taille 200*30 mais affiche 
 	 * un cercle de rayon 30 au centre.
 	 * 
 	 * @param colorOn
@@ -43,11 +50,8 @@ public class Bouton_OnOff extends JPanel implements MouseListener {
 		COLOR_OFF = colorOff;
 	}
 
-	/**
-	 * Colorie le bouton d'apres la couleur correspondant a l'etat du Signal.
-	 * 
-	 * @param g
-	 *            L'element graphique tant appreciable.
+	/** Colorie le bouton d'apres la couleur correspondant a l'etat du Signal.
+	 * @param g L'element graphique tant appreciable.
 	 */
 	public void paint(Graphics g) {
 		// On recupere les dimensions de l'objet.
@@ -64,7 +68,7 @@ public class Bouton_OnOff extends JPanel implements MouseListener {
 			g.setColor(COLOR_OFF);
 		}
 
-		// On dessine vraiment l'objet.
+		// On dessine l'interieur de l'objet.
 		if (largeur > hauteur) {
 			g.fillOval((largeur - hauteur) / 2, 1, hauteur - 2, hauteur - 2);
 			g.setColor(Color.WHITE);
@@ -83,24 +87,21 @@ public class Bouton_OnOff extends JPanel implements MouseListener {
 		return valeur;
 	}
 
-	/** Inverse la valeur. Implique de repeindre l'objet. */
+	/** Inverse la valeur. */
 	public void changeValeur() {
 		valeur = !valeur;
 		repaint();
 	}
 
-	/**
-	 * @param b
-	 *            La valeur a appliquer.
-	 */
+	/** Modifie la valeur.
+	 * @param b La valeur a appliquer. */
 	public void setValeur(boolean b) {
 		valeur = b;
 		repaint();
 	}
 
-	/**
-	 * En cas de clic sur un Button_OnOff, cree un Bouton_OnOff_Event.
-	 * 
+	/** En cas de clic sur un Button_OnOff, cree un Bouton_OnOff_Event.
+	 * Si aucun listener n'est declare, rien ne se produit.
 	 * @param e
 	 *            L'evenement.
 	 */
