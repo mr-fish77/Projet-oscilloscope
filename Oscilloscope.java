@@ -81,18 +81,10 @@ public class Oscilloscope extends JFrame{
 		
 		JPanel affichageGestionChannels = new JPanel();
 		affichageGestionChannels.setLayout(new GridLayout(1, 4));
-		affichageGestionChannels.setBackground(Color.GREEN);
 		ajouterGestionChannels(affichageGestionChannels);	//methode deportee pour ajouter les elements
 		contraintes.gridy = 1;
 		contraintes.weighty = 1;
 		conteneurGestion.add(affichageGestionChannels, contraintes);
-		
-		//conteneur en bas, pour activer/desactiver les channels
-		JPanel branchementChannels = new JPanel();
-		branchementChannels.setBackground(Color.BLUE);
-		contraintes.gridy = 2;
-		contraintes.weighty = 0.5;
-		conteneurGestion.add(branchementChannels, contraintes);
 		
 		// Derniers preparatifs puis affichage.
 		ecran.repaint();

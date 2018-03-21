@@ -70,10 +70,10 @@ public abstract class Signal {
 		couleur = COULEURS_SIGNAUX[n-1];
 		dephasage = 0;
 		
-		echelleX = 5;
-		echelleY = 1;
 		decalageX = 0;
 		decalageY = 0;
+		
+    	this.nuagePoint = new double[NB_POINTS * CASE_X ][2]; 
 	}
 	
 	/**
@@ -95,7 +95,7 @@ public abstract class Signal {
 		decalageX = s.decalageX;
 		decalageY = s.decalageY;
 		
-		
+    	this.nuagePoint = new double[NB_POINTS * CASE_X ][2]; 
 	}
 	
 	/**
@@ -222,23 +222,37 @@ public abstract class Signal {
 	public boolean equals (Signal sig) {
 		return sig.NUMERO == this.NUMERO;
 	}
-    
-	/** Re-calcule les points pour l'affichage. */
-    public abstract void calculPoint();
+	
     
     /** met a l'echelle le signal 
 	 * @param taille affichage x
      * @param taille affichage y
 	 */
     public void miseAEchelle(int x, int y){
-        
-        nbPixelX = x / CASE_X;
+        nbPixelX = x / CASE_X;	//nombre de pixels par graduation
         nbPixelY = y / CASE_Y;
         
-        ox = x / 2;
+        ox = x / 2;	//position des axes, pour obtenir le centre du repere
         oy = y / 2;
-
     }
+    
+    
+    /** Methode qui recalcule les points des signaux en fonction de la taille de la fenetre...
+     */
+    public void calculPoint(){
+    	this.nuagePoint = new double[NB_POINTS * CASE_X ][2];
+    	for(int i = (int) (-((NB_POINTS * CASE_X)/2)) ; i < (nuagePoint.length /2) ; i++){ //soustraction pour remplir les nb negatifs
+            nuagePoint[i + ((NB_POINTS * CASE_X)/2)][0] = (i * echelleX/ NB_POINTS) * nbPixelX / this.echelleX   + ox; //mise à l'echlle des x
+			nuagePoint[i + ((NB_POINTS * CASE_X)/2)][1] =  - fonction(freq * ((i * echelleX / NB_POINTS) - decalageX * echelleX)) * (amplitude / echelleY) * nbPixelY + oy;                
+    	}
+    }
+    
+    
+    /** Methode generale pour les signaux de calcul d'une valeur en un point
+     * @param double x : le point de calcul de la fonction
+     * @return double : la valeur en x
+     */
+    public abstract double fonction(double x);
     
     
     /** Dessine la courbe si elle doit etre affichee

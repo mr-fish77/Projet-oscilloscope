@@ -30,7 +30,10 @@ public class GestionTemps extends JPanel implements PotentiometreListener{
 		this.signaux = signaux;
 		this.ecran = ecran;
 		
+		this.signaux[0].echelleX = ECHELLES[compteurEchelle];
+		this.signaux[1].echelleX = ECHELLES[compteurEchelle];
 		ecran.bas.setTemps("Temps : " + ECHELLES[compteurEchelle] + " Sec/div");
+		ecran.bas.setText("Decalage temps : " + String.format("%.2f", (double)(Math.round(decalage*100))/100) + " div");
 		
 		setLayout(new GridBagLayout());//Layout plus complique mais permet de gerer a peu pres bien
 		GridBagConstraints contraintes = new GridBagConstraints();
@@ -87,7 +90,7 @@ public class GestionTemps extends JPanel implements PotentiometreListener{
 			//on l'attribue a chacun des signaux
 			signaux[0].decalageX = decalage;
 			signaux[1].decalageX = decalage;
-			ecran.bas.setText("Decalage temps : " + (double)(Math.round(decalage*100))/100 + " div");
+			ecran.bas.setText("Decalage temps : " + String.format("%.2f", (double)(Math.round(decalage*100))/100) + " div");
 			ecran.repaint();
 			
 		}else if(potentiometre.equals(potDiv)){	//reglage echele

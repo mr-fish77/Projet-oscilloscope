@@ -1,9 +1,9 @@
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.util.LinkedList;
 
 import javax.swing.JLabel;
 
@@ -35,17 +35,16 @@ public class Potentiometre extends JLabel implements MouseMotionListener, MouseL
   private int cran;
   
   /** Gestion du cran du potentiometre */
-  private PotentiometreListener listener;
+  private LinkedList<PotentiometreListener> listener;
 
 
   /**
    * Constructeur qui genere un JPanel qui contient un potentiometre
    */
   public Potentiometre(){
-	super("0");
+	super("");
 	setHorizontalAlignment(JLabel.CENTER);
 	setVerticalAlignment(JLabel.CENTER);
-	setForeground(Color.BLACK);
 	
     cran = 0;
     switchAffichage = true; 	  // On commence par un octogone normal.
@@ -53,6 +52,8 @@ public class Potentiometre extends JLabel implements MouseMotionListener, MouseL
     addMouseListener(this);       //support des clics de la souris
     addMouseMotionListener(this); //et de ses mouvements
     setSize(taille, taille);      //on lui donne sa taille
+    
+    this.listener = new LinkedList<PotentiometreListener>();	//pour gerer le fait que le potentiometre peut-etre utilise pour differentes actions
   }
 
 
@@ -108,7 +109,7 @@ public class Potentiometre extends JLabel implements MouseMotionListener, MouseL
   	
   	
   public void addPotentiometreListener(PotentiometreListener listener) {
-	  this.listener = listener;
+	  this.listener.add(listener);
   }
 
 
@@ -144,8 +145,10 @@ public class Potentiometre extends JLabel implements MouseMotionListener, MouseL
     double a = Math.atan2( xMem*y - yMem*x, xMem*x + yMem*y );  //on en deduit l'angle par rapport au precedent cran (formule d'internet)
 
     if(Math.abs(a) > 1){ //si l'angle est supperieur à 22,5 degre on change de cran (c'est la moitie d'un angle d'octogone)
-      if(listener != null) {
-    	listener.potentiometrePerformed(this, (int)(a/Math.abs(a)));
+      if(!listener.isEmpty()) {
+    	for(PotentiometreListener pl : listener) {
+    		pl.potentiometrePerformed(this, (int)(a/Math.abs(a)));
+    	}
       }
 
       xMem = x;   //on change la sauvegarde de la position de la souris au niveau du cran

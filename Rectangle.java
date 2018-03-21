@@ -8,75 +8,45 @@ import java.awt.Color;
 
 
 public class Rectangle extends Signal {
-        
-   
-
-    /*public static void main (String[] args){
-		Rectangle essai = new Rectangle(1);
-        essai.calculPoint();
-	  }*/
-      
       
     /**
 	 * Constructeur par signal rectangle.
 	 */
     public Rectangle(int n){
         super(n);
-        this.nuagePoint = new double[NB_POINTS * CASE_X ][2]; 
     }
     
     public Rectangle(Signal s) {
     	super(s);
-    	this.nuagePoint = new double[NB_POINTS * CASE_X ][2]; 
     }
     
-     /** 
-      * calcul les points du signal pour l'affichage
-      */
-    public void calculPoint(){ 
-        
-       this.nuagePoint = new double[NB_POINTS * CASE_X ][2]; 
-       double signe = 1;
-       double periode = 1/ this.getFreq(); //periode du signal
-       //System.out.println( periode );
-       
-       
-       double  xChangement =   ((((NB_POINTS * CASE_X)/2)) * echelleX)/ NB_POINTS; //pt de depart
     
-       for(int i = (int) (-((NB_POINTS * CASE_X)/2)) ; i < (nuagePoint.length /2) ; i++){ //soustraction pour remplir les nb negatifs
-           
-                
-                nuagePoint[i + ((NB_POINTS * CASE_X)/2)][0] = (double) ( (  (((i * echelleX))/ NB_POINTS)) * nbPixelX / this.echelleX )   + ox; //mise à l'echlle des x
-				nuagePoint[i + ((NB_POINTS * CASE_X)/2)][1] = (double) (-fctRectangle(freq * ((i * echelleX / NB_POINTS) - decalageX * echelleX)) * (amplitude / echelleY) * nbPixelY + oy);                
-                //System.out.print( i +  "  x = " + nuagePoint[i + ((NB_POINTS * CASE_X)/2)][0] ); //return pour debug
-                //System.out.println ( "   y = " + nuagePoint[i + ((NB_POINTS * CASE_X)/2)][1] );
-            
-        }
-       
-       
-    }
-    
-     public double fctRectangle(double x){
-		if(x<0){
-			x = (-x)%1;
-			
-			if(x<=0.5){
-				return(-1);
-			}else{
-				return(1);
-			}
+    /** Methode generale pour les signaux de calcul d'une valeur en un point
+     * @param double x : le point de calcul de la fonction
+     * @return double : la valeur en x
+     */
+     public double fonction(double x){
+    	//on a un signal de periode 1, on applique un modulo pour enlever tous les 1 en trop
+		x = (x % 1 + 1) % 1;	// java produit des modulos negatifs avec des nombre negatifs, on le ramene en positif
 		
+		if(x<=0.5){	//si on est sur la phase positive du rectangle
+			return(1);
 		}else{
-			x = x%1;
-			
-			if(x<=0.5){
-				return(1);
-			}else{
-				return(-1);
-			}
+			return(-1);
 		}
 		
+		
 	}
+     
+    
+    /** Methode qui recalcule les points des signaux en fonction de la taille de la fenetre...
+     */
+    public void calculPoint(){ 
+    	super.calculPoint();
+    }
+    
+    
+
     
     
     /** Renvoie la forme du Signal, ici : REC. */

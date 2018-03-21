@@ -23,28 +23,29 @@ public class Sinus extends Signal {
 	 */
     public Sinus(int n){
         super(n);
-
-        this.nuagePoint = new double[NB_POINTS * CASE_X ][2]; 
     }
     
     public Sinus(Signal s) {
     	super(s);
-    	this.nuagePoint = new double[NB_POINTS * CASE_X ][2]; 
     }
 
     
+    /** Methode generale pour les signaux de calcul d'une valeur en un point
+     * @param double x : le point de calcul de la fonction
+     * @return double : la valeur en x
+     */
+    public double fonction(double x) {
+    	return Math.sin( 2.*Math.PI*x);	//on retourne juste un sinus de periode 1 (pour correspondre a la normalisation)
+    }
     
 
-    /** calcul les points du signal pour l'affichage **/
+    /** Methode qui recalcule les points des signaux en fonction de la taille de la fenetre...
+     */
     public void calculPoint(){ //calcul des points
-       for(int i = (int) (-((NB_POINTS * CASE_X)/2)) ; i < (nuagePoint.length /2) ; i++){ //soustraction pour remplir les nb negatifs
-    	   nuagePoint[i + (int)(NB_POINTS * CASE_X/2)][0] = ox + (double)((i * nbPixelX/NB_POINTS)); //mise a l'echelle des x
-    	   nuagePoint[i + (int)(NB_POINTS * CASE_X/2)][1] = oy - (double) (Math.sin( 2.*Math.PI*freq * ( (i * echelleX / NB_POINTS) - decalageX * echelleX - dephasage*echelleX/(2*Math.PI*freq))) * (amplitude / echelleY) * nbPixelY);
-    	   
-           //System.out.println( i +  "  x = " + nuagePoint[i + (int)((NB_POINTS * CASE_X)/2)][0]); //return pour debug
-           //System.out.println ( "   y = " + nuagePoint[i + ((NB_POINTS * CASE_X)/2)][1] );
-        }
+       super.calculPoint();
     }
+    
+    
     
     /** Renvoie la forme du Signal, ici : SIN. */
     public String getForme() {return SIGNAL_TYPES[0];}

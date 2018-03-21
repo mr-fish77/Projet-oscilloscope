@@ -39,8 +39,6 @@ public class MenuDuBas extends JPanel {
 		conteneurInfo.add(texteTemps);
 		
 		add(conteneurInfo, BorderLayout.WEST);
-		
-		
 	}
 	
 	/** Permet de changer le texte general

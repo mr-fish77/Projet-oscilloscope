@@ -40,6 +40,7 @@ public class Channel extends JPanel implements PotentiometreListener{
 		this.ecran = ecran;
 		this.nomChannel = nomChannel;
 		
+		this.signaux[this.n].echelleY = ECHELLES[compteurEchelle];
 		ecran.bas.setCh(nomChannel + " : " + ECHELLES[compteurEchelle] + " Volts/div", this.n);
 		
 		setLayout(new GridBagLayout());//Layout plus complique mais permet de gerer a peu pres bien
@@ -94,7 +95,7 @@ public class Channel extends JPanel implements PotentiometreListener{
 		if(potentiometre.equals(potPos)) {	//reglage du deltaY
 			decalage += 0.04*evolutionCran;	//reglage par defaut de l'oscillo
 			signaux[n].decalageY = decalage;
-			ecran.bas.setText("Decalage " + nomChannel + " : " + (double)(Math.round(decalage*100))/100 + " div");
+			ecran.bas.setText("Decalage " + nomChannel + " : " + String.format("%.2f", (double)(Math.round(decalage*100))/100) + " div");
 			ecran.repaint();
 			
 		}else if(potentiometre.equals(potDiv)) {	//reglage de l'echelle
