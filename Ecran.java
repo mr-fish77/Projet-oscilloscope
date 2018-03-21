@@ -37,6 +37,7 @@ public class Ecran extends JPanel{
 	 * @param g L'element graphique toujours le bienvenu.
 	 */
 	public void paint (Graphics g) {
+		super.paint(g);
 		// On recupere la taille de la fenetre.
 		double actualWidth = this.getWidth();
 		double actualHeight = this.getHeight();

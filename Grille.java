@@ -43,6 +43,7 @@ public class Grille extends JPanel {
 	 * @param Graphics g : l'objet graphique
 	 */
 	public void afficheQuadrillage(Graphics g) {
+		
 		int hauteur = getHeight();	//on recupere la taille du jpanel et donc de l'ecran
 		int largeur = getWidth();
 		
