@@ -37,7 +37,6 @@ public class Ecran extends JPanel{
 	 * @param g L'element graphique toujours le bienvenu.
 	 */
 	public void paint (Graphics g) {
-		super.paint(g);
 		// On recupere la taille de la fenetre.
 		double actualWidth = this.getWidth();
 		double actualHeight = this.getHeight();
@@ -46,5 +45,7 @@ public class Ecran extends JPanel{
 		grille.setBounds(0, 0, (int)(.75*actualWidth), (int)(.95*actualHeight));
 		menus.setBounds((int)(.75*actualWidth), 0, (int)(.25*actualWidth), (int)(.95*actualHeight));
 		bas.setBounds(0, (int)(.95*actualHeight), (int)actualWidth, (int)(.05*actualHeight));
+		
+		super.paint(g);
 	}
 }
