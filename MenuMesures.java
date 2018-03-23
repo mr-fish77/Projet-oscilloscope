@@ -4,34 +4,41 @@ import javax.swing.*;
 import java.awt.event.*;
 
 
-public class MenuMesures extends MenuManager implements ActionListener {
+public class MenuMesures extends MenuManager {
 	private JButton source = new JButton ("Source : CH1");
 	private JButton periode = new JButton ("Periode");
 	private JButton frequence = new JButton ("Frequence");
 	private JButton amplitude = new JButton ("Amplitude");
 	
+	/** Liste des mesures possibles. A supprimer eventuellement plus tard. */
+	private final static String[] MESURES_POSSIBLES = {"Periode", "Frequence", "Amplitude"};
+	/** Index de la source actuelle des mesures. */
+	private int src = 0;
+	
 	public MenuMesures (Signal[] s) {
-		super(s);
-		menus.add(source);
-		menus.add(periode);
-		menus.add(frequence);
-		menus.add(amplitude);
-		source.addActionListener(this);
-		periode.addActionListener(this);
-		frequence.addActionListener(this);
-		amplitude.addActionListener(this);	
+		super(s, "MESURES");
 	}
 	
 	public void actionPerformed (ActionEvent e){
-		int etatSource = 1;
-		if (e.getSource() == source) {
-			if (etatSource == 1){
+		int indexBouton = Integer.parseInt(e.getActionCommand());
+		
+		if (indexBouton == 0) { 		// Changement de la source
+			if (src == 0){		// On passe de 1 a 2
 				source.setText("Source : CH2");
-				etatSource = 2;
-			} else {
+			} else {			// On passe de 2 a 1
 				source.setText("Source : CH1");
-				etatSource =1;
 			}
 		}
+		else if (indexBouton == 1) {	// Mesure de la periode
+			
+		}
+	}
+	
+	/** Rafraichit les textes des boutons. */
+	private void refresh() {
+		// Source actuelle
+		boutons.get(0).setText("Source : " + (src + 1));
+		
+		// 
 	}
 }

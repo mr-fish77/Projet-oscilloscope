@@ -99,7 +99,9 @@ public class Generateur extends JFrame implements ActionListener, Bouton_OnOff_L
 				o.setActionCommand(o.getActionCommand() + " " + i);
 			}
 			onOff[i] = pan[i].on;
-			onOff[i].addListener(this, "Btn_signal_"+i);
+			onOff[i].addListener(this);
+			onOff[i].setActionCommand("Btn_signal_"+i);
+			onOff[i].setBackgroundClicWorks(true);
 		}
 		
 		/* Conteneur principal. */

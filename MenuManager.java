@@ -2,6 +2,7 @@ import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.LinkedList;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -12,32 +13,26 @@ public abstract class MenuManager extends JPanel implements ActionListener{
 	/** Les signaux. */
 	protected Signal[] signaux;
 	
-	/** JPanel de titre. */
-	private JLabel titre = new JLabel ();
+	/** String indiquant le menu actuellement a l'ecran.
+	 * Il est affiche dans le Terminal. */
+	protected static String menuActuel = "NoMenu";
 	
 	/** Les 5 menus. */
-	protected JButton bouton1 = new JButton();	//organisation de haut en bas
-	protected JButton bouton2 = new JButton();
-	protected JButton bouton3 = new JButton();
-	protected JButton bouton4 = new JButton();
-	protected JButton bouton5 = new JButton();
+	protected LinkedList<JButton> boutons = new LinkedList<JButton>();
 	
-	
-	
-	public MenuManager(Signal[] s) {
+	protected MenuManager(Signal[] s, String menuActuel) {
 		super();
 		signaux = s;
+		this.menuActuel = menuActuel;
+		System.out.println("MENU " + menuActuel);
 		
-		titre.setHorizontalAlignment(JLabel.CENTER);
-		titre.setVerticalAlignment(JLabel.CENTER);
-		
-		setLayout(new GridLayout(6,1));	//fenetre separee en 6 cases de meme taille
-		add(titre);
-		add(bouton1);
-		add(bouton2);
-		add(bouton3);
-		add(bouton4);
-		add(bouton5);
+		setLayout(new GridLayout(5,1));	//fenetre separee en 5 cases de meme taille
+		for (int i = 0; i < 5; i++) {
+			JButton b = new JButton();
+			b.setActionCommand(Integer.toString(i));
+			boutons.add(b);
+			this.add(b);
+		}
 	}
 	
 	
@@ -52,32 +47,13 @@ public abstract class MenuManager extends JPanel implements ActionListener{
 	 * @param ActionListener al : l'actionlistener a rajouter a tous les objets
 	 */
 	public void addActionListener(ActionListener al) {
-		bouton1.addActionListener(al);
-		bouton2.addActionListener(al);
-		bouton3.addActionListener(al);
-		bouton4.addActionListener(al);
-		bouton5.addActionListener(al);
+		for (JButton b : boutons) {
+			b.addActionListener(al);
+		}
 	}
 	
 	
-	/** Methode qui change les textes des boutons tous a la fois
-	 * @param String strTitre : Le texte du titre
-	 * @param String str1 : Le texte du 1e bouton
-	 * @param String str2 : Le texte du 2e bouton
-	 * @param String str3 : Le texte du 3e bouton
-	 * @param String str4 : Le texte du 4e bouton
-	 * @param String str5 : Le texte du 5e bouton
-	 */
-	public void setTexts(String strTitre, String str1, String str2, String str3, String str4, String str5) {
-		titre.setText(strTitre);
-		bouton1.setText(str1);
-		bouton2.setText(str2);
-		bouton3.setText(str3);
-		bouton4.setText(str4);
-		bouton5.setText(str5);
-	}
-	
-	/** MEthode qui prend en charge l'action sur les boutons
+	/** Methode qui prend en charge l'action sur les boutons
 	 * @param ActionEvent e : l'action event habituel
 	 */
 	public abstract void actionPerformed (ActionEvent e);

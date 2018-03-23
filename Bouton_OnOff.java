@@ -3,6 +3,7 @@ import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.LinkedList;
 
 import javax.swing.JPanel;
 
@@ -20,21 +21,29 @@ import javax.swing.JPanel;
  */
 public class Bouton_OnOff extends JPanel implements MouseListener {
 
-	/** true si signal actif, false si signal inactif. */
+	/** Valeur associee a la couleur du bouton. */
 	private boolean valeur = false;
 
 	/** Couleurs du bouton, non modifiables. */
 	public final Color COLOR_ON, COLOR_OFF;
 
-	/** Listener. */
-	private Bouton_OnOff_Listener listener;
+	/** Liste de Listener. */
+	private LinkedList<Bouton_OnOff_Listener> listeners = new LinkedList<Bouton_OnOff_Listener>();;
 
-	/** Texte lie a l'action du Listener. */
+	/** Texte qui decrit l'action du Listener. */
 	private String actionCommand = "Bouton_OnOff: " + this.hashCode();
+	
+	/** Carre dans lequel est peint l'objet, relatif a sa taille. 
+	 * Son contenu est organise de la meme facon qu'un setBounds. */
+	private int[] pb;
+	
+	/** Definit si un clic sur l'arriere-plan declenche un evenement. */
+	private boolean backgroundClicWorks = false;
 
 	/**
 	 * Constructeur par defaut. Cree un bouton de taille 200*30 mais affiche 
-	 * un cercle de rayon 30 au centre.
+	 * un cercle de rayon 30 au centre. Il est possible de modifier cette valeur.
+	 * Il est recommande d'ajouter un Listener a cet objet.
 	 * 
 	 * @param colorOn
 	 *            La couleur correspondant a la position ON.
@@ -60,6 +69,13 @@ public class Bouton_OnOff extends JPanel implements MouseListener {
 		// On colorie l'arriere-plan.
 		g.setColor(Color.WHITE);
 		g.fillRect(0, 0, largeur, hauteur);
+		
+		// On re-calcule la valeur de paintedBounds.
+		if (largeur > hauteur) {
+			pb = new int []{(largeur - hauteur) / 2, 1, hauteur - 2, hauteur - 2};
+		} else {
+			pb = new int [] {1, (hauteur - largeur) / 2, largeur - 2, largeur - 2};
+		}
 
 		// On definit la couleur.
 		if (valeur == true) {
@@ -69,19 +85,17 @@ public class Bouton_OnOff extends JPanel implements MouseListener {
 		}
 
 		// On dessine l'interieur de l'objet.
+		g.fillOval(pb[0], pb[1], pb[2], pb[3]);
+		g.setColor(Color.WHITE);
 		if (largeur > hauteur) {
-			g.fillOval((largeur - hauteur) / 2, 1, hauteur - 2, hauteur - 2);
-			g.setColor(Color.WHITE);
 			g.drawLine(largeur / 2 - 1, hauteur / 4, largeur / 2 - 1, hauteur / 2);
 			g.drawArc((largeur / 2 - hauteur / 4) - 1, hauteur / 4, hauteur / 2, hauteur / 2, 180, 180);
 		} else {
-			g.fillOval(1, (hauteur - largeur) / 2, largeur - 2, largeur - 2);
-			g.setColor(Color.WHITE);
 			g.drawLine(largeur / 4 - 1, hauteur / 2, largeur / 2 - 1, hauteur / 2);
 			g.drawArc(largeur / 4 - 1, (hauteur / 2 - largeur / 4), hauteur / 2, hauteur / 2, 180, 180);
 		}
 	}
-
+	
 	/** @return la valeur. */
 	public boolean valeur() {
 		return valeur;
@@ -106,37 +120,61 @@ public class Bouton_OnOff extends JPanel implements MouseListener {
 	 *            L'evenement.
 	 */
 	public void mouseClicked(MouseEvent e) {
-		if (listener != null) {
-			Component src = e.getComponent(); // Objet source.
-			Bouton_OnOff_Event evt = new Bouton_OnOff_Event(src, actionCommand);
-			listener.btnClicked(evt);
+		if (listeners.size() > 0) {
+			int x = e.getX(), y = e.getY();
+			if 		((backgroundClicWorks)					// Si on peut cliquer sur l'arriere-plan c'est bon.
+					|| ((x > pb[0]) && (x < pb[0] + pb[2])	// Sinon, on verifie la position selon x
+					&& (y > pb[1]) && (y < pb[1] + pb[3])))	// et la position selon y.
+			{
+				Component src = e.getComponent(); // Objet source.
+				Bouton_OnOff_Event evt = new Bouton_OnOff_Event(src, actionCommand);
+				for (Bouton_OnOff_Listener l : listeners) {
+					l.btnClicked(evt);
+				}
+			}
 		}
 	}
 
-	public void mousePressed(MouseEvent e) {
-	}
-
-	public void mouseReleased(MouseEvent e) {
-	}
-
-	public void mouseEntered(MouseEvent e) {
-	}
-
-	public void mouseExited(MouseEvent e) {
-	}
+	public void mousePressed(MouseEvent e) {}
+	public void mouseReleased(MouseEvent e) {}
+	public void mouseEntered(MouseEvent e) {}
+	public void mouseExited(MouseEvent e) {}
 
 	/**
-	 * Ajoute un Bouton_OnOff_Listener au Bouton_OnOff.
+	 * Ajoute un Listener au Bouton_OnOff.
 	 * 
 	 * @param l
 	 *            Objet qui implemente Bouton_OnOff_Listener.
-	 * @param actionCommand
-	 *            Chaine de caracteres qui caracterise l'action.
 	 */
-	public void addListener(Bouton_OnOff_Listener l, String actionCommand) {
+	public void addListener(Bouton_OnOff_Listener l) {
 		this.addMouseListener(this);
-		listener = l;
-		this.actionCommand = actionCommand;
+		listeners.add(l);
 	}
-
+	
+	/** Modifie l'actionCommand du bouton.
+	 * @param actionC L'actionCommand souhaite.
+	 */
+	public void setActionCommand (String actionC) {
+		this.actionCommand = actionC;
+	}
+	
+	/** @return l'actionCommand. */
+	public String getActionCommand() {
+		return this.actionCommand;
+	}
+	
+	/** Modifie la valeur de la variable qui indique si
+	 * un clic sur l'arriere-plan est considere comme un clic ou non.
+	 * @param b Valeur souhaitee.
+	 */
+	public void setBackgroundClicWorks(boolean b) {
+		this.backgroundClicWorks = b;
+	}
+	
+	/** @return true si un clic sur l'arriere-plan est considere comme un clic, 
+	 * 			false sinon.
+	 */
+	public boolean getBackgroundClicWorks () {
+		return this.backgroundClicWorks;
+	}
 }
