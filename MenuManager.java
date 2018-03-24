@@ -20,10 +20,16 @@ public abstract class MenuManager extends JPanel implements ActionListener{
 	/** Les 5 menus. */
 	protected LinkedList<JButton> boutons = new LinkedList<JButton>();
 	
+	/** Cree un Menu.
+	 * @param s Les signaux, en acces protected.
+	 * @param menuActuel Chaine de caracteres qui indiquent le menu actuellement a l'ecran.
+	 * Utilise pour le deboggage, sera desactive lors de la finalisation du projet.
+	 */
 	protected MenuManager(Signal[] s, String menuActuel) {
 		super();
 		signaux = s;
-		this.menuActuel = menuActuel;
+		
+		this.menuActuel = menuActuel.toUpperCase(); // Mise en majuscules.
 		System.out.println("MENU " + menuActuel);
 		
 		setLayout(new GridLayout(5,1));	//fenetre separee en 5 cases de meme taille
