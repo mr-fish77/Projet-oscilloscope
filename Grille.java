@@ -14,6 +14,11 @@ public class Grille extends JPanel {
 	/** Couleur d'arriere-plan ou d'avant-plan. */
 	Color arrierePlan = Ecran.arrierePlan, avantPlan = Ecran.avantPlan;
 	
+	/** Pour la gestion des curseurs */
+	private MenuCurseur menuCurseur;
+	public boolean affCurseur = false;
+	
+	
 	/** Cree la grille.
 	 * @param s Les signaux. */
 	public Grille(Signal[] s) {
@@ -36,6 +41,10 @@ public class Grille extends JPanel {
 		signaux[1].miseAEchelle(getWidth(), getHeight());
 		signaux[1].dessineCourbe(g);
 		
+		if(affCurseur && menuCurseur.curseurCourant != null) {
+			menuCurseur.curseurCourant.paint(g, getHeight(), getWidth());
+		}
+		
 	}
 	
 	/**
@@ -43,7 +52,6 @@ public class Grille extends JPanel {
 	 * @param Graphics g : l'objet graphique
 	 */
 	public void afficheQuadrillage(Graphics g) {
-		
 		int hauteur = getHeight();	//on recupere la taille du jpanel et donc de l'ecran
 		int largeur = getWidth();
 		
@@ -68,6 +76,10 @@ public class Grille extends JPanel {
 				g.drawLine(dLargeur - lPetiteGrad/2, i*hGrandeGrad + j*hPetiteGrad, dLargeur + lPetiteGrad/2, i*hGrandeGrad + j*hPetiteGrad);	//graduation axe vertical
 			}
 		}
-		
+	}
+	
+	public void affichageCurseur(MenuCurseur menu) {
+		this.menuCurseur = menu;
+		this.affCurseur= true;
 	}
 }

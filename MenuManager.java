@@ -33,12 +33,13 @@ public abstract class MenuManager extends JPanel implements ActionListener{
 			boutons.add(b);
 			this.add(b);
 		}
+		addActionListener(this);
 	}
 	
 	
 	/** Ecrit le titre et affiche les 5 boutons. 
 	 * @param g L'element graphique fort appreciable. */
-	public void paint (Graphics g) {
+	public void paint(Graphics g) {
 		super.paint(g);
 	}
 	
@@ -53,10 +54,61 @@ public abstract class MenuManager extends JPanel implements ActionListener{
 	}
 	
 	
+	/**
+	 * Methode qui desactive le menu : a implementer au besoin
+	 */
+	public void desactiverMenu() {}
+	
+	/**
+	 * Methode qui met en route le menu
+	 */
+	public void miseEnRoute() {}
+	
+	
 	/** Methode qui prend en charge l'action sur les boutons
 	 * @param ActionEvent e : l'action event habituel
 	 */
-	public abstract void actionPerformed (ActionEvent e);
+	public void actionPerformed (ActionEvent e) {
+		if(e.getSource().equals(boutons.get(0))) {
+			actionBouton1(e);
+		}else if(e.getSource().equals(boutons.get(1))) {
+			actionBouton2(e);
+		}else if(e.getSource().equals(boutons.get(2))) {
+			actionBouton3(e);
+		}else if(e.getSource().equals(boutons.get(3))) {
+			actionBouton4(e);
+		}else if(e.getSource().equals(boutons.get(4))) {
+			actionBouton5(e);
+		}
+	}
+	
+	/** Methode qui est appelee lorsque le 1er bouton est clique
+	 * @param ActionEvent e : l'action event habituel
+	 */
+	public void actionBouton1(ActionEvent e) {}
+	
+	/** Methode qui est appelee lorsque le 2e bouton est clique
+	 * @param ActionEvent e : l'action event habituel
+	 */
+	public void actionBouton2(ActionEvent e) {}
+	
+	
+	/** Methode qui est appelee lorsque le 3e bouton est clique
+	 * @param ActionEvent e : l'action event habituel
+	 */
+	public void actionBouton3(ActionEvent e) {}
+	
+	
+	/** Methode qui est appelee lorsque le 4e bouton est clique
+	 * @param ActionEvent e : l'action event habituel
+	 */
+	public void actionBouton4(ActionEvent e) {}
+	
+	
+	/** Methode qui est appelee lorsque le 5e bouton est clique
+	 * @param ActionEvent e : l'action event habituel
+	 */
+	public void actionBouton5(ActionEvent e) {}
 }
 //Mes quetions : pk faire un ArrayList de menus en attributs (on ne fait jamais appel à cette liste ni dans
 //ni dans oscilloscope (si c'est pour choisir le type de menu--> classe héritière préférable

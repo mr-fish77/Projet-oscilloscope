@@ -16,10 +16,11 @@ public class GestionTemps extends JPanel implements PotentiometreListener{
 	private Potentiometre potDiv;	//potentiometre volts/div
 	private BoutonTexte chMenu;		//bouton affichage menu du signal
 	
-	private Ecran ecran;
+	private Ecran ecran;			//Ecran de l'oscillo pour gerer les repaint() et le bas de l'ecran
 	
 	private double decalage;
-	private static final double[] ECHELLES = {1, 0.5, 0.2, 0.1, 0.01, 0.005, 0.001, 0.0005, 0.0001, 0.00005, 0.00001, 0.000005, 0.000001, 0.0000005, 0.0000001};
+	private static final double[] ECHELLES = {1, 0.5, 0.2, 0.1, 0.05, 0.01, 0.005, 0.001, 0.0005, 0.0001, 0.00005, 0.00001, 0.000005, 0.000001, 0.0000005, 0.0000001};
+	private static final String[] STR_ECHELLES = {"1.10^0 ", "5.10^-1", "2.10^-1", "1.10^-1", "5.10^-2", "1.10^-2", "5.10^-3", "1.10^-3", "5.10^-4", "1.10^-4", "5.10^-5", "1.10^-5", "5.10^-6", "1.10^-6", "5.10^-7", "1.10^-7"};
 	private int compteurEchelle = 0;
 	
 	/**
@@ -32,7 +33,7 @@ public class GestionTemps extends JPanel implements PotentiometreListener{
 		
 		this.signaux[0].echelleX = ECHELLES[compteurEchelle];
 		this.signaux[1].echelleX = ECHELLES[compteurEchelle];
-		ecran.bas.setTemps("Temps : " + ECHELLES[compteurEchelle] + " Sec/div");
+		ecran.bas.setTemps("Temps : " + STR_ECHELLES[compteurEchelle] + " Sec/div");
 		ecran.bas.setText("Decalage temps : " + String.format("%.2f", (double)(Math.round(decalage*100))/100) + " div");
 		
 		setLayout(new GridBagLayout());//Layout plus complique mais permet de gerer a peu pres bien
@@ -91,7 +92,7 @@ public class GestionTemps extends JPanel implements PotentiometreListener{
 			signaux[0].decalageX = decalage;
 			signaux[1].decalageX = decalage;
 			ecran.bas.setText("Decalage temps : " + String.format("%.2f", (double)(Math.round(decalage*100))/100) + " div");
-			ecran.repaint();
+			ecran.grille.repaint();
 			
 		}else if(potentiometre.equals(potDiv)){	//reglage echele
 			if((compteurEchelle >= 0 && compteurEchelle < (ECHELLES.length - 1) && evolutionCran > 0) || (compteurEchelle < (ECHELLES.length) && compteurEchelle > 0 && evolutionCran < 0)) {	//on regarde qu'on est toujours dans les clous du tableau
@@ -99,8 +100,8 @@ public class GestionTemps extends JPanel implements PotentiometreListener{
 				//attribution au 2 signaux
 				signaux[0].echelleX = ECHELLES[compteurEchelle];
 				signaux[1].echelleX = ECHELLES[compteurEchelle];
-				ecran.bas.setTemps("Temps : " + ECHELLES[compteurEchelle] + " Sec/div");
-				ecran.repaint();
+				ecran.bas.setTemps("Temps : " + STR_ECHELLES[compteurEchelle] + " Sec/div");
+				ecran.grille.repaint();
 			}
 			
 		}

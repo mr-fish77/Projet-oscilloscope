@@ -13,13 +13,13 @@ import javax.swing.JPanel;
  *
  */
 public class Oscilloscope extends JFrame{
-	private Channel ch1;		//channel du premier signal
-	private Channel ch2;		//channel du deuxieme signal
+	public Channel ch1;		//channel du premier signal
+	public Channel ch2;		//channel du deuxieme signal
 	private GestionTemps gestionTemps;	//Permet de gerer le temps (position et echelle)
 	
 	private Generateur generateur;	//Pour pouvoir interagir avec le generateur
 	
-	private Ecran ecran;		//ecran d'affichage de l'oscilloscope
+	public Ecran ecran;		//ecran d'affichage de l'oscilloscope
 	
 	//boutons du menu du haut de l'oscilloscope
 	private BoutonTexte sauvRap = new BoutonTexte("Sauv/Rap");
@@ -51,7 +51,7 @@ public class Oscilloscope extends JFrame{
 		conteneurEcran.setLayout(new GridLayout(1,1));
 		add(conteneurEcran);
 		
-		ecran = new Ecran(signaux);	//ecran de l'oscilloscope
+		ecran = new Ecran(signaux, this);	//ecran de l'oscilloscope
 		generateur.setEcran(ecran);
 		conteneurEcran.add(ecran);
 		
@@ -88,6 +88,7 @@ public class Oscilloscope extends JFrame{
 		
 		// Derniers preparatifs puis affichage.
 		ecran.repaint();
+		ecran.menus.miseEnRoute();
 		setVisible(true);
 	}
 
@@ -117,5 +118,16 @@ public class Oscilloscope extends JFrame{
 		affichageGestionChannels.add(ch2);
 		affichageGestionChannels.add(gestionTemps);	//Gestion du temps
 		
+	}
+	
+	/**
+	 * Methode qui prend en charge la desactivation du menu curseur
+	 */
+	public void desactiveCurseur() {
+		ch1.potPos.addPotentiometreListener(ch1);
+		ch2.potPos.addPotentiometreListener(ch2);
+		
+		ecran.grille.affCurseur = false;
+		ecran.grille.repaint();
 	}
 }

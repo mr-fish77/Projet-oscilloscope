@@ -35,7 +35,7 @@ public class Potentiometre extends JLabel implements MouseMotionListener, MouseL
   private int cran;
   
   /** Gestion du cran du potentiometre */
-  private LinkedList<PotentiometreListener> listener;
+  private PotentiometreListener listener;
 
 
   /**
@@ -52,8 +52,6 @@ public class Potentiometre extends JLabel implements MouseMotionListener, MouseL
     addMouseListener(this);       //support des clics de la souris
     addMouseMotionListener(this); //et de ses mouvements
     setSize(taille, taille);      //on lui donne sa taille
-    
-    this.listener = new LinkedList<PotentiometreListener>();	//pour gerer le fait que le potentiometre peut-etre utilise pour differentes actions
   }
 
 
@@ -109,7 +107,7 @@ public class Potentiometre extends JLabel implements MouseMotionListener, MouseL
   	
   	
   public void addPotentiometreListener(PotentiometreListener listener) {
-	  this.listener.add(listener);
+	  this.listener = listener;
   }
 
 
@@ -144,11 +142,9 @@ public class Potentiometre extends JLabel implements MouseMotionListener, MouseL
 
     double a = Math.atan2( xMem*y - yMem*x, xMem*x + yMem*y );  //on en deduit l'angle par rapport au precedent cran (formule d'internet)
 
-    if(Math.abs(a) > 1){ //si l'angle est supperieur à 22,5 degre on change de cran (c'est la moitie d'un angle d'octogone)
-      if(!listener.isEmpty()) {
-    	for(PotentiometreListener pl : listener) {
-    		pl.potentiometrePerformed(this, (int)(a/Math.abs(a)));
-    	}
+    if(Math.abs(a) > 0.2){ //si l'angle est supperieur à 22,5 degre on change de cran (c'est la moitie d'un angle d'octogone)
+      if(listener != null) {
+    	listener.potentiometrePerformed(this, (int)(a/(Math.abs(a))));
       }
 
       xMem = x;   //on change la sauvegarde de la position de la souris au niveau du cran

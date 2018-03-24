@@ -21,11 +21,10 @@ public class Ecran extends JPanel{
 	/**
 	 * Constructeur par defaut de la classe
 	 */
-	public Ecran(Signal[]signaux) {
+	public Ecran(Signal[]signaux, Oscilloscope oscillo) {
 		super();
 		this.signaux = signaux;
 		
-		setBackground(arrierePlan);
 		setLayout(new GridBagLayout());
 		
 		GridBagConstraints contraintes = new GridBagConstraints();
@@ -38,18 +37,23 @@ public class Ecran extends JPanel{
         contraintes.weighty = 0.95;
         add(grille, contraintes);
         
-        bas = new MenuDuBas(signaux);
-        contraintes.gridy = 1;
-        contraintes.weighty = 0.05;
-        add(bas, contraintes);
-        
-        menus = new MenuMesures(signaux);
+        //menus = new MenuMesures(signaux);
+        menus = new MenuCurseur(signaux, oscillo);
         contraintes.gridy = 0;
         contraintes.gridx = 1;
-        contraintes.gridheight = 2;
         contraintes.weighty = 1;
         contraintes.weightx = 0.2;
         add(menus, contraintes);
+        
+        bas = new MenuDuBas(signaux);
+        contraintes.gridy = 1;
+        contraintes.gridx = 0;
+        contraintes.weightx = 1;
+        contraintes.weighty = 0.05;
+        contraintes.gridwidth=2;
+        add(bas, contraintes);
+        
+
 	}
 	
 	/** Actualise l'affichage de l'ecran.

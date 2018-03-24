@@ -16,7 +16,7 @@ public class Channel extends JPanel implements PotentiometreListener{
 	
 	private Ecran ecran;	//l'ecran pour gerer les repaint()
 	
-	private Potentiometre potPos;	//potentiometre position verticale
+	public Potentiometre potPos;	//potentiometre position verticale
 	private Potentiometre potDiv;	//potentiometre volts/div
 	private BoutonTexte chMenu;		//bouton affichage menu du signal
 	

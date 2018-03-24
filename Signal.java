@@ -243,7 +243,7 @@ public abstract class Signal {
     	this.nuagePoint = new double[NB_POINTS * CASE_X ][2];
     	for(int i = (int) (-((NB_POINTS * CASE_X)/2)) ; i < (nuagePoint.length /2) ; i++){ //soustraction pour remplir les nb negatifs
             nuagePoint[i + ((NB_POINTS * CASE_X)/2)][0] = (i * echelleX/ NB_POINTS) * nbPixelX / this.echelleX   + ox; //mise à l'echlle des x
-			nuagePoint[i + ((NB_POINTS * CASE_X)/2)][1] =  - fonction(freq * ((i * echelleX / NB_POINTS) - decalageX * echelleX)) * (amplitude / echelleY) * nbPixelY + oy;                
+			nuagePoint[i + ((NB_POINTS * CASE_X)/2)][1] =  - fonction(freq * ((i * echelleX / NB_POINTS) - decalageX * echelleX) - dephasage/(Math.PI*2)) * (amplitude / echelleY) * nbPixelY + oy;                
     	}
     }
     
