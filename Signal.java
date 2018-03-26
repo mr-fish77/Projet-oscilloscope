@@ -1,6 +1,12 @@
 import java.awt.Color;
 import java.awt.Graphics;
 
+/** Classe mere des differents signaux. 
+ * Tous les signaux du projet heritent de Signal. 
+ * Cette methode gere l'initialisation, la modification et 
+ * la reinitialisation des signaux, mais aussi elle genere 
+ * un nuage de points permettant l'affichage ulterieur a l'oscilloscope. */
+
 public abstract class Signal {
 	
 	/** Amplitude du signal en volts. */

@@ -1,30 +1,17 @@
 import java.awt.Color;
 
 /**
-<<<<<<< HEAD
- * Classe qui permet de generer un signal sinusoidale   
-=======
- * Classe qui permet de gerer un signal sinusoidale   ===> pb de mise a l'echelle
->>>>>>> e9ca9f035a2a78fae9fb8e6ffdf33e3e39b95a03
- * @author Mathieu
- *
+ Classe qui permet de generer un signal sinusoidal.
  */
 public class Sinus extends Signal {
    
-   
-
-    /*public static void main (String[] args){
-		Sinus essai = new Sinus(1);
-        essai.calculPoint();
-	  }*/
-    
-    /**
-	 * Constructeur par signal sinusoidale.
-	 */
+    /** Constructeur par signal sinusoidal. */
     public Sinus(int n){
         super(n);
     }
     
+	/** Constructeur qui cree un nouveau signal par recopie.
+	 * @param s Signal a copier. */
     public Sinus(Signal s) {
     	super(s);
     }
@@ -45,8 +32,8 @@ public class Sinus extends Signal {
        super.calculPoint();
     }
     
-    
-    
-    /** Renvoie la forme du Signal, ici : SIN. */
-    public String getForme() {return SIGNAL_TYPES[0];}
+    /** @return la forme du Signal, ici : SIN. */
+    public String getForme() {
+	    return SIGNAL_TYPES[0];
+    }
 }

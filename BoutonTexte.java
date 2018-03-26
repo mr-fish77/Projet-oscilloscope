@@ -8,7 +8,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
- * Classe qui permet d'afficher un bouton et son texte en dessous
+ * Classe qui permet d'afficher un bouton et son texte en dessous.
+ * Si le bouton n'a pas de Listener, il est grise et le clic dessus ne marche pas.
+ * Sinon, il est jaune et cliquable.
  * @author Pierre-Yves
  *
  */
@@ -68,6 +70,7 @@ public class BoutonTexte extends JPanel {
 	
 	
 	/** Ajoute un ActionListener sur le bouton. 
+	 * Le BoutonTexte devient actif et colore en jaune.
 	 * @param obj Un objet qui implemente ActionListener. */
 	public void addActionListener (ActionListener al){
 		this.bouton.addActionListener(al);
@@ -75,13 +78,13 @@ public class BoutonTexte extends JPanel {
 		this.texte.setBackground(Color.YELLOW);
 	}
 	
-	/** @return le texte du Label. */
+	/** Modifie le texte du Label.
+	 *@param le texte a modifier. */
 	public void setText(String s){
 		this.texte.setText(s);
 	}
 	
-	/** Modifie le text du Label.
-	 *@param le texte a modifier. */
+	/** @return le texte du Label. */
 	public String getText(){
 		return this.texte.getText();
 	}

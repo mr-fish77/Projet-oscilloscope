@@ -14,30 +14,43 @@ public class FonctionMath{
 	public double[][] nuagePoint1;
 	public double[][] nuagePoint2;
 	public boolean active;
+    
+    public Signal[] signaux;
 	
 	
-	public FonctionMath (Signal[] signaux){
-		nuagePoint1= signaux[0].nuagePoint;
-		nuagePoint2= signaux[1].nuagePoint;
+	public FonctionMath (Signal[] s){
+        signaux = s;
 		active=true;
 	}
 	
 	public void  Addition( ){
-		double[][] resultat1 = new double[nuagePoint1.length][nuagePoint1[0].length];
-		for (int i = 0; i < nuagePoint1.length; i++)
+        
+       
+        nuagePoint1= signaux[0].nuagePoint;
+		nuagePoint2= signaux[1].nuagePoint;
+        
+        
+        resultat = new double[nuagePoint1.length][nuagePoint1[0].length];
+		for (int i = 0; i < resultat.length; i++)
 		{
-			for (int j = 0; i < nuagePoint1[0].length ; i++)
+			for (int j = 0; j < resultat[0].length ; j++)
 			{
 				resultat[i][j]=nuagePoint1[i][j]+nuagePoint2[i][j];
+                System.out.println(resultat[i][j]);
 			}
 			
 		}
 	}
 	
 	public void Soustraction1( ){ /*soustrait ch1 a ch2 */
+        nuagePoint1= signaux[0].nuagePoint;
+		nuagePoint2= signaux[1].nuagePoint;
+        
+        resultat = new double[nuagePoint1.length][nuagePoint1[0].length];
+        
 		for (int i = 0; i < nuagePoint1.length; i++)
 		{
-			for (int j = 0; i < nuagePoint1[0].length ; i++)
+			for (int j = 0; j < nuagePoint1[0].length ; j++)
 			{
 				resultat[i][j]=nuagePoint1[i][j]-nuagePoint2[i][j];
 			}
@@ -46,9 +59,13 @@ public class FonctionMath{
 	}
 	
 	public void Soustraction2( ){ /*soustrait ch2 a ch1 */
+        nuagePoint1= signaux[0].nuagePoint;
+		nuagePoint2= signaux[1].nuagePoint;
+        
+        resultat = new double[nuagePoint1.length][nuagePoint1[0].length];
 		for (int i = 0; i < nuagePoint1.length; i++)
 		{
-			for (int j = 0; i < nuagePoint1[0].length ; i++)
+			for (int j = 0; j < nuagePoint1[0].length ; j++)
 			{
 				resultat[i][j]=nuagePoint1[i][j]-nuagePoint2[i][j];
 			}
@@ -57,9 +74,13 @@ public class FonctionMath{
 	}
 	
 	public void inverse1( ){ /*inverse ch1 */
+        nuagePoint1= signaux[0].nuagePoint;
+		nuagePoint2= signaux[1].nuagePoint;
+        
+        resultat = new double[nuagePoint1.length][nuagePoint1[0].length];
 		for (int i = 0; i < nuagePoint1.length; i++)
 		{
-			for (int j = 0; i < nuagePoint1[0].length ; i++)
+			for (int j = 0; j < nuagePoint1[0].length ; j++)
 			{
 				resultat[i][j]=1/(nuagePoint1[i][j]);
 			}
@@ -68,9 +89,13 @@ public class FonctionMath{
 	}
 	
 	public void inverse2( ){ /*inverse ch2 */
+        nuagePoint1= signaux[0].nuagePoint;
+		nuagePoint2= signaux[1].nuagePoint;
+        
+        resultat = new double[nuagePoint1.length][nuagePoint1[0].length];
 		for (int i = 0; i < nuagePoint2.length; i++)
 		{
-			for (int j = 0; i < nuagePoint2[0].length ; i++)
+			for (int j = 0; j < nuagePoint2[0].length ; j++)
 			{
 				resultat[i][j]=1/(nuagePoint2[i][j]);
 			}

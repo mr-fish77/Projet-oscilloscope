@@ -7,13 +7,13 @@ import java.awt.Color;
  */
 public class Triangle extends Signal {
  
-    /**
-	 * Constructeur par signal trinagle.
-	 */
+    /** Constructeur par signal trinagle. */
     public Triangle(int n){
         super(n);
     }
     
+	/** Constructeur qui cree un nouveau signal par recopie.
+	 * @param s Signal a copier. */
     public Triangle(Signal s) {
     	super(s);
     }
@@ -43,8 +43,9 @@ public class Triangle extends Signal {
     	super.calculPoint();
     }
     
-    
     /** @return la forme du Signal, ici : TRI. */
-	public String getForme() {return SIGNAL_TYPES[1];}
+	public String getForme() {
+		return SIGNAL_TYPES[1];
+	}
 
 }
