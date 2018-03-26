@@ -13,26 +13,19 @@ import javax.swing.JPanel;
  *
  */
 public class Oscilloscope extends JFrame{
-	public Channel ch1;		//channel du premier signal
-	public Channel ch2;		//channel du deuxieme signal
-	private GestionTemps gestionTemps;	//Permet de gerer le temps (position et echelle)
+	/** Les Channel correspondant a chaque Signal. */
+	public Channel ch1, ch2;
+	/** Objet permettant de gerer la position et l'echelle temporels. */
+	private GestionTemps gestionTemps;
+	/** Generateur associe, on y recupere le signal lors d'une modification. */
+	private Generateur generateur;
+	/** Ecran d'affichage de l'oscilloscope. */
+	public Ecran ecran;
 	
-	private Generateur generateur;	//Pour pouvoir interagir avec le generateur
+	/** Boutons en haut a droite de l'interface de l'oscilloscope. */
+	private BoutonTexte sauvRap, mesures, acquisition, autoset, utilitaire, curseurs, affichage, recopie, runStop;
 	
-	public Ecran ecran;		//ecran d'affichage de l'oscilloscope
-	
-	//boutons du menu du haut de l'oscilloscope
-	private BoutonTexte sauvRap = new BoutonTexte("Sauv/Rap");
-	private BoutonTexte mesures = new BoutonTexte("Mesures");
-	private BoutonTexte acquisition = new BoutonTexte("Acquisition");
-	private BoutonTexte autoset = new BoutonTexte("AutoSet");
-	private BoutonTexte utilitaire = new BoutonTexte("Utilitaire");
-	private BoutonTexte curseurs = new BoutonTexte("Curseurs");
-	private BoutonTexte affichage = new BoutonTexte("Affichage");
-	private BoutonTexte recopie = new BoutonTexte("Recopie");
-	private BoutonTexte runStop = new BoutonTexte("Run/Stop");
-	
-
+	/** Genere la fenetre principale de l'oscilloscope.*/
 	public Oscilloscope(Signal[] signaux, Generateur generateur){
 		super("Oscilloscope");      //constructeur par defaut de la classe JFrame
 		setSize(1200, 600);
@@ -98,7 +91,17 @@ public class Oscilloscope extends JFrame{
 	 * @param JPanel boutonsAffichageMenus : le conteneur des menus
 	 */
 	public void ajouterAffichageMenus(JPanel boutonsAffichageMenus) {
-		boutonsAffichageMenus.add(sauvRap);	//on les ajoute un par un
+		sauvRap = new BoutonTexte("Sauv/Rap");
+		mesures = new BoutonTexte("Mesures");
+		acquisition = new BoutonTexte("Acquisition");
+		autoset = new BoutonTexte("AutoSet");
+		utilitaire = new BoutonTexte("Utilitaire");
+		curseurs = new BoutonTexte("Curseurs");
+		affichage = new BoutonTexte("Affichage");
+		recopie = new BoutonTexte("Recopie");
+		runStop = new BoutonTexte("Run/Stop");
+		
+		boutonsAffichageMenus.add(sauvRap);
 		boutonsAffichageMenus.add(mesures);
 		boutonsAffichageMenus.add(acquisition);
 		boutonsAffichageMenus.add(autoset);
