@@ -8,30 +8,38 @@ import javax.swing.JPanel;
  * Classe qui permet de gerer l'echelle et la position au niveau du temps
  */
 public class GestionTemps extends JPanel implements PotentiometreListener{
+	/** Le tableau de signal */
 	private Signal[] signaux;		//tableau de signal (on est oblige car on cree souvent de nouveaux signaux)
 	
+	/** Les boutons d'interactions */
 	private Potentiometre potPos;	//potentiometre position verticale
 	private Potentiometre potDiv;	//potentiometre volts/div
 	private BoutonTexte chMenu;		//bouton affichage menu du signal
 	
+	/** L'ecran pour gerer les repaints */
 	private Ecran ecran;			//Ecran de l'oscillo pour gerer les repaint() et le bas de l'ecran
 	
-	private double decalage;
+	/** Les echelles et decalages */
+	private double decalage;		//decalage des signaux en temps
+	//echelles en chiffres et lettres
 	private static final double[] ECHELLES = {1, 0.5, 0.2, 0.1, 0.05, 0.01, 0.005, 0.001, 0.0005, 0.0001, 0.00005, 0.00001, 0.000005, 0.000001, 0.0000005, 0.0000001};
 	private static final String[] STR_ECHELLES = {"1 s", "0.5 s", "0.2 s", "0.1 s", "50 ms", "20 ms", "5 ms", "1 ms", "0.5 ms", "0.1 ms", "50 micro s", "10 micro s", "5 micro s", "1 micro s", "0.5 micro s", "0.1 micro s"};
-	private int compteurEchelle = 0;
+	private int compteurEchelle = 0;	//pour connaitre la position dans le tableau
+	
 	
 	/**
 	 * Constructeur qui cree l'interface graphique du channel
-	 * Signal[] signaux : les signaux
+	 * @param Signal[] signaux : les signaux
+	 * @param Ecran ecran : l'ecran pour gerer les repaint()
 	 */
 	public GestionTemps(Signal[] signaux, Ecran ecran){
 		this.signaux = signaux;
 		this.ecran = ecran;
 		
+		//on attribue les valeurs par defauts
 		this.signaux[0].echelleX = ECHELLES[compteurEchelle];
 		this.signaux[1].echelleX = ECHELLES[compteurEchelle];
-		ecran.bas.setTemps("Temps : " + STR_ECHELLES[compteurEchelle] + "/div");
+		ecran.bas.setTemps("Temps : " + STR_ECHELLES[compteurEchelle] + "/div");	//et les textes affiches par defaut dans les notifications
 		ecran.bas.setText("Decalage temps : " + String.format("%.2f", (double)(Math.round(decalage*100))/100) + " div");
 		
 		setLayout(new GridBagLayout());//Layout plus complique mais permet de gerer a peu pres bien
@@ -101,8 +109,6 @@ public class GestionTemps extends JPanel implements PotentiometreListener{
 				ecran.bas.setTemps("Temps : " + STR_ECHELLES[compteurEchelle] + "/div");
 				ecran.grille.repaint();
 			}
-			
 		}
-		
 	}
 }

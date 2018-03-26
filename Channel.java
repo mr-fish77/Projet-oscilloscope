@@ -6,8 +6,6 @@ import javax.swing.JPanel;
 
 /**
  * Classe qui permet de gerer un channel
- * @author Pierre-Yves
- *
  */
 public class Channel extends JPanel implements PotentiometreListener{
 	/** Les signaux. Un seul est utilise 
@@ -44,6 +42,7 @@ public class Channel extends JPanel implements PotentiometreListener{
 		this.ecran = ecran;
 		this.nomChannel = nomChannel;
 		
+		//on met les valeurs par defaut du channel
 		this.signaux[this.n].echelleY = ECHELLES[compteurEchelle];
 		ecran.bas.setCh(nomChannel + " : " + ECHELLES[compteurEchelle] + " Volts/div", this.n);
 		

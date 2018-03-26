@@ -2,8 +2,6 @@ import java.awt.Color;
 
 /**
  * Classe qui permet de generer un signal triangle
- * @author Mathieu
- *
  */
 public class Triangle extends Signal {
  

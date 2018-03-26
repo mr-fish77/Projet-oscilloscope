@@ -40,14 +40,15 @@ public class Grille extends JPanel {
 	 * @param g L'element graphique fort sympathique. */
 	public void paint (Graphics g) {
 		super.paint(g);
-		afficheQuadrillage(g);
+		afficheQuadrillage(g);	//affichage de la grille a l'ecran
 		
+		//on met a jour les donnes et repeint les signaux
 		signaux[0].miseAEchelle(getWidth(), getHeight());
 		signaux[0].dessineCourbe(g);
-		
 		signaux[1].miseAEchelle(getWidth(), getHeight());
 		signaux[1].dessineCourbe(g);
         
+		//on s'occupe de l'affichage a l'ecran des menus au besoin
 		if(ecran.menus != null) {
 			ecran.menus.paintGrille(g,  getHeight(), getWidth());
 		}

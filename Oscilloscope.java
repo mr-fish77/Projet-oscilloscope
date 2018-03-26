@@ -25,7 +25,10 @@ public class Oscilloscope extends JFrame implements ActionListener{
 	private BoutonTexte sauvRap, mesures, acquisition, autoset, utilitaire, curseurs, affichage, recopie, runStop, maths;
 	private AbstractMenu menuCurseur, menuMaths;
 	
-	/** Genere la fenetre principale de l'oscilloscope.*/
+	/** Genere la fenetre principale de l'oscilloscope.
+	 * @param Signal[] signaux : le tableau des signaux
+	 * @param Generateur generateur : le generateur (pour gerer les repaints au besoin)
+	 */
 	public Oscilloscope(Signal[] signaux, Generateur generateur){
 		super("Oscilloscope");
 		setSize(1200, 600);
@@ -50,7 +53,7 @@ public class Oscilloscope extends JFrame implements ActionListener{
 		
 		/* Ecran de l'oscilloscope. */
 		ecran = new Ecran(signaux, this);
-		generateur.setEcran(ecran);
+		generateur.setEcran(ecran);	//pour gerer les repaints lorsqu'un signal est change dans le generateur
 		conteneurEcran.add(ecran);
 		
 		

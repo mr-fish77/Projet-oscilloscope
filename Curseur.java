@@ -2,7 +2,6 @@ import java.awt.Graphics;
 
 /**
  * Classe mere qui gere tous les curseurs
- * @author Pierre-Yves
  */
 public abstract class Curseur{
 	/** Positions en echelle de graduations */
@@ -47,10 +46,10 @@ public abstract class Curseur{
 	 * @param int evolCran2 : l'evolution pour le curseur2
 	 */
 	public void mAJCran(int evolCran1, int evolCran2) {
-		valCurseur1 += evolCran1*0.04;
+		valCurseur1 += evolCran1*0.04;	//on progresse par 4% (ca semble a peu pres bon)
 		valCurseur2 += evolCran2*0.04;
 		
-		vraiVal1 = Math.round(valCurseur1*echelle*100)/100;
+		vraiVal1 = Math.round(valCurseur1*echelle*100)/100;	//on garde 3 chiffres significatifs
 		vraiVal2 = Math.round(valCurseur2*echelle*100)/100;
 		difference = Math.round((valCurseur2-valCurseur1)*echelle*100)/100;
 	}

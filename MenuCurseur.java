@@ -3,30 +3,37 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class MenuCurseur extends AbstractMenu implements ActionListener, PotentiometreListener{
+	/** Oscillo pour acceder aux variable utiles */
 	protected Oscilloscope oscillo;		//l'objet ecran pour l'affichage
 	
-	protected Curseur curseurCourant = null;
-	protected Curseur curseurHor;
-	protected Curseur curseurCH1;
-	protected Curseur curseurCH2;
+	/** Les differents curseurs */
+	protected Curseur curseurCourant = null;	//curseur affiche
+	protected Curseur[] curseurs;				//tableau des curseurs
 	
+	/** String associes au curseurs */
+	protected String[] sType = {"Type : aucun", "Type : Temps", "Type : Volts"};
+	protected String[] sSource = {"Source : CH1", "Source : CH2"};
+
+	/** Potentiometres de reglage des curseurs */
 	protected Potentiometre pot1;
 	protected Potentiometre pot2;
 	
-	protected int type = 0; 
-	protected int source = 0;
+	/** Informations relatives a l'affichage des curseurs */
+	protected int type = 0; 	//0 : rien, 1:temps, 2:volts
+	protected int source = 0;	//0 ou 1 suivant le signal
 	
 	
 	public MenuCurseur(Signal[] s, Oscilloscope oscillo) {
 		super(s, "CURSEURS");
 		this.oscillo = oscillo;
 		
-		curseurCH1 = new CurseurVertical(s, 0);
-		curseurCH2 = new CurseurVertical(s, 1);
-		curseurHor = new CurseurHorizontal(s);
+		curseurs = new Curseur[4];
+		curseurs[1] = new CurseurHorizontal(s);
+		curseurs[2] = new CurseurVertical(s, 0);
+		curseurs[3]= new CurseurVertical(s, 1);
+		
 		
 		//On definit les textes des boutons
-
 		bouton1.setText("Type : aucun");
 		bouton2.setText("Source : CH1");
 		bouton3.setText("Delta");
@@ -86,48 +93,26 @@ public class MenuCurseur extends AbstractMenu implements ActionListener, Potenti
 	}
 	
 	
+	/** Methode qui est appelee lorsque le 1er bouton est clique
+	 * @param ActionEvent e : l'action event habituel
+	 */
 	public void actionBouton1(ActionEvent e) {
-		switch(type) {
-			case 0:
-				type = 1;
-				setText("Type : Volts", 1);
-				
-				if(source == 0) {
-					curseurCourant = curseurCH1;
-				}else {
-					curseurCourant = curseurCH2;
-				}
-				
-				break;
-			case 1:
-				type = 2;
-				setText("Type : Temps", 1);
-				curseurCourant = curseurHor;
-				break;
-			default:
-				type = 0;
-				setText("Type : aucun", 1);
-		}
-		oscillo.ecran.grille.repaint();
+		type = (type + 1) % 3;	//0-1-2-0...
+		curseurCourant = curseurs[type + ((type == 2) ? source : 0)];	//on recupere le bon curseur (on fait la difference de signaux ssi on doit afficher des curseurs verticaux)
+		
+		setText(sType[type], 1);		//on met le bon texte
+		oscillo.ecran.grille.repaint();	//on repaint
 	}
 	
 	
+	/** Methode qui est appelee lorsque le 2e bouton est clique
+	 * @param ActionEvent e : l'action event habituel
+	 */
 	public void actionBouton2(ActionEvent e) {
-		switch(source) {
-			case 0:
-				source = 1;
-				setText("Source : CH2", 2);
-				if(type == 1) {
-					curseurCourant = curseurCH2;
-				}
-				break;
-			default:
-				source = 0;
-				setText("Source : CH1", 2);
-				if(type == 1) {
-					curseurCourant = curseurCH1;
-				}
-		}
-		oscillo.ecran.grille.repaint();
+		source = (source + 1) % 2;//0-1-0...
+		curseurCourant = curseurs[type + ((type == 2) ? source : 0)];	//on recupere le bon curseur (on fait la difference de signaux ssi on doit afficher des curseurs verticaux)
+		
+		setText(sSource[source], 2);	//on met le bon texte
+		oscillo.ecran.grille.repaint();	//on repaint
 	}
 }

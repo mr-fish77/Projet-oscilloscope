@@ -2,6 +2,9 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import java.awt.*;
 
+/**
+ * Classe qui gere la zone de notification
+ */
 public class MenuDuBas extends JPanel {
 	/** Informations generales. */
 	private JLabel texte;

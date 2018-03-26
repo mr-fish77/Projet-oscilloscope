@@ -7,8 +7,6 @@ import javax.swing.JPanel;
 
 /**
  * Classe qui permet de creer un ecran d'oscilloscope
- * @author Pierre-Yves
- *
  */
 public class Ecran extends JPanel{
 	/** Couleur d'arriere-plan ou d'avant-plan. */
@@ -27,11 +25,12 @@ public class Ecran extends JPanel{
 		super();
 		this.signaux = signaux;
 		
+		//GridBAgLayout (arrangement en lignes/colonnes)
 		setLayout(new GridBagLayout());
-		
-		contraintes = new GridBagConstraints();
+		contraintes = new GridBagConstraints();	//les contraintes associees
 		contraintes.fill = GridBagConstraints.BOTH;
         
+		//la grille d'affichage des signaux
         grille = new Grille(signaux, this);
         contraintes.gridx = 0;
         contraintes.gridy=0;
@@ -39,15 +38,15 @@ public class Ecran extends JPanel{
         contraintes.weighty = 0.95;
         add(grille, contraintes);
         
+        // la zone de notification en bas de l'ecran
         bas = new MenuDuBas(signaux);
         contraintes.gridy = 1;
         contraintes.gridx = 0;
         contraintes.weightx = 1;
         contraintes.weighty = 0.05;
         add(bas, contraintes);
-        
-
 	}
+	
 	
 	/** Actualise l'affichage de l'ecran.
 	 * @param g L'element graphique toujours le bienvenu.
@@ -57,11 +56,17 @@ public class Ecran extends JPanel{
 	}
 	
 	
+	/**
+	 * Permet de basculer d'un menu a un autre
+	 * @param Menu menu : le nouveau menu a afficher
+	 */
 	public void changerMenu(AbstractMenu menu) {
-		if(menus != null) {
+		if(menus != null) {	//au lancement il n'y a pas de menu
 			menus.desactiverMenu();
 			remove(menus);
 		}
+		
+		// on change le menu
 		menus = menu;
 		menus.miseEnRoute();
 		contraintes.gridy = 0;
@@ -70,6 +75,7 @@ public class Ecran extends JPanel{
 	    contraintes.weightx = 0.2;
 	    add(menus, contraintes);
 		
+	    //les deux commandes sont obligatoire pour voir un chgt a l'ecran
 		revalidate();
         repaint();
 	}
