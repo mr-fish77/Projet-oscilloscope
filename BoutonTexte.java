@@ -8,7 +8,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
- * Classe qui permet d'afficher un bouton et son texte en dessous
+ * Classe qui permet d'afficher un bouton et son texte en dessous.
+ * Si le bouton n'a pas de Listener, il est grise et le clic dessus ne marche pas.
+ * Sinon, il est jaune et cliquable.
  * @author Pierre-Yves
  *
  */

@@ -10,24 +10,28 @@ import javax.swing.JPanel;
  *
  */
 public class Channel extends JPanel implements PotentiometreListener{
-	private Signal[] signaux;		//tableau de signal (on est oblige car on cree souvent de nouveaux signaux)
-	private int n;					//indice du signal
-	private String nomChannel;		//nom du channel
+	/** Les signaux. Un seul est utilise 
+	 * mais il faut un tableau pour conserver un pointeur memoire correct. */
+	private Signal[] signaux;
+	/** Indice du signal dans le tableau de signaux. */
+	private int n;
+	/** Nom du Channel. */
+	private String nomChannel;
+	/** Ecran (pour gerer les repaint(). */
+	private Ecran ecran;
 	
-	private Ecran ecran;	//l'ecran pour gerer les repaint()
-	
-	public Potentiometre potPos;	//potentiometre position verticale
-	private Potentiometre potDiv;	//potentiometre volts/div
-	private BoutonTexte chMenu;		//bouton affichage menu du signal
-	
-	private double decalage = 0.0;		//decalage en hauteur du signal
-	
-	//Echelles des ordonnees du signal
+	/** Potentiometre de position verticale. */
+	public Potentiometre potPos;
+	/** Potentiometre de Volts par division (horizontal). */
+	private Potentiometre potDiv;
+	/** Bouton qui affiche le menu du Signal concerne. */
+	private BoutonTexte chMenu;
+	/** Decalage en hauteur du signal. */
+	private double decalage = 0.0;
+	/** Echelles des ordonnees du signal. */
 	private static final double[] ECHELLES = {10.0, 5.0, 2.0, 1.0, 0.5, 0.2, 0.1, 0.05};
-	private int compteurEchelle = 1;	//position dans le tableau du dessus
-	
-	
-	
+	/** Position dans le tableau des echelles. */
+	private int compteurEchelle = 1;
 	
 	/**
 	 * Constructeur qui cree l'interface graphique du channel
