@@ -1,21 +1,20 @@
 import java.awt.Color;
 
 /**
- * Classe qui permet de generer un signal rectangle  
+ * Classe correspondant a un signal rectangulaire. 
  * @author Mathieu
- *
  */
 
 
 public class Rectangle extends Signal {
       
-    /**
-	 * Constructeur par signal rectangle.
-	 */
+    /** Constructeur par signal rectangle. */
     public Rectangle(int n){
         super(n);
     }
     
+	/** Constructeur qui cree un nouveau signal par recopie.
+	 * @param s Signal a copier. */
     public Rectangle(Signal s) {
     	super(s);
     }
@@ -45,11 +44,9 @@ public class Rectangle extends Signal {
     	super.calculPoint();
     }
     
-    
-
-    
-    
-    /** Renvoie la forme du Signal, ici : REC. */
-	public String getForme() {return SIGNAL_TYPES[2];}
+    /** @return la forme du Signal, ici : REC. */
+	public String getForme() {
+		return SIGNAL_TYPES[2];
+	}
 
 }
