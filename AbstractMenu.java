@@ -18,7 +18,7 @@ public abstract class AbstractMenu extends JPanel implements ActionListener{
 	protected static String menuActuel = "NoMenu";
 	
 	/** Les 5 menus. */
-	protected LinkedList<JButton> boutons = new LinkedList<JButton>();
+	protected JButton bouton1, bouton2, bouton3, bouton4, bouton5;
 	
 	/** Cree un Menu.
 	 * @param s Les signaux, en acces protected.
@@ -32,14 +32,22 @@ public abstract class AbstractMenu extends JPanel implements ActionListener{
 		this.menuActuel = menuActuel.toUpperCase(); // Mise en majuscules.
 		System.out.println("MENU " + menuActuel);
 		
-		setLayout(new GridLayout(5,1));	//fenetre separee en 5 cases de meme taille
-		for (int i = 0; i < 5; i++) {
-			JButton b = new JButton();
-			b.setActionCommand(Integer.toString(i));
-			boutons.add(b);
-			this.add(b);
+		/* Generation du contenu avec les boutons. */
+		setLayout(new GridLayout(5,1));
+		bouton1 = new JButton("");
+		bouton2 = new JButton("");
+		bouton3 = new JButton("");
+		bouton4 = new JButton("");
+		bouton5 = new JButton("");
+		this.add(bouton1);
+		this.add(bouton1);
+		this.add(bouton1);
+		this.add(bouton1);
+		this.add(bouton1);
+		for (java.awt.Component c : this.getComponents()){
+			JButton b = (JButton) c;
+			b.addActionListener(this);
 		}
-		addActionListener(this);
 	}
 	
 	
@@ -48,17 +56,6 @@ public abstract class AbstractMenu extends JPanel implements ActionListener{
 	public void paint(Graphics g) {
 		super.paint(g);
 	}
-	
-	
-	/** Methode qui ajoute un actionListener a tous les boutons a la fois
-	 * @param ActionListener al : l'actionlistener a rajouter a tous les objets
-	 */
-	public void addActionListener(ActionListener al) {
-		for (JButton b : boutons) {
-			b.addActionListener(al);
-		}
-	}
-	
 	
 	/**
 	 * Methode qui desactive le menu : a implementer au besoin
@@ -75,15 +72,15 @@ public abstract class AbstractMenu extends JPanel implements ActionListener{
 	 * @param ActionEvent e : l'action event habituel
 	 */
 	public void actionPerformed (ActionEvent e) {
-		if(e.getSource().equals(boutons.get(0))) {
+		if      (e.getSource().equals(bouton1)) {
 			actionBouton1(e);
-		}else if(e.getSource().equals(boutons.get(1))) {
+		}else if(e.getSource().equals(bouton2)) {
 			actionBouton2(e);
-		}else if(e.getSource().equals(boutons.get(2))) {
+		}else if(e.getSource().equals(bouton3)) {
 			actionBouton3(e);
-		}else if(e.getSource().equals(boutons.get(3))) {
+		}else if(e.getSource().equals(bouton4)) {
 			actionBouton4(e);
-		}else if(e.getSource().equals(boutons.get(4))) {
+		}else if(e.getSource().equals(bouton5)) {
 			actionBouton5(e);
 		}
 	}
