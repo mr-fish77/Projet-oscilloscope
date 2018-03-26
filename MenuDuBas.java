@@ -20,25 +20,19 @@ public class MenuDuBas extends JPanel {
 	public MenuDuBas(Signal[] s) {
 		signaux = s;
 		
-		setLayout(new BorderLayout());
-		
-		//informations generales
-		texte = new JLabel();
-		add(texte, BorderLayout.EAST);
+		setLayout(new GridLayout(1,4));
 		
 		//textes des channels et du temps
-		conteneurInfo = new JPanel();
-		conteneurInfo.setLayout(new GridLayout(1, 3));
-		
 		texteCh1 = new JLabel();
 		texteCh2 = new JLabel();
 		texteTemps = new JLabel();
+		add(texteCh1);
+		add(texteCh2);
+		add(texteTemps);
 		
-		conteneurInfo.add(texteCh1);
-		conteneurInfo.add(texteCh2);
-		conteneurInfo.add(texteTemps);
-		
-		add(conteneurInfo, BorderLayout.WEST);
+		//informations generales
+		texte = new JLabel();
+		add(texte);
 	}
 	
 	/** Permet de changer le texte general
