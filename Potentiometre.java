@@ -142,7 +142,7 @@ public class Potentiometre extends JLabel implements MouseMotionListener, MouseL
 
     double a = Math.atan2( xMem*y - yMem*x, xMem*x + yMem*y );  //on en deduit l'angle par rapport au precedent cran (formule d'internet)
 
-    if(Math.abs(a) > 0.2){ //si l'angle est supperieur à 22,5 degre on change de cran (c'est la moitie d'un angle d'octogone)
+    if(Math.abs(a) > 1){ //si l'angle est supperieur à 22,5 degre on change de cran (c'est la moitie d'un angle d'octogone)
       if(listener != null) {
     	listener.potentiometrePerformed(this, (int)(a/(Math.abs(a))));
       }

@@ -62,10 +62,10 @@ public class MenuCurseur extends MenuManager implements ActionListener, Potentio
 				curseurCourant.mAJCran(0, evolutionCran);
 			}
 			oscillo.ecran.grille.repaint();
+			boutons.get(2).setText("Delta : " + curseurCourant.difference);
+			boutons.get(3).setText("Curseur 1 : " + curseurCourant.vraiVal1);
+			boutons.get(4).setText("Curseur 2 : " + curseurCourant.vraiVal2);
 		}
-		boutons.get(2).setText("Delta : " + curseurCourant.difference);
-		boutons.get(3).setText("Curseur 1 : " + curseurCourant.vraiVal1);
-		boutons.get(4).setText("Curseur 2 : " + curseurCourant.vraiVal2);
 	}
 	
 	
