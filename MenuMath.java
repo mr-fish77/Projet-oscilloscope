@@ -9,7 +9,7 @@ import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
 
-public class MenuMath extends MenuManager implements ActionListener{
+public class MenuMath extends AbstractMenu implements ActionListener{
 	
 	private JButton Ajouter = new JButton("Ajouter");
 	private JButton Soustraire1= new JButton("Soustraction de ch1 a ch2");

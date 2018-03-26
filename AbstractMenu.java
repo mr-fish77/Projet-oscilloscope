@@ -8,7 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public abstract class MenuManager extends JPanel implements ActionListener{
+public abstract class AbstractMenu extends JPanel implements ActionListener{
 	
 	/** Les signaux. */
 	protected Signal[] signaux;
@@ -25,7 +25,7 @@ public abstract class MenuManager extends JPanel implements ActionListener{
 	 * @param menuActuel Chaine de caracteres qui indiquent le menu actuellement a l'ecran.
 	 * Utilise pour le deboggage, sera desactive lors de la finalisation du projet.
 	 */
-	protected MenuManager(Signal[] s, String menuActuel) {
+	protected AbstractMenu(Signal[] s, String menuActuel) {
 		super();
 		signaux = s;
 		
@@ -116,9 +116,3 @@ public abstract class MenuManager extends JPanel implements ActionListener{
 	 */
 	public void actionBouton5(ActionEvent e) {}
 }
-//Mes quetions : pk faire un ArrayList de menus en attributs (on ne fait jamais appel à cette liste ni dans
-//ni dans oscilloscope (si c'est pour choisir le type de menu--> classe héritière préférable
-//je ne comprends pas comment la bande noire s'affiche avec les bonnes dimensions sur le côté
-// j'ai vu que les tailles étaient définies dans la méthode paint de l'écran mais à aucun moment cette méthode n'est appelée 
-// dans oscilloscope
-//5 JButton quand on cliquera dessus, infos qui changent comment faire pour changer le texte d'un JButton

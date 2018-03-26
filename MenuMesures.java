@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.event.*;
 
 
-public class MenuMesures extends MenuManager {
+public class MenuMesures extends AbstractMenu {
 	private JButton source = new JButton ("Source : CH1");
 	private JButton periode = new JButton ("Periode");
 	private JButton frequence = new JButton ("Frequence");
