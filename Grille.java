@@ -20,11 +20,15 @@ public class Grille extends JPanel {
 	public boolean affCurseur = false;
 	public boolean affMaths = false;
 	
+	/** affichage des menus */
+	private Ecran ecran;
+	
 	/** Cree la grille.
 	 * @param s Les signaux. */
-	public Grille(Signal[] s) {
+	public Grille(Signal[] s, Ecran ecran) {
 		super();
 		setLayout(null);
+		this.ecran = ecran;
 		signaux = s;
 		setBackground(arrierePlan);
 		setForeground(avantPlan);
@@ -42,17 +46,7 @@ public class Grille extends JPanel {
 		signaux[1].miseAEchelle(getWidth(), getHeight());
 		signaux[1].dessineCourbe(g);
         
-        
-        
-		
-		if(affCurseur && menuCurseur.curseurCourant != null) {
-			menuCurseur.curseurCourant.paint(g, getHeight(), getWidth());
-		}
-        
-        if(affMaths && menumaths.smaths.resultat != null) {
-			menumaths.smaths.dessineCourbe(g);
-            System.out.println("lol");
-		}
+        ecran.menus.paintGrille(g,  getHeight(), getWidth());
 		
 	}
 	

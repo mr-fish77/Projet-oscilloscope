@@ -1,3 +1,4 @@
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -33,6 +34,12 @@ public class MenuCurseur extends AbstractMenu implements ActionListener, Potenti
 
 	}
 	
+	public void paintGrille(Graphics g, int hauteur, int largeur) {
+		System.out.println(curseurCourant);
+		if(curseurCourant != null) {
+			curseurCourant.paint(g, hauteur, largeur);
+		}
+	}
 	
 	public void miseEnRoute() {
 		this.oscillo.ecran.grille.affichageCurseur(this);

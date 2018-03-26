@@ -31,7 +31,7 @@ public class Ecran extends JPanel{
 		GridBagConstraints contraintes = new GridBagConstraints();
 		contraintes.fill = GridBagConstraints.BOTH;
         
-        grille = new Grille(signaux);
+        grille = new Grille(signaux, this);
         contraintes.gridx = 0;
         contraintes.gridy=0;
         contraintes.weightx = 1;
@@ -62,13 +62,13 @@ public class Ecran extends JPanel{
 	 */
 	public void paint (Graphics g) {
 		super.paint(g);
-		
 	}
 	
 	
 	public void changerMenu(AbstractMenu menu) {
 		menus.desactiverMenu();
 		menus = menu;
+		
 		repaint();
 	}
 }
