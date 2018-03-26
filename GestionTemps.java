@@ -20,7 +20,7 @@ public class GestionTemps extends JPanel implements PotentiometreListener{
 	
 	private double decalage;
 	private static final double[] ECHELLES = {1, 0.5, 0.2, 0.1, 0.05, 0.01, 0.005, 0.001, 0.0005, 0.0001, 0.00005, 0.00001, 0.000005, 0.000001, 0.0000005, 0.0000001};
-	private static final String[] STR_ECHELLES = {"1.10^0 ", "5.10^-1", "2.10^-1", "1.10^-1", "5.10^-2", "1.10^-2", "5.10^-3", "1.10^-3", "5.10^-4", "1.10^-4", "5.10^-5", "1.10^-5", "5.10^-6", "1.10^-6", "5.10^-7", "1.10^-7"};
+	private static final String[] STR_ECHELLES = {"1 s", "0.5 s", "0.2 s", "0.1 s", "50 ms", "20 ms", "5 ms", "1 ms", "0.5 ms", "0.1 ms", "50 micro s", "10 micro s", "5 micro s", "1 micro s", "0.5 micro s", "0.1 micro s"};
 	private int compteurEchelle = 0;
 	
 	/**
@@ -33,7 +33,7 @@ public class GestionTemps extends JPanel implements PotentiometreListener{
 		
 		this.signaux[0].echelleX = ECHELLES[compteurEchelle];
 		this.signaux[1].echelleX = ECHELLES[compteurEchelle];
-		ecran.bas.setTemps("Temps : " + STR_ECHELLES[compteurEchelle] + " Sec/div");
+		ecran.bas.setTemps("Temps : " + STR_ECHELLES[compteurEchelle] + "/div");
 		ecran.bas.setText("Decalage temps : " + String.format("%.2f", (double)(Math.round(decalage*100))/100) + " div");
 		
 		setLayout(new GridBagLayout());//Layout plus complique mais permet de gerer a peu pres bien
@@ -100,7 +100,7 @@ public class GestionTemps extends JPanel implements PotentiometreListener{
 				//attribution au 2 signaux
 				signaux[0].echelleX = ECHELLES[compteurEchelle];
 				signaux[1].echelleX = ECHELLES[compteurEchelle];
-				ecran.bas.setTemps("Temps : " + STR_ECHELLES[compteurEchelle] + " Sec/div");
+				ecran.bas.setTemps("Temps : " + STR_ECHELLES[compteurEchelle] + "/div");
 				ecran.grille.repaint();
 			}
 			
