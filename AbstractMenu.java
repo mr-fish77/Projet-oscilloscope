@@ -50,6 +50,13 @@ public abstract class AbstractMenu extends JPanel implements ActionListener{
 	}
 	
 	
+	/** Permet de peindre sur la grille
+	 * @param g : l'element graphique qui est bien
+	 */
+	public void paintGrille(Graphics g) {
+		
+	}
+	
 	/** Methode qui ajoute un actionListener a tous les boutons a la fois
 	 * @param ActionListener al : l'actionlistener a rajouter a tous les objets
 	 */

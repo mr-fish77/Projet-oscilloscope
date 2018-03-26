@@ -81,6 +81,8 @@ public class Grille extends JPanel {
 		}
 	}
 	
+	
+	
 	public void affichageCurseur(MenuCurseur menu) {
 		this.menuCurseur = menu;
 		this.affCurseur= true;

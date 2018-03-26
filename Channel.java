@@ -18,7 +18,7 @@ public class Channel extends JPanel implements PotentiometreListener{
 	
 	public Potentiometre potPos;	//potentiometre position verticale
 	private Potentiometre potDiv;	//potentiometre volts/div
-	private BoutonTexte chMenu;		//bouton affichage menu du signal
+	public BoutonTexte chMenu;		//bouton affichage menu du signal
 	
 	private double decalage = 0.0;		//decalage en hauteur du signal
 	

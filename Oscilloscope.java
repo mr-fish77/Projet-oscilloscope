@@ -1,8 +1,9 @@
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -12,7 +13,7 @@ import javax.swing.JPanel;
  * @author Pierre-Yves
  *
  */
-public class Oscilloscope extends JFrame{
+public class Oscilloscope extends JFrame implements ActionListener{
 	/** Les Channel correspondant a chaque Signal. */
 	public Channel ch1, ch2;
 	/** Objet permettant de gerer la position et l'echelle temporels. */
@@ -24,6 +25,7 @@ public class Oscilloscope extends JFrame{
 	
 	/** Boutons en haut a droite de l'interface de l'oscilloscope. */
 	private BoutonTexte sauvRap, mesures, acquisition, autoset, utilitaire, curseurs, affichage, recopie, runStop;
+	private AbstractMenu menuCurseur;
 	
 	/** Genere la fenetre principale de l'oscilloscope.*/
 	public Oscilloscope(Signal[] signaux, Generateur generateur){
@@ -37,6 +39,9 @@ public class Oscilloscope extends JFrame{
 		JPanel conteneurPrincipal = new JPanel();		//pour ne pas avoir de probleme avec les marges des fenetres
 		conteneurPrincipal.setLayout(new GridLayout());
 		setContentPane(conteneurPrincipal);
+		
+		//Definition des menus
+		menuCurseur = new MenuCurseur(signaux, this);
 		
 		
 		//Conteneur de gauche, contient l'ecran et les boutons interactions menus
@@ -91,15 +96,15 @@ public class Oscilloscope extends JFrame{
 	 * @param JPanel boutonsAffichageMenus : le conteneur des menus
 	 */
 	public void ajouterAffichageMenus(JPanel boutonsAffichageMenus) {
-		sauvRap = new BoutonTexte("Sauv/Rap");
-		mesures = new BoutonTexte("Mesures");
-		acquisition = new BoutonTexte("Acquisition");
-		autoset = new BoutonTexte("AutoSet");
-		utilitaire = new BoutonTexte("Utilitaire");
-		curseurs = new BoutonTexte("Curseurs");
-		affichage = new BoutonTexte("Affichage");
-		recopie = new BoutonTexte("Recopie");
-		runStop = new BoutonTexte("Run/Stop");
+		sauvRap = new BoutonTexte("Sauv/Rap", this);
+		mesures = new BoutonTexte("Mesures", this);
+		acquisition = new BoutonTexte("Acquisition", this);
+		autoset = new BoutonTexte("AutoSet", this);
+		utilitaire = new BoutonTexte("Utilitaire", this);
+		curseurs = new BoutonTexte("Curseurs", this);
+		affichage = new BoutonTexte("Affichage", this);
+		recopie = new BoutonTexte("Recopie", this);
+		runStop = new BoutonTexte("Run/Stop", this);
 		
 		boutonsAffichageMenus.add(sauvRap);
 		boutonsAffichageMenus.add(mesures);
@@ -132,5 +137,46 @@ public class Oscilloscope extends JFrame{
 		
 		ecran.grille.affCurseur = false;
 		ecran.grille.repaint();
+	}
+	
+	/**
+	 * Methode qui gere l'appui sur un bouton
+	 * @param ActionEvent e : l'actionEvent obligatoire :(
+	 */
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource() == curseurs.getJButton()) {
+			ecran.grille.changerMenu(menuCurseur);
+			
+		}else if(e.getSource() == mesures.getJButton()) {
+			
+			
+		}else if(e.getSource() == ch1.chMenu.getJButton()) {
+			
+			
+		}else if(e.getSource() == ch2.chMenu.getJButton()) {
+			
+			
+		}else if(e.getSource() == autoset.getJButton()) {
+			
+			
+		}else if(e.getSource() == sauvRap.getJButton()) {
+			
+			
+		}else if(e.getSource() == acquisition.getJButton()) {
+			
+			
+		}else if(e.getSource() == utilitaire.getJButton()) {
+			
+			
+		}else if(e.getSource() == affichage.getJButton()) {
+			
+			
+		}else if(e.getSource() == recopie.getJButton()) {
+			
+			
+		}else if(e.getSource() == runStop.getJButton()) {
+			
+			
+		}
 	}
 }

@@ -18,11 +18,31 @@ public class BoutonTexte extends JPanel {
 	/** Label contenant le texte en paramètre du constructeur. */
 	private JLabel texte;
 	
+	
 	/** Constructeur qui permet de generer le bouton avec son texte.
 	 * @param String texte : le texte a afficher dans le bouton.
 	 */
 	public BoutonTexte(String texte) {
 		super();
+		constructeurDeporte(texte);
+	}
+	
+	
+	/** Constructeur qui permet de generer le bouton avec son texte.
+	 * @param String texte : le texte a afficher dans le bouton.
+	 */
+	public BoutonTexte(String texte, ActionListener al) {
+		super();
+		constructeurDeporte(texte);
+		bouton.addActionListener(al);
+		bouton.setEnabled(true);
+	}
+	
+	/**
+	 * Constructeur deporte (si jamais on doit retoucer tout)
+	 * @param texte
+	 */
+	public void constructeurDeporte(String texte) {
 		setOpaque(false);
 		setLayout(new GridBagLayout());	//on utilise un layout avance, mais c'est le seul moyen que j'ai trouve
 		GridBagConstraints contraintes = new GridBagConstraints();	//outil qui permet de parametrer le layout
@@ -46,11 +66,11 @@ public class BoutonTexte extends JPanel {
 		add(this.texte, contraintes);
 	}
 	
+	
 	/** Ajoute un ActionListener sur le bouton. 
 	 * @param obj Un objet qui implemente ActionListener. */
-	public void addActionListener (ActionListener obj){
-		this.bouton.addActionListener(obj);
-		this.bouton.setActionCommand(this.texte.getText());
+	public void addActionListener (ActionListener al){
+		this.bouton.addActionListener(al);
 		this.bouton.setEnabled(true);
 		this.texte.setBackground(Color.YELLOW);
 	}
@@ -65,4 +85,13 @@ public class BoutonTexte extends JPanel {
 	public String getText(){
 		return this.texte.getText();
 	}
+	
+	/**
+	 * Retourne le bouton
+	 *@return JButton le bouton
+	 */
+	public JButton getJButton() {
+		return bouton;
+	}
+			 
 }

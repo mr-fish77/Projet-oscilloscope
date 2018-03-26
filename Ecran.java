@@ -38,7 +38,7 @@ public class Ecran extends JPanel{
         contraintes.weighty = 0.95;
         add(grille, contraintes);
         
-         menus = new MenuCurseur(signaux, oscillo);
+        menus = new MenuCurseur(signaux, oscillo);
         contraintes.gridy = 0;
         contraintes.gridx = 1;
         contraintes.weighty = 1;
@@ -62,5 +62,12 @@ public class Ecran extends JPanel{
 	public void paint (Graphics g) {
 		super.paint(g);
 		
+	}
+	
+	
+	public void changerMenu(AbstractMenu menu) {
+		menus.desactiverMenu();
+		menus = menu;
+		repaint();
 	}
 }
