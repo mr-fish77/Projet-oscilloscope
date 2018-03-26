@@ -23,9 +23,9 @@ public class Oscilloscope extends JFrame{
 	public Ecran ecran;
 	
 	/** Boutons en haut a droite de l'interface de l'oscilloscope. */
-	private BoutonTexte sauvRap, meures, acquisition, autoset, utilitaire, curseurs, affichage, recopie, runStop;
+	private BoutonTexte sauvRap, mesures, acquisition, autoset, utilitaire, curseurs, affichage, recopie, runStop;
 	
-
+	/** Genere la fenetre principale de l'oscilloscope.*/
 	public Oscilloscope(Signal[] signaux, Generateur generateur){
 		super("Oscilloscope");      //constructeur par defaut de la classe JFrame
 		setSize(1200, 600);
@@ -91,15 +91,15 @@ public class Oscilloscope extends JFrame{
 	 * @param JPanel boutonsAffichageMenus : le conteneur des menus
 	 */
 	public void ajouterAffichageMenus(JPanel boutonsAffichageMenus) {
-			private BoutonTexte sauvRap = new BoutonTexte("Sauv/Rap");
-	private BoutonTexte mesures = new BoutonTexte("Mesures");
-	private BoutonTexte acquisition = new BoutonTexte("Acquisition");
-	private BoutonTexte autoset = new BoutonTexte("AutoSet");
-	private BoutonTexte utilitaire = new BoutonTexte("Utilitaire");
-	private BoutonTexte curseurs = new BoutonTexte("Curseurs");
-	private BoutonTexte affichage = new BoutonTexte("Affichage");
-	private BoutonTexte recopie = new BoutonTexte("Recopie");
-	private BoutonTexte runStop = new BoutonTexte("Run/Stop");
+		sauvRap = new BoutonTexte("Sauv/Rap");
+		mesures = new BoutonTexte("Mesures");
+		acquisition = new BoutonTexte("Acquisition");
+		autoset = new BoutonTexte("AutoSet");
+		utilitaire = new BoutonTexte("Utilitaire");
+		curseurs = new BoutonTexte("Curseurs");
+		affichage = new BoutonTexte("Affichage");
+		recopie = new BoutonTexte("Recopie");
+		runStop = new BoutonTexte("Run/Stop");
 		
 		boutonsAffichageMenus.add(sauvRap);
 		boutonsAffichageMenus.add(mesures);
