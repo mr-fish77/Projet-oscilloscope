@@ -41,7 +41,7 @@ public abstract class Signal {
 	protected static final Color[] COULEURS_SIGNAUX = {Color.BLUE, Color.ORANGE};
     
     /**nb de point par graduation*/
-    public final int NB_POINTS = 50; 
+    public final int NB_POINTS = 1000; 
     /**nb de pixels par graduation X*/
     public  int nbPixelX; 
     /**nb de pixels par graduation Y*/

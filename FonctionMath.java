@@ -34,6 +34,7 @@ public class FonctionMath{
 			for (int j = 0; i < nuagePoint1[0].length ; i++)
 			{
 				resultat[i][j]=nuagePoint1[i][j]+nuagePoint2[i][j];
+                System.out.println(resultat[i][j]);
 			}
 			
 		}
