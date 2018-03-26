@@ -16,8 +16,9 @@ public class Grille extends JPanel {
 	
 	/** Pour la gestion des curseurs */
 	private MenuCurseur menuCurseur;
+    private MenuMath menumaths;
 	public boolean affCurseur = false;
-	
+	public boolean affMaths = false;
 	
 	/** Cree la grille.
 	 * @param s Les signaux. */
@@ -46,6 +47,11 @@ public class Grille extends JPanel {
 		
 		if(affCurseur && menuCurseur.curseurCourant != null) {
 			menuCurseur.curseurCourant.paint(g, getHeight(), getWidth());
+		}
+        
+        if(affMaths && menumaths.smaths.resultat != null) {
+			menumaths.smaths.dessineCourbe(g);
+            System.out.println("lol");
 		}
 		
 	}
@@ -84,5 +90,10 @@ public class Grille extends JPanel {
 	public void affichageCurseur(MenuCurseur menu) {
 		this.menuCurseur = menu;
 		this.affCurseur= true;
+	}
+    
+    public void affichageMaths(MenuMath menu) {
+		this.menumaths = menu;
+		this.affMaths= true;
 	}
 }

@@ -11,13 +11,13 @@ import java.awt.event.*;
 
 public class MenuMath extends AbstractMenu {
 	
-	
+	protected Oscilloscope oscillo;
     public FonctionMath smaths;
     
 	
-	public MenuMath(Signal[] s){
+	public MenuMath(Signal[] s, Oscilloscope oscillo){
 		super(s, "MATHS");
-        
+        this.oscillo = oscillo;
         smaths = new FonctionMath(s);
 		
 		bouton1.setText("Ajouter: ");
@@ -27,6 +27,9 @@ public class MenuMath extends AbstractMenu {
 		bouton5.setText("Inverser CH2");
 	}
 	
+    public void miseEnRoute() {
+		this.oscillo.ecran.grille.affichageMaths(this);
+    }
     
     public void actionBouton1(ActionEvent e) {
         
