@@ -31,9 +31,7 @@ public class MenuMath extends AbstractMenu {
 		smaths.dessineCourbe(g);		
 	}
 	
-    public void miseEnRoute() {
-		this.oscillo.ecran.grille.affichageMaths(this);
-    }
+    public void miseEnRoute() {}
     
     public void actionBouton1(ActionEvent e) {
         

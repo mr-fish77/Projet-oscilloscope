@@ -3,7 +3,6 @@ import java.awt.Graphics;
 
 /**
  * Classe qui permet de gerer un curseur vertical (volts)
- * @author Pierre-Yves
  */
 public class CurseurVertical extends Curseur{
 	/** Numero du signal associe au curseur */
@@ -22,6 +21,8 @@ public class CurseurVertical extends Curseur{
 	/**
 	 * Methode qui gere l'affichage des curseurs a l'ecran
 	 * @param Graphics g :l'objet graphique qui fait zizir
+	 * @param int hauteur : la hauteur de la grille
+	 * @param int largeur : la largeur de la grille
 	 */
 	public void paint(Graphics g, int hauteur, int largeur) {
 		g.setColor(Color.RED);

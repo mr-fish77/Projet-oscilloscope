@@ -5,9 +5,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
- * Classe qui permet de gerer le temps
- * @author Pierre-Yves
- *
+ * Classe qui permet de gerer l'echelle et la position au niveau du temps
  */
 public class GestionTemps extends JPanel implements PotentiometreListener{
 	private Signal[] signaux;		//tableau de signal (on est oblige car on cree souvent de nouveaux signaux)

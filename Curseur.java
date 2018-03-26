@@ -35,6 +35,8 @@ public abstract class Curseur{
 	/**
 	 * Methode qui permet d'afficher les curseurs a l'ecran
 	 * @param Graphics g : l'objet graphique bien pratique
+	 * @param int hauteur : la hauteur de la grille
+	 * @param int largeur : la largeur de la grille
 	 */
 	public abstract void paint(Graphics g, int hauteur, int largeur);
 	

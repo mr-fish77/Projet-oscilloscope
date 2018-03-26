@@ -10,8 +10,6 @@ import javax.swing.JPanel;
 
 /**
  * Classe qui gere l'affichage de l'oscilloscope a l'ecran
- * @author Pierre-Yves
- *
  */
 public class Oscilloscope extends JFrame implements ActionListener{
 	/** Les Channel correspondant a chaque Signal. */
@@ -134,11 +132,9 @@ public class Oscilloscope extends JFrame implements ActionListener{
 	 * Methode qui prend en charge la desactivation du menu curseur
 	 */
 	public void desactiveCurseur() {
+		//on reatribue les listener aux potentiometres comme il faut
 		ch1.potPos.addPotentiometreListener(ch1);
 		ch2.potPos.addPotentiometreListener(ch2);
-		
-		ecran.grille.affCurseur = false;
-		ecran.grille.repaint();
 	}
 	
 	/**
@@ -148,7 +144,6 @@ public class Oscilloscope extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == curseurs.getJButton()) {
 			ecran.changerMenu(menuCurseur);
-			
 		}else if(e.getSource() == mesures.getJButton()) {
 			
 			
@@ -160,7 +155,6 @@ public class Oscilloscope extends JFrame implements ActionListener{
 			
 		}else if(e.getSource() == maths.getJButton()) {
 			ecran.changerMenu(menuMaths);
-			
 		}else if(e.getSource() == autoset.getJButton()) {
 			
 			

@@ -35,15 +35,23 @@ public class MenuCurseur extends AbstractMenu implements ActionListener, Potenti
 
 	}
 	
+	/**
+	 * Methode qui permet de peindre sur l'ecran
+	 * @param Graphics g : l'objet graphique bien pratique
+	 * @param int hauteur : la hauteur de la grille
+	 * @param int largeur : la largeur de la grille
+	 */
 	public void paintGrille(Graphics g, int hauteur, int largeur) {
 		if(curseurCourant != null) {
 			curseurCourant.paint(g, hauteur, largeur);
 		}
 	}
 	
+	
+	/**
+	 * Methode appelee lorsque tous les objets necessaires sont instancies correctement
+	 */
 	public void miseEnRoute() {
-		this.oscillo.ecran.grille.affichageCurseur(this);
-		
 		pot1 = this.oscillo.ch1.potPos;
 		pot2 = this.oscillo.ch2.potPos;
 		pot1.addPotentiometreListener(this);
@@ -56,7 +64,7 @@ public class MenuCurseur extends AbstractMenu implements ActionListener, Potenti
 	 */
 	public void desactiverMenu() {
 		oscillo.desactiveCurseur();
-	}	
+	}
 	
 	/**
 	 * Methode qui gere le potentiometre

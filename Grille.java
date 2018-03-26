@@ -3,6 +3,9 @@ import java.awt.Graphics;
 
 import javax.swing.JPanel;
 
+/**
+ * classe qui permet d'afficher le quadrillage, les signaux et les affichages de menus a l'ecran
+ */
 public class Grille extends JPanel {
 	
 	/** Les signaux. */
@@ -14,25 +17,24 @@ public class Grille extends JPanel {
 	/** Couleur d'arriere-plan ou d'avant-plan. */
 	Color arrierePlan = Ecran.arrierePlan, avantPlan = Ecran.avantPlan;
 	
-	/** Pour la gestion des curseurs */
-	private MenuCurseur menuCurseur;
-    private MenuMath menumaths;
-	public boolean affCurseur = false;
-	public boolean affMaths = false;
-	
 	/** affichage des menus */
 	private Ecran ecran;
 	
 	/** Cree la grille.
-	 * @param s Les signaux. */
+	 * @param s Les signaux
+	 */
 	public Grille(Signal[] s, Ecran ecran) {
 		super();
 		setLayout(null);
+		
 		this.ecran = ecran;
 		signaux = s;
+		
+		//on donne des couleurs
 		setBackground(arrierePlan);
 		setForeground(avantPlan);
 	}
+	
 	
 	/** Dessine le quadrillage et les courbes. 
 	 * @param g L'element graphique fort sympathique. */
@@ -49,8 +51,8 @@ public class Grille extends JPanel {
 		if(ecran.menus != null) {
 			ecran.menus.paintGrille(g,  getHeight(), getWidth());
 		}
-		
 	}
+	
 	
 	/**
 	 * Methode qui permet d'afficher la grille adaptee a la taille de l'ecran
@@ -70,7 +72,6 @@ public class Grille extends JPanel {
 		int lPetiteGrad = largeur/40;
 		
 		g.setColor(avantPlan);
-		
 		for(int i = 0; i<8; i++) {
 			g.drawLine(0, i*hGrandeGrad, largeur, i*hGrandeGrad);	//quadrillage vertical
 			g.drawLine(i*lGrandeGrad, 0, i*lGrandeGrad, hauteur);	//quadrillage horizontal
@@ -81,17 +82,5 @@ public class Grille extends JPanel {
 				g.drawLine(dLargeur - lPetiteGrad/2, i*hGrandeGrad + j*hPetiteGrad, dLargeur + lPetiteGrad/2, i*hGrandeGrad + j*hPetiteGrad);	//graduation axe vertical
 			}
 		}
-	}
-	
-	
-	
-	public void affichageCurseur(MenuCurseur menu) {
-		this.menuCurseur = menu;
-		this.affCurseur= true;
-	}
-    
-    public void affichageMaths(MenuMath menu) {
-		this.menumaths = menu;
-		this.affMaths= true;
 	}
 }
