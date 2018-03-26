@@ -40,10 +40,10 @@ public abstract class AbstractMenu extends JPanel implements ActionListener{
 		bouton4 = new JButton("");
 		bouton5 = new JButton("");
 		this.add(bouton1);
-		this.add(bouton1);
-		this.add(bouton1);
-		this.add(bouton1);
-		this.add(bouton1);
+		this.add(bouton2);
+		this.add(bouton3);
+		this.add(bouton4);
+		this.add(bouton5);
 		for (java.awt.Component c : this.getComponents()){
 			JButton b = (JButton) c;
 			b.addActionListener(this);
