@@ -23,12 +23,13 @@ public class BoutonTexte extends JPanel {
 	 */
 	public BoutonTexte(String texte) {
 		super();
-		setBackground(Color.RED);
+		setOpaque(false);
 		setLayout(new GridBagLayout());	//on utilise un layout avance, mais c'est le seul moyen que j'ai trouve
 		GridBagConstraints contraintes = new GridBagConstraints();	//outil qui permet de parametrer le layout
 		
 		//On cree le bouton
 		bouton = new JButton("");
+		bouton.setEnabled(false);
 		contraintes.gridx = 0;	//colonne 0
 		contraintes.gridy = 0;	//ligne 0
 		contraintes.fill = GridBagConstraints.VERTICAL;	//on autorise le composant a s'etendre juste verticalement
@@ -38,7 +39,7 @@ public class BoutonTexte extends JPanel {
 		this.texte = new JLabel(texte);
 		this.texte.setHorizontalAlignment(JLabel.CENTER);
 		this.texte.setOpaque(true);
-		this.texte.setBackground(Color.YELLOW);
+		this.texte.setBackground(Color.LIGHT_GRAY);
 		contraintes.gridx = 0;
 		contraintes.gridy = 1;	//ligne 1
 		contraintes.fill = GridBagConstraints.VERTICAL;
@@ -50,6 +51,8 @@ public class BoutonTexte extends JPanel {
 	public void addActionListener (ActionListener obj){
 		this.bouton.addActionListener(obj);
 		this.bouton.setActionCommand(this.texte.getText());
+		this.bouton.setEnabled(true);
+		this.texte.setBackground(Color.YELLOW);
 	}
 	
 	/** @return le texte du Label. */
