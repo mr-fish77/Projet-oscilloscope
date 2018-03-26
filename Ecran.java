@@ -38,8 +38,7 @@ public class Ecran extends JPanel{
         contraintes.weighty = 0.95;
         add(grille, contraintes);
         
-        //menus = new MenuMesures(signaux);
-        menus = new MenuCurseur(signaux, oscillo);
+         menus = new AbstractMenu(signaux, oscillo);
         contraintes.gridy = 0;
         contraintes.gridx = 1;
         contraintes.weighty = 1;
