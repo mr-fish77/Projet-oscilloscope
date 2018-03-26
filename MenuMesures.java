@@ -16,7 +16,7 @@ public class MenuMesures extends AbstractMenu {
 	private int src = 0;
 	
 	public MenuMesures (Signal[] s) {
-		super(s, "MESURES");
+		super(s);
 	}
 	
 	public void actionPerformed (ActionEvent e){
@@ -37,7 +37,7 @@ public class MenuMesures extends AbstractMenu {
 	/** Rafraichit les textes des boutons. */
 	private void refresh() {
 		// Source actuelle
-		boutons.get(0).setText("Source : " + (src + 1));
+		bouton1.setText("Source : " + (src + 1));
 		
 		// 
 	}

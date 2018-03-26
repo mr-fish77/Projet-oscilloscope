@@ -19,24 +19,15 @@ public abstract class AbstractMenu extends JPanel implements ActionListener{
 	/** Les signaux. */
 	protected Signal[] signaux;
 	
-	/** String indiquant le menu actuellement a l'ecran.
-	 * Il est affiche dans le Terminal. */
-	protected static String menuActuel = "NoMenu";
-	
 	/** Les 5 menus. */
 	protected JButton bouton1, bouton2, bouton3, bouton4, bouton5;
 	
 	/** Cree un Menu.
 	 * @param s Les signaux, en acces protected.
-	 * @param menuActuel Chaine de caracteres qui indiquent le menu actuellement a l'ecran.
-	 * Utilise pour le deboggage, sera desactive lors de la finalisation du projet.
 	 */
-	protected AbstractMenu(Signal[] s, String menuActuel) {
+	protected AbstractMenu(Signal[] s) {
 		super();
 		signaux = s;
-		
-		this.menuActuel = menuActuel.toUpperCase(); // Mise en majuscules.
-		System.out.println("MENU " + menuActuel);
 		
 		/* Generation du contenu avec les boutons. */
 		setLayout(new GridLayout(5,1));

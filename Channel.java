@@ -66,7 +66,7 @@ public class Channel extends JPanel implements PotentiometreListener{
 		
 		//potentiometre de position
 		potPos = new Potentiometre();
-		potPos.addPotentiometreListener(this);
+		potPos.setPotentiometreListener(this);
 		contraintes.gridy++;
 		contraintes.weighty = 0.5;
 		add(potPos, contraintes);
@@ -84,7 +84,7 @@ public class Channel extends JPanel implements PotentiometreListener{
 		
 		//potentiometre de volts/div
 		potDiv = new Potentiometre();
-		potDiv.addPotentiometreListener(this);
+		potDiv.setPotentiometreListener(this);
 		contraintes.weighty = 1;
 		contraintes.gridy++;
 		add(potDiv, contraintes);

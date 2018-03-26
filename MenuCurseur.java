@@ -24,7 +24,7 @@ public class MenuCurseur extends AbstractMenu implements ActionListener, Potenti
 	
 	
 	public MenuCurseur(Signal[] s, Oscilloscope oscillo) {
-		super(s, "CURSEURS");
+		super(s);
 		this.oscillo = oscillo;
 		
 		curseurs = new Curseur[4];
@@ -61,8 +61,8 @@ public class MenuCurseur extends AbstractMenu implements ActionListener, Potenti
 	public void miseEnRoute() {
 		pot1 = this.oscillo.ch1.potPos;
 		pot2 = this.oscillo.ch2.potPos;
-		pot1.addPotentiometreListener(this);
-		pot2.addPotentiometreListener(this);
+		pot1.setPotentiometreListener(this);
+		pot2.setPotentiometreListener(this);
 	}
 	
 	

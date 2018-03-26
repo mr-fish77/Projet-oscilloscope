@@ -98,15 +98,15 @@ public class Oscilloscope extends JFrame implements ActionListener{
 	 * @param JPanel boutonsAffichageMenus : le conteneur des menus
 	 */
 	public void ajouterAffichageMenus(JPanel boutonsAffichageMenus) {
-		sauvRap = new BoutonTexte("Sauv/Rap", this);
+		sauvRap = new BoutonTexte("Sauv/Rap");
 		mesures = new BoutonTexte("Mesures", this);
-		acquisition = new BoutonTexte("Acquisition", this);
-		autoset = new BoutonTexte("AutoSet", this);
-		utilitaire = new BoutonTexte("Utilitaire", this);
+		acquisition = new BoutonTexte("Acquisition");
+		autoset = new BoutonTexte("AutoSet");
+		utilitaire = new BoutonTexte("Utilitaire");
 		curseurs = new BoutonTexte("Curseurs", this);
-		affichage = new BoutonTexte("Affichage", this);
-		recopie = new BoutonTexte("Recopie", this);
-		runStop = new BoutonTexte("Run/Stop", this);
+		affichage = new BoutonTexte("Affichage");
+		recopie = new BoutonTexte("Recopie");
+		runStop = new BoutonTexte("Run/Stop");
 		maths = new BoutonTexte("Math Menu", this);
 		
 		boutonsAffichageMenus.add(sauvRap);
@@ -132,12 +132,14 @@ public class Oscilloscope extends JFrame implements ActionListener{
 	}
 	
 	/**
-	 * Methode qui prend en charge la desactivation du menu curseur
+	 * Methode qui prend en charge la desactivation du menu curseur.
+	 * Notamment, il faut les retirer de l'ecran et re-allouer 
+	 * les potentiometres aux bons objets pour leur Listener.
 	 */
 	public void desactiveCurseur() {
 		//on reatribue les listener aux potentiometres comme il faut
-		ch1.potPos.addPotentiometreListener(ch1);
-		ch2.potPos.addPotentiometreListener(ch2);
+		ch1.potPos.setPotentiometreListener(ch1);
+		ch2.potPos.setPotentiometreListener(ch2);
 	}
 	
 	/**
@@ -145,7 +147,7 @@ public class Oscilloscope extends JFrame implements ActionListener{
 	 * @param ActionEvent e : l'actionEvent obligatoire :(
 	 */
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource() == curseurs.getJButton()) {
+		if		(e.getSource() == curseurs.getJButton()) {
 			ecran.changerMenu(menuCurseur);
 		}else if(e.getSource() == mesures.getJButton()) {
 			
@@ -158,27 +160,6 @@ public class Oscilloscope extends JFrame implements ActionListener{
 			
 		}else if(e.getSource() == maths.getJButton()) {
 			ecran.changerMenu(menuMaths);
-		}else if(e.getSource() == autoset.getJButton()) {
-			
-			
-		}else if(e.getSource() == sauvRap.getJButton()) {
-			
-			
-		}else if(e.getSource() == acquisition.getJButton()) {
-			
-			
-		}else if(e.getSource() == utilitaire.getJButton()) {
-			
-			
-		}else if(e.getSource() == affichage.getJButton()) {
-			
-			
-		}else if(e.getSource() == recopie.getJButton()) {
-			
-			
-		}else if(e.getSource() == runStop.getJButton()) {
-			
-			
 		}
 	}
 }

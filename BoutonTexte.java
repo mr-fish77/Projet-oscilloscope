@@ -33,8 +33,7 @@ public class BoutonTexte extends JPanel {
 	public BoutonTexte(String texte, ActionListener al) {
 		super();
 		constructeurDeporte(texte);
-		bouton.addActionListener(al);
-		bouton.setEnabled(true);
+		this.addActionListener(al);
 	}
 	
 	/**
@@ -72,6 +71,8 @@ public class BoutonTexte extends JPanel {
 	public void addActionListener (ActionListener al){
 		this.bouton.addActionListener(al);
 		this.bouton.setEnabled(true);
+		this.texte.setBackground(Color.YELLOW);
+		this.texte.repaint();
 	}
 	
 	/** Modifie le texte du Label.
@@ -85,10 +86,7 @@ public class BoutonTexte extends JPanel {
 		return this.texte.getText();
 	}
 	
-	/**
-	 * Retourne le bouton
-	 *@return JButton le bouton
-	 */
+	/** @return le JButton */
 	public JButton getJButton() {
 		return bouton;
 	}

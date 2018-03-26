@@ -16,7 +16,7 @@ public class MenuMath extends AbstractMenu {
     
 	
 	public MenuMath(Signal[] s, Oscilloscope oscillo){
-		super(s, "MATHS");
+		super(s);
         this.oscillo = oscillo;
         smaths = new FonctionMath(s);
 		
