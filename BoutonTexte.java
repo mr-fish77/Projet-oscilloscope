@@ -49,6 +49,7 @@ public class BoutonTexte extends JPanel {
 	}
 	
 	/** Ajoute un ActionListener sur le bouton. 
+	 * Le BoutonTexte devient actif et colore en jaune.
 	 * @param obj Un objet qui implemente ActionListener. */
 	public void addActionListener (ActionListener obj){
 		this.bouton.addActionListener(obj);
@@ -57,13 +58,13 @@ public class BoutonTexte extends JPanel {
 		this.texte.setBackground(Color.YELLOW);
 	}
 	
-	/** @return le texte du Label. */
+	/** Modifie le texte du Label.
+	 *@param le texte a modifier. */
 	public void setText(String s){
 		this.texte.setText(s);
 	}
 	
-	/** Modifie le text du Label.
-	 *@param le texte a modifier. */
+	/** @return le texte du Label. */
 	public String getText(){
 		return this.texte.getText();
 	}
