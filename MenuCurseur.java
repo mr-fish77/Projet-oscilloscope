@@ -1,7 +1,7 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class MenuCurseur extends MenuManager implements ActionListener, PotentiometreListener{
+public class MenuCurseur extends AbstractMenu implements ActionListener, PotentiometreListener{
 	protected Oscilloscope oscillo;		//l'objet ecran pour l'affichage
 	
 	protected Curseur curseurCourant = null;
