@@ -9,45 +9,57 @@ import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
 
-public class MenuMath extends AbstractMenu implements ActionListener{
+public class MenuMath extends AbstractMenu {
 	
-	private JButton Ajouter = new JButton("Ajouter");
-	private JButton Soustraire1= new JButton("Soustraction de ch1 a ch2");
-	private JButton Soustraire2= new JButton("Soustraction de ch2 a ch1");
-	private JButton Inverser1= new JButton("inverser CH1 ");
-	private JButton Inverser2= new JButton("inverser CH2 ");
-	private JButton Math= new JButton("Math");
+	
+    public FonctionMath smaths;
+    
 	
 	public MenuMath(Signal[] s){
-		super(s);
-		Ajouter.addActionListener(this);
-		Soustraire1.addActionListener(this);
-		Soustraire2.addActionListener(this);
-		Inverser1.addActionListener(this);
-		Inverser2.addActionListener(this);
-	
-		menus.add(Ajouter);
-		menus.add(Soustraire1);
-		menus.add(Soustraire2);
-		menus.add(Inverser1);
-		menus.add(Inverser2);
+		super(s, "MATHS");
+        
+        smaths = new FonctionMath(s);
+		
+		bouton1.setText("Ajouter: ");
+		bouton2.setText("Soustraire: CH1 - CH2");
+		bouton3.setText("Soustraire: CH2 - CH1");
+		bouton4.setText("Inverser CH1");
+		bouton5.setText("Inverser CH2");
 	}
+	
+    
+    public void actionBouton1(ActionEvent e) {
+        
+        smaths.Addition();
+        
+    }
+    
+    public void actionBouton2(ActionEvent e) {
+        
+        smaths.Soustraction1();
+        
+        }
+        
+    public void actionBouton3(ActionEvent e) {
+        
+        smaths.Soustraction2();
+        
+    }
+    
+    public void actionBouton4(ActionEvent e) {
+        
+        smaths.inverse1();
+        
+    }
+    
+    public void actionBouton5(ActionEvent e) {
+        
+        smaths.inverse2();
+        
+    }
+
 
 	
-	public void actionPerformed( ActionEvent e){
-		Menu.setBounds(0,0,0,0);/*a definir avec vous aussi */
-		if(e.getSource()==Ajouter){
-			Addition( nuagePoint1, nuagePoint2);/*je sais pas comment recuperer les signaux depuis l'affichage*/
-		}
-		else if(e.getSource()==Soustraire1){
-			Soustraction1( nuagePoint1, nuagePoint2);/*je sais pas comment recuperer les signaux depuis l'affichage*/
-		}
-		else if(e.getSource()==Soustraire2){
-			Soustraction2( nuagePoint1, nuagePoint2);/*je sais pas comment recuperer les signaux depuis l'affichage*/
-		}
-		else if(e.getSource()==Inverser1 ){
-			inverse1( nuagePoint1, nuagePoint2);/*je sais pas comment recuperer les signaux depuis l'affichage*/
-		}
-	}
+	
 	
 }
