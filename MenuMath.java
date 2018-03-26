@@ -27,6 +27,10 @@ public class MenuMath extends AbstractMenu {
 		bouton5.setText("Inverser CH2");
 	}
 	
+	public void paintGrille(Graphics g, int hauteur, int largeur) {
+		smaths.dessineCourbe(g);		
+	}
+	
     public void miseEnRoute() {
 		this.oscillo.ecran.grille.affichageMaths(this);
     }

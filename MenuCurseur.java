@@ -23,6 +23,7 @@ public class MenuCurseur extends AbstractMenu implements ActionListener, Potenti
 		
 		curseurCH1 = new CurseurVertical(s, 0);
 		curseurCH2 = new CurseurVertical(s, 1);
+		curseurHor = new CurseurHorizontal(s);
 		
 		//On definit les textes des boutons
 
@@ -35,7 +36,6 @@ public class MenuCurseur extends AbstractMenu implements ActionListener, Potenti
 	}
 	
 	public void paintGrille(Graphics g, int hauteur, int largeur) {
-		System.out.println(curseurCourant);
 		if(curseurCourant != null) {
 			curseurCourant.paint(g, hauteur, largeur);
 		}

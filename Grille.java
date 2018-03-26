@@ -46,7 +46,9 @@ public class Grille extends JPanel {
 		signaux[1].miseAEchelle(getWidth(), getHeight());
 		signaux[1].dessineCourbe(g);
         
-        ecran.menus.paintGrille(g,  getHeight(), getWidth());
+		if(ecran.menus != null) {
+			ecran.menus.paintGrille(g,  getHeight(), getWidth());
+		}
 		
 	}
 	

@@ -13,14 +13,12 @@ public class FonctionMath{
 	public double[][] resultat;
 	public double[][] nuagePoint1;
 	public double[][] nuagePoint2;
-	public boolean active;
     
     public Signal[] signaux;
 	
 	
 	public FonctionMath (Signal[] s){
         signaux = s;
-		active=true;
 	}
 	
 	public void  Addition( ){
@@ -104,7 +102,7 @@ public class FonctionMath{
 	}
 	
 	public void dessineCourbe(Graphics g) {
-    	if(active) {		//on regarde si le signal doit etre affiche
+    	if(resultat != null) {		//on regarde si le signal doit etre affiche
 	        g.setColor(Color.RED);
 	        
 	        int a = 0;

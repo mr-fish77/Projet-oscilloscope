@@ -16,6 +16,7 @@ public class Ecran extends JPanel{
 	/** Objets graphiques utilises. */
 	public Grille grille; public AbstractMenu menus; 
     public MenuDuBas bas;
+    private GridBagConstraints contraintes;	//pour utiliser un gridbaglayout
 	/** Les signaux. */
 	private Signal[] signaux;
 	
@@ -28,7 +29,7 @@ public class Ecran extends JPanel{
 		
 		setLayout(new GridBagLayout());
 		
-		GridBagConstraints contraintes = new GridBagConstraints();
+		contraintes = new GridBagConstraints();
 		contraintes.fill = GridBagConstraints.BOTH;
         
         grille = new Grille(signaux, this);
@@ -38,20 +39,11 @@ public class Ecran extends JPanel{
         contraintes.weighty = 0.95;
         add(grille, contraintes);
         
-
-        menus = new MenuCurseur(signaux, oscillo);
-        contraintes.gridy = 0;
-        contraintes.gridx = 1;
-        contraintes.weighty = 1;
-        contraintes.weightx = 0.2;
-        add(menus, contraintes);
-        
         bas = new MenuDuBas(signaux);
         contraintes.gridy = 1;
         contraintes.gridx = 0;
         contraintes.weightx = 1;
         contraintes.weighty = 0.05;
-        contraintes.gridwidth=2;
         add(bas, contraintes);
         
 
@@ -66,9 +58,19 @@ public class Ecran extends JPanel{
 	
 	
 	public void changerMenu(AbstractMenu menu) {
-		menus.desactiverMenu();
+		if(menus != null) {
+			menus.desactiverMenu();
+			remove(menus);
+		}
 		menus = menu;
+		menus.miseEnRoute();
+		contraintes.gridy = 0;
+	    contraintes.gridx = 1;
+	    contraintes.weighty = 1;
+	    contraintes.weightx = 0.2;
+	    add(menus, contraintes);
 		
-		repaint();
+		revalidate();
+        repaint();
 	}
 }

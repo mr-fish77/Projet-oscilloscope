@@ -24,8 +24,8 @@ public class Oscilloscope extends JFrame implements ActionListener{
 	public Ecran ecran;
 	
 	/** Boutons en haut a droite de l'interface de l'oscilloscope. */
-	private BoutonTexte sauvRap, mesures, acquisition, autoset, utilitaire, curseurs, affichage, recopie, runStop;
-	private AbstractMenu menuCurseur;
+	private BoutonTexte sauvRap, mesures, acquisition, autoset, utilitaire, curseurs, affichage, recopie, runStop, maths;
+	private AbstractMenu menuCurseur, menuMaths;
 	
 	/** Genere la fenetre principale de l'oscilloscope.*/
 	public Oscilloscope(Signal[] signaux, Generateur generateur){
@@ -42,6 +42,7 @@ public class Oscilloscope extends JFrame implements ActionListener{
 		
 		//Definition des menus
 		menuCurseur = new MenuCurseur(signaux, this);
+		menuMaths = new MenuMath(signaux, this);
 		
 		
 		/* Conteneur de gauche, contient l'ecran et les boutons interactions menus. */
@@ -87,7 +88,6 @@ public class Oscilloscope extends JFrame implements ActionListener{
 		
 		/* Derniers preparatifs puis affichage. */
 		ecran.repaint();
-		ecran.menus.miseEnRoute();
 		setVisible(true);
 	}
 
@@ -106,6 +106,7 @@ public class Oscilloscope extends JFrame implements ActionListener{
 		affichage = new BoutonTexte("Affichage", this);
 		recopie = new BoutonTexte("Recopie", this);
 		runStop = new BoutonTexte("Run/Stop", this);
+		maths = new BoutonTexte("Math Menu", this);
 		
 		boutonsAffichageMenus.add(sauvRap);
 		boutonsAffichageMenus.add(mesures);
@@ -116,6 +117,7 @@ public class Oscilloscope extends JFrame implements ActionListener{
 		boutonsAffichageMenus.add(affichage);
 		boutonsAffichageMenus.add(recopie);
 		boutonsAffichageMenus.add(runStop);
+		boutonsAffichageMenus.add(maths);
 	}
 	
 	/**
@@ -150,11 +152,14 @@ public class Oscilloscope extends JFrame implements ActionListener{
 		}else if(e.getSource() == mesures.getJButton()) {
 			
 			
-		}else if(e.getSource() == ch1.chMenu.getJButton()) {
+		}else if(e.getSource() == ch1.getButton().getJButton()) {
 			
 			
-		}else if(e.getSource() == ch2.chMenu.getJButton()) {
+		}else if(e.getSource() == ch2.getButton().getJButton()) {
 			
+			
+		}else if(e.getSource() == maths.getJButton()) {
+			ecran.changerMenu(menuMaths);
 			
 		}else if(e.getSource() == autoset.getJButton()) {
 			

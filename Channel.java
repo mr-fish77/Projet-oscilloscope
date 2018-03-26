@@ -20,17 +20,6 @@ public class Channel extends JPanel implements PotentiometreListener{
 	/** Ecran (pour gerer les repaint(). */
 	private Ecran ecran;
 	
-<<<<<<< HEAD
-	private Ecran ecran;	//l'ecran pour gerer les repaint()
-	
-	public Potentiometre potPos;	//potentiometre position verticale
-	private Potentiometre potDiv;	//potentiometre volts/div
-	public BoutonTexte chMenu;		//bouton affichage menu du signal
-	
-	private double decalage = 0.0;		//decalage en hauteur du signal
-	
-	//Echelles des ordonnees du signal
-=======
 	/** Potentiometre de position verticale. */
 	public Potentiometre potPos;
 	/** Potentiometre de Volts par division (horizontal). */
@@ -40,7 +29,6 @@ public class Channel extends JPanel implements PotentiometreListener{
 	/** Decalage en hauteur du signal. */
 	private double decalage = 0.0;
 	/** Echelles des ordonnees du signal. */
->>>>>>> f98dd6a00a18ca18429b14945633c5419d46e13a
 	private static final double[] ECHELLES = {10.0, 5.0, 2.0, 1.0, 0.5, 0.2, 0.1, 0.05};
 	/** Position dans le tableau des echelles. */
 	private int compteurEchelle = 1;
@@ -123,6 +111,12 @@ public class Channel extends JPanel implements PotentiometreListener{
 			}
 			
 		}
-		
+	}
+	
+	/** Permet d'acceder au bouton
+	 * @return BoutonTexte le bouton
+	 */
+	public BoutonTexte getButton() {
+		return chMenu;
 	}
 }
