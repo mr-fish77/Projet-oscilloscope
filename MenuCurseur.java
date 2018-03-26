@@ -24,11 +24,15 @@ public class MenuCurseur extends AbstractMenu implements ActionListener, Potenti
 		curseurCH2 = new CurseurVertical(s, 1);
 		
 		//On definit les textes des boutons
+<<<<<<< HEAD
 		bouton1.setText("Type : aucun");
 		bouton2.setText("Source : CH1");
 		bouton3.setText("Delta");
 		bouton4.setText("Curseur 1");
 		bouton5.setText("Curseur 2");
+=======
+		setAllTexts(new String[]{"Type : aucun", "Source : CH1", "Delta", "Curseur 1", "Curseur 2"});
+>>>>>>> ec75c0b474fa3583de0e6daf46c72e5ef6f3ceb3
 	}
 	
 	
@@ -62,9 +66,9 @@ public class MenuCurseur extends AbstractMenu implements ActionListener, Potenti
 				curseurCourant.mAJCran(0, evolutionCran);
 			}
 			oscillo.ecran.grille.repaint();
-			boutons.get(2).setText("Delta : " + curseurCourant.difference);
-			boutons.get(3).setText("Curseur 1 : " + curseurCourant.vraiVal1);
-			boutons.get(4).setText("Curseur 2 : " + curseurCourant.vraiVal2);
+			setText("Delta : " + curseurCourant.difference, 3);
+			setText("Curseur 1 : " + curseurCourant.vraiVal1, 4);
+			setText("Curseur 2 : " + curseurCourant.vraiVal2, 5);
 		}
 	}
 	
@@ -73,7 +77,7 @@ public class MenuCurseur extends AbstractMenu implements ActionListener, Potenti
 		switch(type) {
 			case 0:
 				type = 1;
-				boutons.get(0).setText("Type : Volts");
+				setText("Type : Volts", 1);
 				
 				if(source == 0) {
 					curseurCourant = curseurCH1;
@@ -84,12 +88,12 @@ public class MenuCurseur extends AbstractMenu implements ActionListener, Potenti
 				break;
 			case 1:
 				type = 2;
-				boutons.get(0).setText("Type : Temps");
+				setText("Type : Temps", 1);
 				curseurCourant = curseurHor;
 				break;
 			default:
 				type = 0;
-				boutons.get(0).setText("Type : aucun");
+				setText("Type : aucun", 1);
 		}
 		oscillo.ecran.grille.repaint();
 	}
@@ -99,14 +103,14 @@ public class MenuCurseur extends AbstractMenu implements ActionListener, Potenti
 		switch(source) {
 			case 0:
 				source = 1;
-				boutons.get(1).setText("Source : CH2");
+				setText("Source : CH2", 2);
 				if(type == 1) {
 					curseurCourant = curseurCH2;
 				}
 				break;
 			default:
 				source = 0;
-				boutons.get(1).setText("Source : CH1");
+				setText("Source : CH1", 2);
 				if(type == 1) {
 					curseurCourant = curseurCH1;
 				}

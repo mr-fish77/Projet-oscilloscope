@@ -57,6 +57,39 @@ public abstract class AbstractMenu extends JPanel implements ActionListener{
 		super.paint(g);
 	}
 	
+	/** Modifie le texte du bouton numero n.
+	 * @param s String a mettre dans le JButton.
+	 * @param n Numero du bouton. */
+	public void setText(String s, int n){
+		switch (n){
+			case 1:
+			bouton1.setText(s);
+			break;
+			case 2:
+			bouton2.setText(s);
+			break;
+			case 3:
+			bouton3.setText(s);
+			break;
+			case 4:
+			bouton4.setText(s);
+			break;
+			case 5:
+			bouton5.setText(s);
+			break;
+		}
+	}
+	
+	/** Modifie le texte de tous les boutons a la fois.
+	 * @param String s Tableau avec tous les textes a mettre. */
+	public void setAllTexts(String[] s){
+		bouton1.setText(s[0]);
+		bouton2.setText(s[1]);
+		bouton3.setText(s[2]);
+		bouton4.setText(s[3]);
+		bouton5.setText(s[4]);
+	}
+	
 	/**
 	 * Methode qui desactive le menu : a implementer au besoin
 	 */
