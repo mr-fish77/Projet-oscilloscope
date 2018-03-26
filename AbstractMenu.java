@@ -8,6 +8,12 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+/** Classe mere des differents menus. Elle gere principalement
+ * les 5 boutons de chaque menu, a savoir leur creation, leur methode
+ * setText individuelle ou appliquable a tous, ainsi que 
+ * la simplification de la gestion des actionPerformed. 
+ * C'est une methode abstract. */
+
 public abstract class AbstractMenu extends JPanel implements ActionListener{
 	
 	/** Les signaux. */
