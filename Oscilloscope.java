@@ -27,29 +27,30 @@ public class Oscilloscope extends JFrame{
 	
 	/** Genere la fenetre principale de l'oscilloscope.*/
 	public Oscilloscope(Signal[] signaux, Generateur generateur){
-		super("Oscilloscope");      //constructeur par defaut de la classe JFrame
+		super("Oscilloscope");
 		setSize(1200, 600);
 		setMinimumSize(new Dimension(600, 600));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		this.generateur = generateur;			//Genrateur de signaux
+		this.generateur = generateur;
 
 		JPanel conteneurPrincipal = new JPanel();		//pour ne pas avoir de probleme avec les marges des fenetres
 		conteneurPrincipal.setLayout(new GridLayout());
 		setContentPane(conteneurPrincipal);
 		
 		
-		//Conteneur de gauche, contient l'ecran et les boutons interactions menus
+		/* Conteneur de gauche, contient l'ecran et les boutons interactions menus. */
 		JPanel conteneurEcran = new JPanel();
 		conteneurEcran.setLayout(new GridLayout(1,1));
 		add(conteneurEcran);
 		
-		ecran = new Ecran(signaux, this);	//ecran de l'oscilloscope
+		/* Ecran de l'oscilloscope. */
+		ecran = new Ecran(signaux, this);
 		generateur.setEcran(ecran);
 		conteneurEcran.add(ecran);
 		
 		
-		//Conteneur de droite, contient les boutons pour afficher les menus 
+		/* Conteneur de droite, contient les boutons pour afficher les menus. */
 		JPanel conteneurGestion = new JPanel();
 		add(conteneurGestion);
 		conteneurGestion.setLayout(new GridBagLayout());
@@ -59,27 +60,27 @@ public class Oscilloscope extends JFrame{
 		contraintes.weightx = 1;
 		contraintes.gridx = 0;
 		
-		//Conteneur en haut, contient tous les boutons d'affichage de menu
+		/* Conteneur en haut, contient tous les boutons d'affichage de menu. */
 		JPanel boutonsAffichageMenus = new JPanel();
 		boutonsAffichageMenus.setLayout(new GridLayout(2,5));
-		ajouterAffichageMenus(boutonsAffichageMenus);	//methode deportee pour ajouter les elements
+		ajouterAffichageMenus(boutonsAffichageMenus);
 		contraintes.gridy = 0;
 		contraintes.weighty = 0.5;
 		conteneurGestion.add(boutonsAffichageMenus, contraintes);
 		
-		//conteneur du milieu, contient la gestion des channels, du temps et du trigger
-		ch1 = new Channel(signaux, 1, "CH1", ecran);	//channels associes au signaux
+		/* Conteneur du milieu, contient la gestion des channels, du temps et du trigger. */
+		ch1 = new Channel(signaux, 1, "CH1", ecran);
 		ch2 = new Channel(signaux, 2, "CH2", ecran);
 		gestionTemps = new GestionTemps(signaux, ecran);
 		
 		JPanel affichageGestionChannels = new JPanel();
 		affichageGestionChannels.setLayout(new GridLayout(1, 4));
-		ajouterGestionChannels(affichageGestionChannels);	//methode deportee pour ajouter les elements
+		ajouterGestionChannels(affichageGestionChannels);
 		contraintes.gridy = 1;
 		contraintes.weighty = 1;
 		conteneurGestion.add(affichageGestionChannels, contraintes);
 		
-		// Derniers preparatifs puis affichage.
+		/* Derniers preparatifs puis affichage. */
 		ecran.repaint();
 		ecran.menus.miseEnRoute();
 		setVisible(true);
@@ -117,10 +118,9 @@ public class Oscilloscope extends JFrame{
 	 * @param JPanel affichageGestionChannels : le conteneur central
 	 */
 	public void ajouterGestionChannels(JPanel affichageGestionChannels) {
-		affichageGestionChannels.add(ch1);			//Channels
+		affichageGestionChannels.add(ch1);	
 		affichageGestionChannels.add(ch2);
-		affichageGestionChannels.add(gestionTemps);	//Gestion du temps
-		
+		affichageGestionChannels.add(gestionTemps);
 	}
 	
 	/**

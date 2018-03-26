@@ -81,7 +81,7 @@ public abstract class AbstractMenu extends JPanel implements ActionListener{
 	}
 	
 	/** Modifie le texte de tous les boutons a la fois.
-	 * @param String s Tableau avec tous les textes a mettre. */
+	 * @param String s Tableau avec tous les textes a mettre dans l'ordre. */
 	public void setAllTexts(String[] s){
 		bouton1.setText(s[0]);
 		bouton2.setText(s[1]);
@@ -101,7 +101,9 @@ public abstract class AbstractMenu extends JPanel implements ActionListener{
 	public void miseEnRoute() {}
 	
 	
-	/** Methode qui prend en charge l'action sur les boutons
+	/** Methode qui prend en charge l'action sur les boutons.
+	 * N'est pas utilise par les sous-classes, 
+	 * les methodes de chaque bouton est deportee individuellement.
 	 * @param ActionEvent e : l'action event habituel
 	 */
 	public void actionPerformed (ActionEvent e) {
