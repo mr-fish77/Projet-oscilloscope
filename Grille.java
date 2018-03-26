@@ -40,6 +40,9 @@ public class Grille extends JPanel {
 		
 		signaux[1].miseAEchelle(getWidth(), getHeight());
 		signaux[1].dessineCourbe(g);
+        
+        
+        
 		
 		if(affCurseur && menuCurseur.curseurCourant != null) {
 			menuCurseur.curseurCourant.paint(g, getHeight(), getWidth());

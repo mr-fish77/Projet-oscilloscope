@@ -14,7 +14,8 @@ public class Ecran extends JPanel{
 	/** Couleur d'arriere-plan ou d'avant-plan. */
 	public final static Color arrierePlan = Color.WHITE, avantPlan = Color.BLACK;
 	/** Objets graphiques utilises. */
-	public Grille grille; public MenuManager menus; public MenuDuBas bas;
+	public Grille grille; public MenuManager menus; 
+    public MenuDuBas bas;
 	/** Les signaux. */
 	private Signal[] signaux;
 	
