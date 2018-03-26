@@ -114,7 +114,8 @@ public class Bouton_OnOff extends JPanel implements MouseListener {
 		repaint();
 	}
 
-	/** En cas de clic sur un Button_OnOff, cree un Bouton_OnOff_Event.
+	/** En cas de clic, cree un Bouton_OnOff_Event.
+	 * Le parametre backgroundClicWorks peut bloquer ce clic en fonction de la position de la souris.
 	 * Si aucun listener n'est declare, rien ne se produit.
 	 * @param e
 	 *            L'evenement.
@@ -140,11 +141,8 @@ public class Bouton_OnOff extends JPanel implements MouseListener {
 	public void mouseEntered(MouseEvent e) {}
 	public void mouseExited(MouseEvent e) {}
 
-	/**
-	 * Ajoute un Listener au Bouton_OnOff.
-	 * 
-	 * @param l
-	 *            Objet qui implemente Bouton_OnOff_Listener.
+	/** Ajoute un Listener au Bouton_OnOff.
+	 * @param l Objet qui implemente Bouton_OnOff_Listener.
 	 */
 	public void addListener(Bouton_OnOff_Listener l) {
 		this.addMouseListener(this);

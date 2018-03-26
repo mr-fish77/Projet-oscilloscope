@@ -1,6 +1,12 @@
 import java.awt.Color;
 import java.awt.Graphics;
 
+/** Classe mere des differents signaux. 
+ * Tous les signaux du projet heritent de Signal. 
+ * Cette methode gere l'initialisation, la modification et 
+ * la reinitialisation des signaux, mais aussi elle genere 
+ * un nuage de points permettant l'affichage ulterieur a l'oscilloscope. */
+
 public abstract class Signal {
 	
 	/** Amplitude du signal en volts. */
@@ -35,7 +41,7 @@ public abstract class Signal {
 	protected static final Color[] COULEURS_SIGNAUX = {Color.BLUE, Color.ORANGE};
     
     /**nb de point par graduation*/
-    public final int NB_POINTS = 1000; 
+    public final int NB_POINTS = 50; 
     /**nb de pixels par graduation X*/
     public  int nbPixelX; 
     /**nb de pixels par graduation Y*/

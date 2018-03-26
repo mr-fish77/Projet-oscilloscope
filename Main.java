@@ -1,5 +1,3 @@
-import java.awt.Color;
-
 public class Main{
 	public static void main (String[] args){
 		/* On cree les deux signaux. */
@@ -7,8 +5,7 @@ public class Main{
 		signaux[0] = new Triangle(1);
 		signaux[1]= new Triangle(2);
 		
-		
-		//Generateur generateur = new Generateur (signaux);
+		/* On cree l'oscilloscope. */
 		new Oscilloscope (signaux, new Generateur(signaux));
         
 	}
