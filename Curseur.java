@@ -5,24 +5,29 @@ import java.awt.Graphics;
  * @author Pierre-Yves
  */
 public abstract class Curseur{
-	//position en echelle de graduation
+	/** Positions en echelle de graduations */
 	protected double valCurseur1;
 	protected double valCurseur2;
 	
-	// position a l'ecran du curseur
+	/** Positions reelles a l'ecran */
 	protected int posCurseur1;
 	protected int posCurseur2;
-	protected double nbPixel; //conversion graduation-pixels
+	/** Conversion graduation-pixels */
+	protected double nbPixel;
 	
-	//vraies valeurs des curseurs
+	/** Valeurs en volts/sec des curseurs */
 	protected double echelle;
 	protected double vraiVal1;
 	protected double vraiVal2;
+	public double difference;
 	
-	public double difference;//difference entre les deux valeurs
-	
+	/** Tableau des signaux */
 	protected Signal[] s;
 	
+	/**
+	 * Constructeur par defaut de la classe
+	 * @param Signal[] s : le tableau des signaux
+	 */
 	public Curseur(Signal[] s) {
 		this.s = s;
 	}

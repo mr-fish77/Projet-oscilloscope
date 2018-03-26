@@ -7,6 +7,10 @@ import java.awt.Graphics;
  */
 public class CurseurHorizontal extends Curseur {
 	
+	/**
+	 * Constructeur par defaut de la classe
+	 * @param Signal[] s : le tableau des signaux
+	 */
 	public CurseurHorizontal(Signal[] s) {
 		super(s);
 	}
@@ -17,13 +21,13 @@ public class CurseurHorizontal extends Curseur {
 	 * @param Graphics g :l'objet graphique qui fait zizir
 	 */
 	public void paint(Graphics g, int hauteur, int largeur) {
-		g.setColor(Color.RED);
+		g.setColor(Color.RED);	//affichage des curseurs dans la bonne couleur
 		
 		echelle = s[0].echelleX;//on recupere l'echelle de temps et le nombre de pixels associe
 		nbPixel = s[0].nbPixelX;
 		
 		//on calcule les positions
-		posCurseur1 = (int)(valCurseur1*nbPixel) + largeur/2;
+		posCurseur1 = (int)(valCurseur1*nbPixel) + largeur/2;	//cete fois-ci pas besoin de signe -, on est deja dans le sens logique
 		posCurseur2 = (int)(valCurseur2*nbPixel) + largeur/2;
 		
 		g.drawLine(posCurseur1, 0, posCurseur1, hauteur);	//1er curseur

@@ -65,10 +65,12 @@ public abstract class AbstractMenu extends JPanel implements ActionListener{
 	
 
 	
-	/** Permet de peindre sur la grille
+	/** Permet de peindre sur la grille de l'ecran
+	 * La methode est appelee automatiquement par la grille
 	 * @param g : l'element graphique qui est bien
 	 */
 	public void paintGrille(Graphics g, int hauteur, int largeur) {}
+	
 	
 	/** Modifie le texte du bouton numero n.
 	 * @param s String a mettre dans le JButton.
