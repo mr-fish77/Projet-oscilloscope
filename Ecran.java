@@ -14,7 +14,7 @@ public class Ecran extends JPanel{
 	/** Couleur d'arriere-plan ou d'avant-plan. */
 	public final static Color arrierePlan = Color.WHITE, avantPlan = Color.BLACK;
 	/** Objets graphiques utilises. */
-	public Grille grille; public MenuManager menus; 
+	public Grille grille; public AbstractMenu menus; 
     public MenuDuBas bas;
 	/** Les signaux. */
 	private Signal[] signaux;
@@ -38,8 +38,7 @@ public class Ecran extends JPanel{
         contraintes.weighty = 0.95;
         add(grille, contraintes);
         
-        //menus = new MenuMesures(signaux);
-        menus = new MenuCurseur(signaux, oscillo);
+         menus = new AbstractMenu(signaux, oscillo);
         contraintes.gridy = 0;
         contraintes.gridx = 1;
         contraintes.weighty = 1;
