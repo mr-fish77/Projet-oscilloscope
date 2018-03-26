@@ -22,6 +22,7 @@ public class MenuCurseur extends AbstractMenu implements ActionListener, Potenti
 		
 		curseurCH1 = new CurseurVertical(s, 0);
 		curseurCH2 = new CurseurVertical(s, 1);
+		curseurHor = new CurseurHorizontal(s);
 		
 		//On definit les textes des boutons
 		boutons.get(0).setText("Type : aucun");

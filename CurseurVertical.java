@@ -4,7 +4,6 @@ import java.awt.Graphics;
 /**
  * Classe qui permet de gerer un curseur vertical (volts)
  * @author Pierre-Yves
- *
  */
 public class CurseurVertical extends Curseur{
 	protected int n;
@@ -22,8 +21,10 @@ public class CurseurVertical extends Curseur{
 	public void paint(Graphics g, int hauteur, int largeur) {
 		g.setColor(Color.RED);
 		
-		echelle = s[n].echelleY;
+		echelle = s[n].echelleY;//on recupere les echelles du signal associe
 		nbPixel = s[n].nbPixelY;
+		
+		//on calcule les positions
 		posCurseur1 = -(int)(valCurseur1*nbPixel) + hauteur/2;
 		posCurseur2 = -(int)(valCurseur2*nbPixel) + hauteur/2;
 		
