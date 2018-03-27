@@ -1,10 +1,14 @@
 import java.awt.Dimension;
+import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -105,7 +109,7 @@ public class Oscilloscope extends JFrame implements ActionListener{
 		utilitaire = new BoutonTexte("Utilitaire");
 		curseurs = new BoutonTexte("Curseurs", this);
 		affichage = new BoutonTexte("Affichage");
-		recopie = new BoutonTexte("Recopie");
+		recopie = new BoutonTexte("Recopie", this);
 		runStop = new BoutonTexte("Run/Stop");
 		maths = new BoutonTexte("Math Menu", this);
 		
@@ -142,6 +146,18 @@ public class Oscilloscope extends JFrame implements ActionListener{
 		ch2.potPos.setPotentiometreListener(ch2);
 	}
 	
+	public void imprimeImage() {
+		BufferedImage image = new BufferedImage(getWidth(),getHeight(), BufferedImage.TYPE_INT_RGB);
+		Graphics2D g2 = image.createGraphics();
+		ecran.grille.paint(g2);
+		System.out.println(image);
+		try{
+			ImageIO.write(image, ".jpeg", new File("c:/users/Pierre-Yves/downloads/recopie.jpeg"));
+		} catch (Exception e) {
+			e.printStackTrace();
+}
+	}
+	
 	/**
 	 * Methode qui gere l'appui sur un bouton
 	 * @param ActionEvent e : l'actionEvent obligatoire :(
@@ -164,6 +180,8 @@ public class Oscilloscope extends JFrame implements ActionListener{
 			gestionTemps.autoset();	//pour regler l'echelle de temps
 			ch1.autoset();	//pour regler chaque signal (en volt)
 			ch2.autoset();
+		}else if(e.getSource() == recopie.getJButton()) {
+			imprimeImage();
 		}
 	}
 }
