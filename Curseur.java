@@ -49,8 +49,28 @@ public abstract class Curseur{
 		valCurseur1 += evolCran1*0.04;	//on progresse par 4% (ca semble a peu pres bon)
 		valCurseur2 += evolCran2*0.04;
 		
-		vraiVal1 = Math.round(valCurseur1*echelle*100)/100;	//on garde 3 chiffres significatifs
-		vraiVal2 = Math.round(valCurseur2*echelle*100)/100;
-		difference = Math.round((valCurseur2-valCurseur1)*echelle*100)/100;
+		
+		vraiVal1 = valCurseur1*echelle;
+		vraiVal2 = valCurseur2*echelle;
+		difference = (valCurseur2-valCurseur1)*echelle;
 	}
+	
+	
+	/**
+	 * Donne la difference en String
+	 * @return String : la difference
+	 */
+	public abstract String getDifference();
+	
+	/**
+	 * Donne la valeur 1 en String
+	 * @return String : la valeur
+	 */
+	public abstract String getVraiVal1();
+	
+	/**
+	 * Donne la valeur 2 en String
+	 * @return String : la valeur
+	 */
+	public abstract String getVraiVal2();
 }

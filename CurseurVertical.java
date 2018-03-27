@@ -37,6 +37,34 @@ public class CurseurVertical extends Curseur{
 		g.drawLine(0, posCurseur1, largeur, posCurseur1);	//1er curseur
 		g.drawLine(0, posCurseur2, largeur, posCurseur2);	//2e curseur
 	}
+	
+	
+	/**
+	 * Donne la difference en String
+	 * @return String : la difference
+	 */
+	public String getDifference() {
+		int puissanceUnite = (int)Math.log10(difference);
+		return (difference*Math.pow(10,  puissanceUnite) + " 10^-" + puissanceUnite);
+	}
+	
+	/**
+	 * Donne la valeur 1 en String
+	 * @return String : la valeur
+	 */
+	public String getVraiVal1() {
+		int puissanceUnite = (int)Math.log10(vraiVal1);
+		return(vraiVal1*Math.pow(10,  puissanceUnite) + " 10^-" + puissanceUnite);
+	}
+	
+	/**
+	 * Donne la valeur 2 en String
+	 * @return String : la valeur
+	 */
+	public String getVraiVal2() {
+		int puissanceUnite = (int)Math.log10(vraiVal2);
+		return(vraiVal2*Math.pow(10,  puissanceUnite) + " 10^-" + puissanceUnite);
+	}
 
 	
 }

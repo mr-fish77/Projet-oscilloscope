@@ -101,9 +101,9 @@ public class MenuCurseur extends AbstractMenu implements ActionListener, Potenti
 				curseurCourant.mAJCran(0, evolutionCran);
 			}
 			oscillo.ecran.grille.repaint();
-			setText("Delta : " + curseurCourant.difference, 3);
-			setText("Curseur 1 : " + curseurCourant.vraiVal1, 4);
-			setText("Curseur 2 : " + curseurCourant.vraiVal2, 5);
+			setText("Delta : " + curseurCourant.getDifference(), 3);
+			setText("Curseur 1 : " + curseurCourant.getVraiVal1(), 4);
+			setText("Curseur 2 : " + curseurCourant.getVraiVal2(), 5);
 		}
 	}
 	
