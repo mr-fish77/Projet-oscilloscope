@@ -45,8 +45,14 @@ public class Grille extends JPanel {
 		//on met a jour les donnes et repeint les signaux
 		signaux[0].miseAEchelle(getWidth(), getHeight());
 		signaux[0].dessineCourbe(g);
+        signaux[0].dessineCentre(g, getWidth(), getHeight());
+        
 		signaux[1].miseAEchelle(getWidth(), getHeight());
 		signaux[1].dessineCourbe(g);
+        signaux[1].dessineCentre(g, getWidth(), getHeight());
+
+        
+        
         
 		//on s'occupe de l'affichage a l'ecran des menus au besoin
 		if(ecran.menus != null) {

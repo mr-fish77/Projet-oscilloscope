@@ -282,8 +282,64 @@ public abstract class Signal {
                     g.drawLine((int) (nuagePoint[a][0]), (int) (nuagePoint[a][1] + decalageY*nbPixelY),(int) (nuagePoint[a+1][0]),(int) (nuagePoint[a+1][1]+ decalageY*nbPixelY));
                     a++;
                 }
+            
             }
 	    }	
     }
+    
+    
+    
+    public void dessineCentre(Graphics g, int x, int y){
+        
+        if(affiche == true){//on regarde si l'oscillo doit afficher un signal
+            
+            if(active) {
+                g.setColor(couleur);
+                //g.fillRect( (x-8) , (int) ( y/2 + decalageY*nbPixelY) , 8  ,  2 );
+                drawArrowLine(g, x, (int) ( y/2 + decalageY*nbPixelY) , (x-10), (int) ( y/2 + decalageY*nbPixelY), 5 , 5);
+            }
+        }
+                
+        
+    }
+    
+    
+        /**
+     * desine une flèche entre deux point 
+     * @param g 
+     * @param x1 premier point.
+     * @param y1 premier point
+     * @param x2 deuxieme point.
+     * @param y2 deuxieme  point.
+     * @param d  longueur de la fleche
+     * @param h  hauteur de la fleche
+     */
+    private void drawArrowLine(Graphics g, int x1, int y1, int x2, int y2, int d, int h) {
+        int dx = x2 - x1, dy = y2 - y1;
+        double D = Math.sqrt(dx*dx + dy*dy);
+        double xm = D - d, xn = xm, ym = h, yn = -h, x;
+        double sin = dy / D, cos = dx / D;
+
+        x = xm*cos - ym*sin + x1;
+        ym = xm*sin + ym*cos + y1;
+        xm = x;
+
+        x = xn*cos - yn*sin + x1;
+        yn = xn*sin + yn*cos + y1;
+        xn = x;
+
+        int[] xpoints = {x2, (int) xm, (int) xn};
+        int[] ypoints = {y2, (int) ym, (int) yn};
+
+        g.drawLine(x1, y1, x2, y2);
+        g.fillPolygon(xpoints, ypoints, 3);
+    }
+    
+    
+    
+    
+    
+    
+    
     
 }
