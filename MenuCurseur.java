@@ -52,6 +52,11 @@ public class MenuCurseur extends AbstractMenu implements ActionListener, Potenti
 	public void paintGrille(Graphics g, int hauteur, int largeur) {
 		if(curseurCourant != null) {
 			curseurCourant.paint(g, hauteur, largeur);
+			curseurCourant.mAJEchelle();
+			
+			setText("Delta : " + curseurCourant.getDifference(), 3);
+			setText("Curseur 1 : " + curseurCourant.getVraiVal1(), 4);
+			setText("Curseur 2 : " + curseurCourant.getVraiVal2(), 5);
 		}
 	}
 	

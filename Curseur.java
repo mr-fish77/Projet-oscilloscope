@@ -4,17 +4,13 @@ import java.awt.Graphics;
  * Classe mere qui gere tous les curseurs
  */
 public abstract class Curseur{
-	/** Positions en echelle de graduations */
-	protected double valCurseur1;
-	protected double valCurseur2;
-	
 	/** Positions reelles a l'ecran */
 	protected int posCurseur1;
 	protected int posCurseur2;
 	/** Conversion graduation-pixels */
 	protected double nbPixel;
 	
-	/** Valeurs en volts/sec des curseurs */
+	/** Valeurs en graduation des curseurs */
 	protected double echelle;
 	protected double vraiVal1;
 	protected double vraiVal2;
@@ -46,31 +42,51 @@ public abstract class Curseur{
 	 * @param int evolCran2 : l'evolution pour le curseur2
 	 */
 	public void mAJCran(int evolCran1, int evolCran2) {
-		valCurseur1 += evolCran1*0.04;	//on progresse par 4% (ca semble a peu pres bon)
-		valCurseur2 += evolCran2*0.04;
+		vraiVal1 += evolCran1*0.04;	//on progresse par 4% (ca semble a peu pres bon)
+		vraiVal2 += evolCran2*0.04;
+		difference = (vraiVal2-vraiVal1);
 		
-		
-		vraiVal1 = valCurseur1*echelle;
-		vraiVal2 = valCurseur2*echelle;
-		difference = (valCurseur2-valCurseur1)*echelle;
+		//on met a jour l'echelle
+		mAJEchelle();
 	}
 	
+	/** Methode correcte pour les puissances de 10 (ne renvoie pas de 0 pour 10^0)
+	 * @param double val : la puissance a calculer
+	 * @return double : la valeur de la puissance
+	 */
+	public double pow(double val) {
+		return((Math.pow(10,  val)>0) ? Math.pow(10,  val) : 1);
+	}
+	
+	/**
+	 * Met a jour l'echelle des curseurs
+	 */
+	public void mAJEchelle() {}
 	
 	/**
 	 * Donne la difference en String
 	 * @return String : la difference
 	 */
-	public abstract String getDifference();
+	public String getDifference() {
+		int puissanceUnite = (Math.log10(Math.abs(difference*echelle)) > -100)?(int)Math.log10(Math.abs(difference*echelle)):0;
+		return (String.format("%.2f", difference*echelle/pow(puissanceUnite)) + "E" + puissanceUnite + " V");
+	}
 	
 	/**
 	 * Donne la valeur 1 en String
 	 * @return String : la valeur
 	 */
-	public abstract String getVraiVal1();
+	public String getVraiVal1() {
+		int puissanceUnite = (Math.log10(Math.abs(vraiVal1*echelle)) > -100)?(int)Math.log10(Math.abs(difference*echelle)):0;
+		return(String.format("%.2f", vraiVal1*echelle/pow(puissanceUnite)) + "E" + puissanceUnite + " V");
+	}
 	
 	/**
 	 * Donne la valeur 2 en String
 	 * @return String : la valeur
 	 */
-	public abstract String getVraiVal2();
+	public String getVraiVal2() {
+		int puissanceUnite = (Math.log10(Math.abs(vraiVal2*echelle)) > -100)?(int)Math.log10(Math.abs(difference*echelle)):0;
+		return(String.format("%.2f", vraiVal2*echelle/pow(puissanceUnite)) + "E" + puissanceUnite + " V");
+	}
 }

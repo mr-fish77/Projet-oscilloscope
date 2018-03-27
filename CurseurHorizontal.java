@@ -28,36 +28,17 @@ public class CurseurHorizontal extends Curseur {
 		nbPixel = s[0].nbPixelX;
 		
 		//on calcule les positions
-		posCurseur1 = (int)(valCurseur1*nbPixel) + largeur/2;	//cete fois-ci pas besoin de signe -, on est deja dans le sens logique
-		posCurseur2 = (int)(valCurseur2*nbPixel) + largeur/2;
+		posCurseur1 = (int)(vraiVal1*nbPixel) + largeur/2;	//cete fois-ci pas besoin de signe -, on est deja dans le sens logique
+		posCurseur2 = (int)(vraiVal2*nbPixel) + largeur/2;
 		
 		g.drawLine(posCurseur1, 0, posCurseur1, hauteur);	//1er curseur
 		g.drawLine(posCurseur2, 0, posCurseur2, hauteur);	//2e curseur
 	}
 	
 	/**
-	 * Donne la difference en String
-	 * @return String : la difference
+	 * Met a jour l'echelle des curseurs
 	 */
-	public String getDifference() {
-		return (String.format("%.2f", difference/echelle) + "E" + (int)Math.log10(echelle) + " s");
-	}
-	
-	/**
-	 * Donne la valeur 1 en String
-	 * @return String : la valeur
-	 */
-	public String getVraiVal1() {
-		int puissanceUnite = (int)Math.log10(vraiVal1);
-		return(String.format("%.2f", vraiVal1/echelle) + "E" + (int)Math.log10(echelle) + " s");
-	}
-	
-	/**
-	 * Donne la valeur 2 en String
-	 * @return String : la valeur
-	 */
-	public String getVraiVal2() {
-		int puissanceUnite = (int)Math.log10(vraiVal2);
-		return(String.format("%.2f", vraiVal2/echelle) + "E" + (int)Math.log10(echelle) + " s");
+	public void mAJEchelle() {
+		echelle = s[0].echelleX;
 	}
 }

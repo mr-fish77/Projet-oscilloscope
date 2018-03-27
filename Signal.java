@@ -94,6 +94,7 @@ public abstract class Signal {
 		amplitude = s.amplitude;
 		freq = s.freq;
 		active = s.active;
+		affiche = s.affiche;
 		NUMERO = s.NUMERO;
 		couleur = s.couleur;
 		
@@ -305,7 +306,7 @@ public abstract class Signal {
     
     
         /**
-     * desine une flèche entre deux point 
+     * desine une fleche entre deux point 
      * @param g 
      * @param x1 premier point.
      * @param y1 premier point
