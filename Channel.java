@@ -1,5 +1,7 @@
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -7,7 +9,7 @@ import javax.swing.JPanel;
 /**
  * Classe qui permet de gerer un channel
  */
-public class Channel extends JPanel implements PotentiometreListener{
+public class Channel extends JPanel implements ActionListener, PotentiometreListener{
 	/** Les signaux. Un seul est utilise 
 	 * mais il faut un tableau pour conserver un pointeur memoire correct. */
 	private Signal[] signaux;
@@ -75,6 +77,7 @@ public class Channel extends JPanel implements PotentiometreListener{
 		chMenu = new BoutonTexte(nomChannel + " Affichage");
 		contraintes.weighty = 0.5;
 		contraintes.gridy++;
+        chMenu.addActionListener(this);
 		add(chMenu, contraintes);
 		
 		//texte au dessus du potentiometre de volts/div
@@ -142,4 +145,17 @@ public class Channel extends JPanel implements PotentiometreListener{
 	public BoutonTexte getButton() {
 		return chMenu;
 	}
+    
+    /** Permet l'interaction avec les boutons d'activation de l'affichage des signaux
+	 * @param  la source de l'evenement
+     * 	 */
+    public void actionPerformed(ActionEvent e) {
+        
+        if(e.getSource() == chMenu.getJButton()) {
+			
+            this.signaux[this.n].affiche = ! this.signaux[this.n].affiche;
+            ecran.repaint();
+        }
+        
+    }
 }

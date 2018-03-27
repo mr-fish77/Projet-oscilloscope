@@ -62,6 +62,10 @@ public abstract class Signal {
     public double decalageX = 0;
     /**decalage suivant Y en %/div */
     public double decalageY = 0;
+    
+    
+    /**détermine si le sigal doit être afficher ou non*/
+    public boolean affiche;
 
     
 
@@ -80,6 +84,7 @@ public abstract class Signal {
 		decalageY = 0;
 		
     	this.nuagePoint = new double[NB_POINTS * CASE_X ][2]; 
+        affiche = true;
 	}
 	
 	/**
@@ -265,17 +270,20 @@ public abstract class Signal {
      * @param Graphics g : pour peindre la courbe
      */
     public void dessineCourbe(Graphics g) {
-    	if(active) {		//on regarde si le signal doit etre affiche
-	        g.setColor(couleur);
-	        calculPoint();	//on recalcule les point
-	        
-	        int a = 0;
-	        while(a < (nuagePoint.length-1)){
-	            g.drawLine((int) (nuagePoint[a][0]), (int) (nuagePoint[a][1] + decalageY*nbPixelY),(int) (nuagePoint[a+1][0]),(int) (nuagePoint[a+1][1]+ decalageY*nbPixelY));
-	            a++;
-	        }
-    	}
-	    	
+    	
+        if(affiche == true){//on regarde si l'oscillo doit afficher un signal
+            
+            if(active) {		//on regarde si le signal doit etre affiche
+                g.setColor(couleur);
+                calculPoint();	//on recalcule les point
+                
+                int a = 0;
+                while(a < (nuagePoint.length-1)){
+                    g.drawLine((int) (nuagePoint[a][0]), (int) (nuagePoint[a][1] + decalageY*nbPixelY),(int) (nuagePoint[a+1][0]),(int) (nuagePoint[a+1][1]+ decalageY*nbPixelY));
+                    a++;
+                }
+            }
+	    }	
     }
     
 }
