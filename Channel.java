@@ -1,8 +1,11 @@
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -48,6 +51,7 @@ public class Channel extends JPanel implements ActionListener, PotentiometreList
 		this.signaux[this.n].echelleY = ECHELLES[compteurEchelle];
 		ecran.bas.setCh(nomChannel + " : " + ECHELLES[compteurEchelle] + " Volts/div", this.n);
 		
+		setBorder(BorderFactory.createLineBorder(Color.BLACK));	//on rajoute des bordures
 		setLayout(new GridBagLayout());//Layout plus complique mais permet de gerer a peu pres bien
 		GridBagConstraints contraintes = new GridBagConstraints();
 		contraintes.gridx = 0;
@@ -56,12 +60,16 @@ public class Channel extends JPanel implements ActionListener, PotentiometreList
 		
 		//Nom du channel
 		JLabel titreChannel = new JLabel(nomChannel);
+		titreChannel.setHorizontalAlignment(JLabel.CENTER);			//on met le texte au centre
+		titreChannel.setFont(new Font("Calibri", Font.BOLD, 20));	//on change la police
 		contraintes.weighty = 0.5;
 		contraintes.gridy++;
 		add(titreChannel, contraintes);
 		
 		//texte au dessus du potentiometre de position
 		JLabel descriptionPotPos = new JLabel("Position");
+		descriptionPotPos.setHorizontalAlignment(JLabel.CENTER);
+		descriptionPotPos.setVerticalAlignment(JLabel.BOTTOM);
 		contraintes.gridy++;
 		contraintes.weighty = 0.2;
 		add(descriptionPotPos, contraintes);
@@ -82,6 +90,8 @@ public class Channel extends JPanel implements ActionListener, PotentiometreList
 		
 		//texte au dessus du potentiometre de volts/div
 		JLabel descriptionPotDiv = new JLabel("Volts/Div");
+		descriptionPotDiv.setHorizontalAlignment(JLabel.CENTER);
+		descriptionPotDiv.setVerticalAlignment(JLabel.BOTTOM);
 		contraintes.gridy++;
 		add(descriptionPotDiv, contraintes);
 		

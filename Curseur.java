@@ -68,15 +68,15 @@ public abstract class Curseur{
 	 * @return String : la difference
 	 */
 	public String getDifference() {
-		int puissanceUnite = (Math.log10(Math.abs(difference*echelle)) > -100)?(int)Math.log10(Math.abs(difference*echelle)):0;
-		return (String.format("%.2f", difference*echelle/pow(puissanceUnite)) + "E" + puissanceUnite + " V");
+		int puissanceUnite = (Math.log10(Math.abs(difference*echelle)) > -100)?(int)Math.log10(Math.abs(difference*echelle)):0;	//on doit differencer pour savoir si la puissance de 10 existe
+		return (String.format("%.2f", difference*echelle/pow(puissanceUnite)) + "E" + puissanceUnite + " V");	//on affiche a l'ecran
 	}
 	
 	/**
 	 * Donne la valeur 1 en String
 	 * @return String : la valeur
 	 */
-	public String getVraiVal1() {
+	public String getVraiVal1() {//voir avant
 		int puissanceUnite = (Math.log10(Math.abs(vraiVal1*echelle)) > -100)?(int)Math.log10(Math.abs(difference*echelle)):0;
 		return(String.format("%.2f", vraiVal1*echelle/pow(puissanceUnite)) + "E" + puissanceUnite + " V");
 	}
@@ -85,7 +85,7 @@ public abstract class Curseur{
 	 * Donne la valeur 2 en String
 	 * @return String : la valeur
 	 */
-	public String getVraiVal2() {
+	public String getVraiVal2() {//voir avant
 		int puissanceUnite = (Math.log10(Math.abs(vraiVal2*echelle)) > -100)?(int)Math.log10(Math.abs(difference*echelle)):0;
 		return(String.format("%.2f", vraiVal2*echelle/pow(puissanceUnite)) + "E" + puissanceUnite + " V");
 	}

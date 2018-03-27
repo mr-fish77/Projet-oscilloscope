@@ -54,7 +54,7 @@ public class Potentiometre extends JLabel implements MouseMotionListener, MouseL
 		setSize(taille, taille); // on lui donne sa taille
 		
 		
-		setBackground(Color.RED);	//couleur lorsqu'on utilise les curseurs
+		setBackground(Color.decode("#fcf7c6"));	//couleur lorsqu'on utilise les curseurs
 		setOpaque(false);
 	}
 
@@ -116,7 +116,7 @@ public class Potentiometre extends JLabel implements MouseMotionListener, MouseL
 		xMem = m.getX() - decaX - taille / 2; // position initiale de la souris (relative par rapport au centre du
 												// potentiometre)
 		yMem = m.getY() - decaY - taille / 2;
-		couleurPolygone = Color.GREEN; // on le met en vert pour montrer qu'il est actif
+		couleurPolygone = Color.decode("#078911"); // on le met en vert pour montrer qu'il est actif
 		repaint();
 	}
 

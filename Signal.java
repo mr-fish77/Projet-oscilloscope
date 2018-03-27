@@ -38,7 +38,7 @@ public abstract class Signal {
 	/** Couleur de la courbe */
 	protected Color couleur;
 	/** Tableau de couleur par signal */
-	protected static final Color[] COULEURS_SIGNAUX = {Color.BLUE, Color.ORANGE};
+	protected static final Color[] COULEURS_SIGNAUX = {Color.BLUE, Color.decode("#d19004")};
     
     /**nb de point par graduation*/
     public final int NB_POINTS = 1000; 
