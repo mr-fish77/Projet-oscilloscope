@@ -1,3 +1,5 @@
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
@@ -7,9 +9,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
@@ -35,6 +41,7 @@ public class Oscilloscope extends JFrame implements ActionListener{
 	 */
 	public Oscilloscope(Signal[] signaux, Generateur generateur){
 		super("Oscilloscope");
+		setIconImage(new ImageIcon("icone.jpg").getImage());
 		setSize(1200, 600);
 		setMinimumSize(new Dimension(600, 600));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -146,16 +153,44 @@ public class Oscilloscope extends JFrame implements ActionListener{
 		ch2.potPos.setPotentiometreListener(ch2);
 	}
 	
+	/**
+	 * Methode qui fait une capture de ce qui est imprime a l'ecran
+	 */
 	public void imprimeImage() {
-		BufferedImage image = new BufferedImage(getWidth(),getHeight(), BufferedImage.TYPE_INT_RGB);
-		Graphics2D g2 = image.createGraphics();
-		ecran.grille.paint(g2);
-		System.out.println(image);
-		try{
-			ImageIO.write(image, ".jpeg", new File("c:/users/Pierre-Yves/downloads/recopie.jpeg"));
-		} catch (Exception e) {
-			e.printStackTrace();
-}
+		//on cree l'image a la bonne taille
+		BufferedImage image = new BufferedImage(ecran.getWidth(), ecran.getHeight(), BufferedImage.TYPE_INT_RGB);
+		Graphics2D g2 = image.createGraphics();	//on cree un objet graphique qui va contenir l'information de l'ecran
+		ecran.paint(g2);	//on peint l'ecran dans cet objet graphique : on a une image
+		
+		//pour choisir ou non d'enregistrer
+		JFrame affichageImage = new JFrame("Recopie");
+		affichageImage.setLayout(new BorderLayout());
+		
+		//affichage de l'image
+		JLabel affImage = new JLabel(new ImageIcon(image));
+		affImage.setBackground(Color.BLACK);	//on met un fond noir
+		affImage.setOpaque(true);
+		affichageImage.add(affImage, BorderLayout.CENTER);
+		
+		//bouton pour choisir ou non la sauvegarde
+		JButton sauvegarde = new JButton("Sauvegarder ! (dans le fichier \"capture.png\")");
+		affichageImage.add(sauvegarde, BorderLayout.SOUTH);
+		sauvegarde.addActionListener(new ActionListener() {	//on definit direct l'actionListener
+			
+			public void actionPerformed(ActionEvent e) {
+				try {	//sauvegarde de l'image
+					ImageIO.write(image, "png", new File("capture.png"));
+				}catch(IOException o) {
+					o.printStackTrace();
+				}
+				affichageImage.setVisible(false);	//et du coup fermeture de la fenetre
+				affichageImage.dispose();
+			}
+		});
+		
+		//on ajuste la taille de la fenetre au minimum et on affiche
+		affichageImage.pack();
+		affichageImage.setVisible(true);
 	}
 	
 	/**
