@@ -52,6 +52,10 @@ public class Potentiometre extends JLabel implements MouseMotionListener, MouseL
 		addMouseListener(this); // support des clics de la souris
 		addMouseMotionListener(this); // et de ses mouvements
 		setSize(taille, taille); // on lui donne sa taille
+		
+		
+		setBackground(Color.RED);	//couleur lorsqu'on utilise les curseurs
+		setOpaque(false);
 	}
 
 	/** Dessine le potentiometre a l'ecran. 

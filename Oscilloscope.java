@@ -101,7 +101,7 @@ public class Oscilloscope extends JFrame implements ActionListener{
 		sauvRap = new BoutonTexte("Sauv/Rap");
 		mesures = new BoutonTexte("Mesures", this);
 		acquisition = new BoutonTexte("Acquisition");
-		autoset = new BoutonTexte("AutoSet");
+		autoset = new BoutonTexte("AutoSet", this);
 		utilitaire = new BoutonTexte("Utilitaire");
 		curseurs = new BoutonTexte("Curseurs", this);
 		affichage = new BoutonTexte("Affichage");
@@ -160,6 +160,10 @@ public class Oscilloscope extends JFrame implements ActionListener{
 			
 		}else if(e.getSource() == maths.getJButton()) {
 			ecran.changerMenu(menuMaths);
+		}else if(e.getSource() == autoset.getJButton()) {
+			gestionTemps.autoset();	//pour regler l'echelle de temps
+			ch1.autoset();	//pour regler chaque signal (en volt)
+			ch2.autoset();
 		}
 	}
 }

@@ -72,7 +72,7 @@ public class Channel extends JPanel implements PotentiometreListener{
 		add(potPos, contraintes);
 		
 		//bouton d'affichage du menu du channel
-		chMenu = new BoutonTexte(nomChannel + " Menu");
+		chMenu = new BoutonTexte(nomChannel + " Affichage");
 		contraintes.weighty = 0.5;
 		contraintes.gridy++;
 		add(chMenu, contraintes);
@@ -90,6 +90,32 @@ public class Channel extends JPanel implements PotentiometreListener{
 		add(potDiv, contraintes);
 	}
 	
+	/** Permet de gerer la fonction autoset
+	 */
+	public void autoset() {
+		int compteur = 0;
+		
+		//on diminue l'echelle jusqu'a remplir la fenetre
+		while(compteur < ECHELLES.length && ECHELLES[compteur]*signaux[n].CASE_Y/2 > signaux[n].getAmplitude()) {
+			compteur++;
+		}
+		
+		//on reduit d'un cran pour que le signal rentre a l'ecran
+		compteurEchelle = (compteur > 0)? compteur-1 : 0;
+		mAJEchelle();	//on met a jour l'affichage
+	}
+	
+	
+	/**
+	 * Methode unifiee de mise a l'echelle
+	 */
+	public void mAJEchelle() {
+		signaux[n].echelleY = ECHELLES[compteurEchelle];
+		ecran.bas.setCh(nomChannel + " : " + ECHELLES[compteurEchelle] + " Volts/div", n);
+		ecran.grille.repaint();
+	}
+	
+	
 	/** Permet l'interaction avec un potentiometre
 	 * @param Potentiometre potentiometre : la source de l'evenement
 	 * @param int evolutionCran : + ou -1
@@ -104,9 +130,7 @@ public class Channel extends JPanel implements PotentiometreListener{
 		}else if(potentiometre.equals(potDiv)) {	//reglage de l'echelle
 			if((compteurEchelle >= 0 && compteurEchelle < (ECHELLES.length - 1) && evolutionCran > 0) || (compteurEchelle < (ECHELLES.length) && compteurEchelle > 0 && evolutionCran < 0)) {	//on regarde qu'on est toujours dans les clous du tableau
 				compteurEchelle += evolutionCran;
-				signaux[n].echelleY = ECHELLES[compteurEchelle];
-				ecran.bas.setCh(nomChannel + " : " + ECHELLES[compteurEchelle] + " Volts/div", n);
-				ecran.repaint();
+				mAJEchelle();
 			}
 			
 		}

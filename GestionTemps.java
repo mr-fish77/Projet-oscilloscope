@@ -86,6 +86,31 @@ public class GestionTemps extends JPanel implements PotentiometreListener{
 		add(potDiv, contraintes);
 	}
 	
+	/**
+	 * Permet de gerer la fonction autoset au niveau du temps
+	 */
+	public void autoset() {
+		int compteur = 0;
+		
+		//on diminue l'echelle jusqu'a ce que 2 periodes
+		while(compteur < ECHELLES.length && ECHELLES[compteur]*signaux[0].CASE_X*signaux[0].getFreq() > 2 && ECHELLES[compteur]*signaux[1].CASE_X*signaux[1].getFreq() > 2) {
+			compteur ++;
+		}
+		
+		compteurEchelle = compteur;
+		mAJEchelle();	//on met a jour les donnees puis affichage
+	}
+	
+	
+	/** Methode unifiee de mise a l'echelle
+	 */
+	public void mAJEchelle() {
+		signaux[0].echelleX = ECHELLES[compteurEchelle];
+		signaux[1].echelleX = ECHELLES[compteurEchelle];
+		ecran.bas.setTemps("Temps : " + STR_ECHELLES[compteurEchelle] + "/div");
+		ecran.grille.repaint();
+	}
+	
 	
 	/** Permet l'interaction avec un potentiometre
 	 * @param Potentiometre potentiometre : la source de l'evenement
@@ -104,10 +129,7 @@ public class GestionTemps extends JPanel implements PotentiometreListener{
 			if((compteurEchelle >= 0 && compteurEchelle < (ECHELLES.length - 1) && evolutionCran > 0) || (compteurEchelle < (ECHELLES.length) && compteurEchelle > 0 && evolutionCran < 0)) {	//on regarde qu'on est toujours dans les clous du tableau
 				compteurEchelle += evolutionCran;
 				//attribution au 2 signaux
-				signaux[0].echelleX = ECHELLES[compteurEchelle];
-				signaux[1].echelleX = ECHELLES[compteurEchelle];
-				ecran.bas.setTemps("Temps : " + STR_ECHELLES[compteurEchelle] + "/div");
-				ecran.grille.repaint();
+				mAJEchelle();
 			}
 		}
 	}

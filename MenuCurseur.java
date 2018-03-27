@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -59,10 +60,17 @@ public class MenuCurseur extends AbstractMenu implements ActionListener, Potenti
 	 * Methode appelee lorsque tous les objets necessaires sont instancies correctement
 	 */
 	public void miseEnRoute() {
+		//on recupere les potentiometres
 		pot1 = this.oscillo.ch1.potPos;
 		pot2 = this.oscillo.ch2.potPos;
 		pot1.setPotentiometreListener(this);
 		pot2.setPotentiometreListener(this);
+		
+		//on leur rajoute la couleur
+		pot1.setOpaque(true);
+		pot2.setOpaque(true);
+		pot1.repaint();
+		pot2.repaint();
 	}
 	
 	
@@ -70,6 +78,13 @@ public class MenuCurseur extends AbstractMenu implements ActionListener, Potenti
 	 * Methode qui desactive le menu des curseurs
 	 */
 	public void desactiverMenu() {
+		//on enleve la couleur
+		pot1.setOpaque(false);
+		pot2.setOpaque(false);
+		pot1.repaint();
+		pot2.repaint();
+		
+		//methode pour reatribuer les bons listener
 		oscillo.desactiveCurseur();
 	}
 	
