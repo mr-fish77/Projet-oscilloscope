@@ -41,7 +41,7 @@ public class Oscilloscope extends JFrame implements ActionListener{
 	 */
 	public Oscilloscope(Signal[] signaux, Generateur generateur){
 		super("Oscilloscope");
-		setIconImage(new ImageIcon("icone.jpg").getImage());
+		setIconImage(new ImageIcon("icone.png").getImage());	//icone de la fenetre
 		setSize(1200, 600);
 		setMinimumSize(new Dimension(600, 600));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -164,6 +164,7 @@ public class Oscilloscope extends JFrame implements ActionListener{
 		
 		//pour choisir ou non d'enregistrer
 		JFrame affichageImage = new JFrame("Recopie");
+		affichageImage.setIconImage(new ImageIcon("icone.png").getImage());	//icone de la fenetre
 		affichageImage.setLayout(new BorderLayout());
 		
 		//affichage de l'image

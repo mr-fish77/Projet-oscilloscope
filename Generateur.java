@@ -9,6 +9,7 @@ import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
 import javax.swing.JButton;
@@ -51,6 +52,7 @@ public class Generateur extends JFrame implements ActionListener, Bouton_OnOff_L
 	public Generateur(Signal[] signaux) {
 		super("Generateur");
 		setSize(SIZE, SIZE); // Taille carree.
+		setIconImage(new ImageIcon("icone.png").getImage());	//icone de la fenetre
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.signal = signaux;
