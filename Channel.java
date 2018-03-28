@@ -51,6 +51,7 @@ public class Channel extends JPanel implements ActionListener, PotentiometreList
 		this.signaux[this.n].echelleY = ECHELLES[compteurEchelle];
 		ecran.bas.setCh(nomChannel + " : " + ECHELLES[compteurEchelle] + " Volts/div", this.n);
 		
+		setOpaque(false);
 		setBorder(BorderFactory.createLineBorder(Color.BLACK));	//on rajoute des bordures
 		setLayout(new GridBagLayout());//Layout plus complique mais permet de gerer a peu pres bien
 		GridBagConstraints contraintes = new GridBagConstraints();

@@ -26,6 +26,7 @@ public class Ecran extends JPanel{
 		this.signaux = signaux;
 		
 		//GridBAgLayout (arrangement en lignes/colonnes)
+		setOpaque(false);
 		setLayout(new GridBagLayout());
 		contraintes = new GridBagConstraints();	//les contraintes associees
 		contraintes.fill = GridBagConstraints.BOTH;
@@ -78,5 +79,20 @@ public class Ecran extends JPanel{
 	    //les deux commandes sont obligatoire pour voir un chgt a l'ecran
 		revalidate();
         repaint();
+	}
+	
+	/**
+	 * Enleve l'affichage des menus
+	 */
+	public void enleverMenus() {
+		//on enleve le menu affiche
+		if(menus !=null) {
+			remove(menus);
+			menus = null;
+		}
+		
+		//les deux commandes sont obligatoire pour voir un chgt a l'ecran
+		revalidate();
+		repaint();
 	}
 }

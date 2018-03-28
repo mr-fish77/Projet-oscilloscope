@@ -1,10 +1,12 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -12,11 +14,14 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
 /**
  * Classe qui gere l'affichage de l'oscilloscope a l'ecran
@@ -32,8 +37,16 @@ public class Oscilloscope extends JFrame implements ActionListener{
 	public Ecran ecran;
 	
 	/** Boutons en haut a droite de l'interface de l'oscilloscope. */
-	private BoutonTexte sauvRap, mesures, acquisition, autoset, utilitaire, curseurs, affichage, recopie, runStop, maths;
+	private BoutonTexte cacher, mesures, acquisition, autoset, utilitaire, curseurs, affichage, recopie, runStop, maths;
 	private AbstractMenu menuCurseur, menuMaths;
+	
+	/** Surprise ^^ */
+	private Color colorDefaut;	//couleur par defaut de l'oscillo
+	private boolean easter = false;	//activation de l'easter egg
+	private int posX = -80, posY = -48, largX = 50, largY = 31, deltaX, deltaY, compteurEgg = 0;	//coordonnees
+	private Timer dureeEaster;	//timer de l'easter egg
+	private Image im;	//la petite surprise qui apparait
+	private Clip clip;	//la musique qui va avec
 	
 	/** Genere la fenetre principale de l'oscilloscope.
 	 * @param Signal[] signaux : le tableau des signaux
@@ -45,11 +58,14 @@ public class Oscilloscope extends JFrame implements ActionListener{
 		setSize(1200, 600);
 		setMinimumSize(new Dimension(600, 600));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		colorDefaut = getBackground();
 
 		this.generateur = generateur;
 
 		JPanel conteneurPrincipal = new JPanel();		//pour ne pas avoir de probleme avec les marges des fenetres
 		conteneurPrincipal.setLayout(new GridLayout());
+		conteneurPrincipal.setOpaque(false);
+		conteneurPrincipal.setBackground(Color.RED);
 		setContentPane(conteneurPrincipal);
 		
 		//Definition des menus
@@ -59,6 +75,7 @@ public class Oscilloscope extends JFrame implements ActionListener{
 		
 		/* Conteneur de gauche, contient l'ecran et les boutons interactions menus. */
 		JPanel conteneurEcran = new JPanel();
+		conteneurEcran.setOpaque(false);
 		conteneurEcran.setLayout(new GridLayout(1,1));
 		add(conteneurEcran);
 		
@@ -71,6 +88,7 @@ public class Oscilloscope extends JFrame implements ActionListener{
 		/* Conteneur de droite, contient les boutons pour afficher les menus. */
 		JPanel conteneurGestion = new JPanel();
 		add(conteneurGestion);
+		conteneurGestion.setOpaque(false);
 		conteneurGestion.setLayout(new GridBagLayout());
 		
 		GridBagConstraints contraintes = new GridBagConstraints();
@@ -81,6 +99,7 @@ public class Oscilloscope extends JFrame implements ActionListener{
 		/* Conteneur en haut, contient tous les boutons d'affichage de menu. */
 		JPanel boutonsAffichageMenus = new JPanel();
 		boutonsAffichageMenus.setLayout(new GridLayout(2,5));
+		boutonsAffichageMenus.setOpaque(false);
 		ajouterAffichageMenus(boutonsAffichageMenus);
 		contraintes.gridy = 0;
 		contraintes.weighty = 0.5;
@@ -92,6 +111,7 @@ public class Oscilloscope extends JFrame implements ActionListener{
 		gestionTemps = new GestionTemps(signaux, ecran);
 		
 		JPanel affichageGestionChannels = new JPanel();
+		affichageGestionChannels.setOpaque(false);
 		affichageGestionChannels.setLayout(new GridLayout(1, 4));
 		ajouterGestionChannels(affichageGestionChannels);
 		contraintes.gridy = 1;
@@ -101,6 +121,16 @@ public class Oscilloscope extends JFrame implements ActionListener{
 		/* Derniers preparatifs puis affichage. */
 		ecran.repaint();
 		setVisible(true);
+		
+		//a voir plus tard ^^
+		try {
+			im = ImageIO.read(new File("im.png"));
+		}catch(IOException o) {o.printStackTrace();}
+		
+		try{
+	        clip = AudioSystem.getClip();
+	        clip.open(AudioSystem.getAudioInputStream(new File("musique.wav")));
+	    }catch (Exception e){e.printStackTrace();}
 	}
 
 	
@@ -109,7 +139,7 @@ public class Oscilloscope extends JFrame implements ActionListener{
 	 * @param JPanel boutonsAffichageMenus : le conteneur des menus
 	 */
 	public void ajouterAffichageMenus(JPanel boutonsAffichageMenus) {
-		sauvRap = new BoutonTexte("Sauv/Rap");
+		cacher = new BoutonTexte("Cacher Menus", this);
 		mesures = new BoutonTexte("Mesures", this);
 		acquisition = new BoutonTexte("Acquisition");
 		autoset = new BoutonTexte("AutoSet", this);
@@ -120,7 +150,7 @@ public class Oscilloscope extends JFrame implements ActionListener{
 		runStop = new BoutonTexte("Run/Stop");
 		maths = new BoutonTexte("Math Menu", this);
 		
-		boutonsAffichageMenus.add(sauvRap);
+		boutonsAffichageMenus.add(cacher);
 		boutonsAffichageMenus.add(mesures);
 		boutonsAffichageMenus.add(acquisition);
 		boutonsAffichageMenus.add(autoset);
@@ -160,6 +190,9 @@ public class Oscilloscope extends JFrame implements ActionListener{
 		//on cree l'image a la bonne taille
 		BufferedImage image = new BufferedImage(ecran.getWidth(), ecran.getHeight(), BufferedImage.TYPE_INT_RGB);
 		Graphics2D g2 = image.createGraphics();	//on cree un objet graphique qui va contenir l'information de l'ecran
+		//pour afficher l'arriere plan
+		g2.setColor(colorDefaut);
+		g2.fillRect(0, 0, ecran.getWidth(), ecran.getHeight());
 		ecran.paint(g2);	//on peint l'ecran dans cet objet graphique : on a une image
 		
 		//pour choisir ou non d'enregistrer
@@ -195,11 +228,79 @@ public class Oscilloscope extends JFrame implements ActionListener{
 	}
 	
 	/**
+	 * MEthode qui prend en charge l'easter egg (si vous l'avez trouve)
+	 */
+	public void easterEgg() {
+		//belle couleur bleu nuit
+		setBackground(Color.decode("#18219D"));
+		
+		
+		dureeEaster = new Timer(27000, this);	//duree de l'easter egg
+		easter = true;
+		deltaX = (int)(Math.round(30*Math.random()))+10;
+		deltaY = (int)(Math.round(30*Math.random()))+10;
+		
+		//on recommence la musique
+		clip.setFramePosition(0);
+        clip.start();
+        //on attend la fin de l'intro
+        try {
+			Thread.sleep(3400);
+		}catch(InterruptedException e) {e.printStackTrace();}
+        //on lance le time
+		dureeEaster.start();
+	}
+	
+	
+	/**
+	 * Methode qui gere l'affichage graphique
+	 * @param Graphics g : l'object graphique interessant
+	 */
+	public void paint(Graphics g) {
+		super.paint(g);
+		
+		//si easter egg
+		if(easter) {
+			g.drawImage(im, posX, posY, null);
+			
+			//on calcule les rebonds
+			if(posX<0) {
+				deltaX = (int)(Math.round(30*Math.random()))+10;	//on met des vitesses rapides
+			}else if(posX>getWidth()-80) {
+				deltaX = -(int)(Math.round(30*Math.random()))-10;
+			}
+			
+			if(posY<0) {
+				deltaY = (int)(Math.round(10*Math.random()))+10;
+			}else if(posY>getHeight()-48) {
+				deltaY = -(int)(Math.round(10*Math.random()))-10;
+			}
+			
+			posX +=deltaX;	//on met a jour les positions
+			posY +=deltaY;
+			
+			//on attend 15 ms pour avoir un frame-rate de ~60fps
+			try {
+				Thread.sleep(15);
+			}catch(InterruptedException e) {
+				e.printStackTrace();
+			}
+			//on recommence la boucle
+			repaint();
+		}
+	}
+	
+	/**
 	 * Methode qui gere l'appui sur un bouton
 	 * @param ActionEvent e : l'actionEvent obligatoire :(
 	 */
 	public void actionPerformed(ActionEvent e) {
-		if		(e.getSource() == curseurs.getJButton()) {
+		if(e.getSource() == dureeEaster) {	//prise en charge timer easter egg
+			dureeEaster.stop();
+			easter = false;
+			setBackground(colorDefaut);
+			clip.stop();
+		}else if (e.getSource() == curseurs.getJButton()) {	//menu curseur
 			ecran.changerMenu(menuCurseur);
 		}else if(e.getSource() == mesures.getJButton()) {
 			
@@ -210,14 +311,27 @@ public class Oscilloscope extends JFrame implements ActionListener{
 		}else if(e.getSource() == ch2.getButton().getJButton()) {
 			
 			
-		}else if(e.getSource() == maths.getJButton()) {
+		}else if(e.getSource() == maths.getJButton()) {	//fonction maths
 			ecran.changerMenu(menuMaths);
-		}else if(e.getSource() == autoset.getJButton()) {
+		}else if(e.getSource() == autoset.getJButton()) {	//autoset
 			gestionTemps.autoset();	//pour regler l'echelle de temps
 			ch1.autoset();	//pour regler chaque signal (en volt)
 			ch2.autoset();
+			
+			//partie easter egg
+			if(!easter) {	//on autorise la progression de l'activation que si l'easter egg n'est pas lance
+				compteurEgg++;
+			}
+			
+			//Activation si on a clique 8 fois
+			if(compteurEgg>8) {
+				easterEgg();
+				compteurEgg = 0;
+			}
 		}else if(e.getSource() == recopie.getJButton()) {
 			imprimeImage();
+		}else if(e.getSource() == cacher.getJButton()) {
+			ecran.enleverMenus();
 		}
 	}
 }

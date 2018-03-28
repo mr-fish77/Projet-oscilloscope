@@ -23,6 +23,7 @@ public class MenuDuBas extends JPanel {
 	public MenuDuBas(Signal[] s) {
 		signaux = s;
 		
+		setOpaque(false);
 		setLayout(new GridLayout(1,4));
 		
 		//textes des channels et du temps

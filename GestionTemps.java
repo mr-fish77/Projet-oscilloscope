@@ -45,6 +45,7 @@ public class GestionTemps extends JPanel implements  PotentiometreListener{
 		ecran.bas.setTemps("Temps : " + STR_ECHELLES[compteurEchelle] + "/div");	//et les textes affiches par defaut dans les notifications
 		ecran.bas.setText("Decalage temps : " + String.format("%.2f", (double)(Math.round(decalage*100))/100) + " div");
 		
+		setOpaque(false);
 		setBorder(BorderFactory.createLineBorder(Color.BLACK));	//on rajoute des bordures
 		setLayout(new GridBagLayout());//Layout plus complique mais permet de gerer a peu pres bien
 		GridBagConstraints contraintes = new GridBagConstraints();
