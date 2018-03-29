@@ -3,10 +3,14 @@ import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+<<<<<<< HEAD
 public class MenuCurseur extends AbstractMenu implements PotentiometreListener{
 	/** Oscillo pour acceder aux variable utiles */
 	protected Oscilloscope oscillo;		//l'objet ecran pour l'affichage
 	
+=======
+public class MenuCurseur extends AbstractMenu implements ActionListener, PotentiometreListener{
+>>>>>>> cf5880c0a97e2302f0ae4bff8fbcd3244aa4c29a
 	/** Les differents curseurs */
 	protected Curseur curseurCourant = null;	//curseur affiche
 	protected Curseur[] curseurs;				//tableau des curseurs
@@ -24,9 +28,8 @@ public class MenuCurseur extends AbstractMenu implements PotentiometreListener{
 	protected int source = 0;	//0 ou 1 suivant le signal
 	
 	
-	public MenuCurseur(Signal[] s, Oscilloscope oscillo) {
+	public MenuCurseur(Signal[] s) {
 		super(s);
-		this.oscillo = oscillo;
 		
 		curseurs = new Curseur[4];
 		curseurs[1] = new CurseurHorizontal(s);
@@ -114,9 +117,8 @@ public class MenuCurseur extends AbstractMenu implements PotentiometreListener{
 	
 	
 	/** Methode qui est appelee lorsque le 1er bouton est clique
-	 * @param ActionEvent e : l'action event habituel
 	 */
-	public void actionBouton1(ActionEvent e) {
+	public void actionBouton1() {
 		type = (type + 1) % 3;	//0-1-2-0...
 		curseurCourant = curseurs[type + ((type == 2) ? source : 0)];	//on recupere le bon curseur (on fait la difference de signaux ssi on doit afficher des curseurs verticaux)
 		
@@ -126,9 +128,8 @@ public class MenuCurseur extends AbstractMenu implements PotentiometreListener{
 	
 	
 	/** Methode qui est appelee lorsque le 2e bouton est clique
-	 * @param ActionEvent e : l'action event habituel
 	 */
-	public void actionBouton2(ActionEvent e) {
+	public void actionBouton2() {
 		source = (source + 1) % 2;//0-1-0...
 		curseurCourant = curseurs[type + ((type == 2) ? source : 0)];	//on recupere le bon curseur (on fait la difference de signaux ssi on doit afficher des curseurs verticaux)
 		

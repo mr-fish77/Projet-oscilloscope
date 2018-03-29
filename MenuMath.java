@@ -10,14 +10,11 @@ import javax.swing.*;
 import java.awt.event.*;
 
 public class MenuMath extends AbstractMenu {
-	
-	protected Oscilloscope oscillo;
-    public FonctionMath smaths;
+	public FonctionMath smaths;
     
 	
-	public MenuMath(Signal[] s, Oscilloscope oscillo){
+	public MenuMath(Signal[] s){
 		super(s);
-        this.oscillo = oscillo;
         smaths = new FonctionMath(s);
 		
 		bouton1.setText("Ajouter: ");

@@ -16,6 +16,9 @@ import javax.swing.JPanel;
 
 public abstract class AbstractMenu extends JPanel implements ActionListener{
 	
+	/** Oscillo pour acceder aux variable utiles */
+	protected static Oscilloscope oscillo;
+	
 	/** Les signaux. */
 	protected Signal[] signaux;
 	
@@ -44,6 +47,7 @@ public abstract class AbstractMenu extends JPanel implements ActionListener{
 		for (java.awt.Component c : this.getComponents()){
 			JButton b = (JButton) c;
 			b.addActionListener(this);
+			b.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 		}
 	}
 	
@@ -113,46 +117,48 @@ public abstract class AbstractMenu extends JPanel implements ActionListener{
 	 * N'est pas utilise par les sous-classes, 
 	 * les methodes de chaque bouton est deportee individuellement.
 	 * @param ActionEvent e : l'action event habituel
+	 * 		  qui ne sera pas envoye aux methodes deportees.
 	 */
 	public void actionPerformed (ActionEvent e) {
 		if      (e.getSource().equals(bouton1)) {
-			actionBouton1(e);
+			actionBouton1();
 		}else if(e.getSource().equals(bouton2)) {
-			actionBouton2(e);
+			actionBouton2();
 		}else if(e.getSource().equals(bouton3)) {
-			actionBouton3(e);
+			actionBouton3();
 		}else if(e.getSource().equals(bouton4)) {
-			actionBouton4(e);
+			actionBouton4();
 		}else if(e.getSource().equals(bouton5)) {
-			actionBouton5(e);
+			actionBouton5();
 		}
 	}
 	
 	/** Methode qui est appelee lorsque le 1er bouton est clique
-	 * @param ActionEvent e : l'action event habituel
 	 */
-	public void actionBouton1(ActionEvent e) {}
+	public void actionBouton1() {}
 	
 	/** Methode qui est appelee lorsque le 2e bouton est clique
-	 * @param ActionEvent e : l'action event habituel
 	 */
-	public void actionBouton2(ActionEvent e) {}
+	public void actionBouton2() {}
 	
 	
 	/** Methode qui est appelee lorsque le 3e bouton est clique
-	 * @param ActionEvent e : l'action event habituel
 	 */
-	public void actionBouton3(ActionEvent e) {}
+	public void actionBouton3() {}
 	
 	
 	/** Methode qui est appelee lorsque le 4e bouton est clique
-	 * @param ActionEvent e : l'action event habituel
 	 */
-	public void actionBouton4(ActionEvent e) {}
+	public void actionBouton4() {}
 	
 	
 	/** Methode qui est appelee lorsque le 5e bouton est clique
-	 * @param ActionEvent e : l'action event habituel
 	 */
-	public void actionBouton5(ActionEvent e) {}
+	public void actionBouton5() {}
+	
+	/** Assigne un oscilloscope en attribut.
+	 * @param o Oscilloscope */
+	public void setOscillo(Oscilloscope o) {
+		this.oscillo = o;
+	}
 }
