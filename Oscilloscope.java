@@ -43,7 +43,7 @@ public class Oscilloscope extends JFrame implements ActionListener{
 	/** Surprise ^^ */
 	private Color colorDefaut;	//couleur par defaut de l'oscillo
 	private boolean easter = false;	//activation de l'easter egg
-	private int posX = -80, posY = -48, largX = 50, largY = 31, deltaX, deltaY, compteurEgg = 0;	//coordonnees
+	private int posX = -80, posY = -48, deltaX, deltaY, compteurEgg = 0;	//coordonnees
 	private Timer dureeEaster;	//timer de l'easter egg
 	private Image im;	//la petite surprise qui apparait
 	private Clip clip;	//la musique qui va avec
@@ -138,7 +138,7 @@ public class Oscilloscope extends JFrame implements ActionListener{
 	 * Methode deportee pour ajouter tous les boutons d'affichage de menus
 	 * @param JPanel boutonsAffichageMenus : le conteneur des menus
 	 */
-	public void ajouterAffichageMenus(JPanel boutonsAffichageMenus) {
+	private void ajouterAffichageMenus(JPanel boutonsAffichageMenus) {
 		cacher = new BoutonTexte("Cacher Menus", this);
 		mesures = new BoutonTexte("Mesures", this);
 		acquisition = new BoutonTexte("Acquisition");
@@ -166,7 +166,7 @@ public class Oscilloscope extends JFrame implements ActionListener{
 	 * Methode deportee pour ajouter tous les elements a l'espace central : channel, temps, trigger...
 	 * @param JPanel affichageGestionChannels : le conteneur central
 	 */
-	public void ajouterGestionChannels(JPanel affichageGestionChannels) {
+	private void ajouterGestionChannels(JPanel affichageGestionChannels) {
 		affichageGestionChannels.add(ch1);	
 		affichageGestionChannels.add(ch2);
 		affichageGestionChannels.add(gestionTemps);

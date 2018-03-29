@@ -9,12 +9,10 @@ public class MenuDuBas extends JPanel {
 	/** Informations generales. */
 	private JLabel texte;
 	/** Les signaux. */
-	Signal[] signaux;
+	private Signal[] signaux;
 	
 	/** JLabel associes a chaque information de volts/div ou sec/div. */
 	private JLabel texteCh1, texteCh2, texteTemps;
-	/** Contient l'ensemble des JLabel. */
-	private JPanel conteneurInfo;
 	
 	/**
 	 * Constructeur du menu du bas

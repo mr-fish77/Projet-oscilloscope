@@ -3,7 +3,7 @@ import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class MenuCurseur extends AbstractMenu implements ActionListener, PotentiometreListener{
+public class MenuCurseur extends AbstractMenu implements PotentiometreListener{
 	/** Oscillo pour acceder aux variable utiles */
 	protected Oscilloscope oscillo;		//l'objet ecran pour l'affichage
 	

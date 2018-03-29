@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 /**
  * Classe qui permet de gerer l'echelle et la position au niveau du temps
  */
-public class GestionTemps extends JPanel implements  PotentiometreListener{
+public class GestionTemps extends JPanel implements PotentiometreListener{
 	/** Le tableau de signal */
 	private Signal[] signaux;		//tableau de signal (on est oblige car on cree souvent de nouveaux signaux)
 	

@@ -130,6 +130,14 @@ public class Channel extends JPanel implements ActionListener, PotentiometreList
 	}
 	
 	
+	/** Permet d'acceder au bouton
+	 * @return BoutonTexte le bouton
+	 */
+	public BoutonTexte getButton() {
+		return chMenu;
+	}
+	
+	
 	/** Permet l'interaction avec un potentiometre
 	 * @param Potentiometre potentiometre : la source de l'evenement
 	 * @param int evolutionCran : + ou -1
@@ -150,12 +158,6 @@ public class Channel extends JPanel implements ActionListener, PotentiometreList
 		}
 	}
 	
-	/** Permet d'acceder au bouton
-	 * @return BoutonTexte le bouton
-	 */
-	public BoutonTexte getButton() {
-		return chMenu;
-	}
     
     /** Permet l'interaction avec les boutons d'activation de l'affichage des signaux
 	 * @param  la source de l'evenement

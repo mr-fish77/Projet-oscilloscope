@@ -9,13 +9,10 @@ import javax.swing.JPanel;
 public class Grille extends JPanel {
 	
 	/** Les signaux. */
-	Signal[] signaux;
-	
-	/**fonctionMath**/
-	FonctionMath smaths;
+	private Signal[] signaux;
 	
 	/** Couleur d'arriere-plan ou d'avant-plan. */
-	Color arrierePlan = Ecran.arrierePlan, avantPlan = Ecran.avantPlan;
+	private Color arrierePlan = Ecran.arrierePlan, avantPlan = Ecran.avantPlan;
 	
 	/** affichage des menus */
 	private Ecran ecran;
@@ -51,9 +48,6 @@ public class Grille extends JPanel {
 		signaux[1].dessineCourbe(g);
         signaux[1].dessineCentre(g, getWidth(), getHeight());
 
-        
-        
-        
 		//on s'occupe de l'affichage a l'ecran des menus au besoin
 		if(ecran.menus != null) {
 			ecran.menus.paintGrille(g,  getHeight(), getWidth());

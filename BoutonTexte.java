@@ -40,7 +40,7 @@ public class BoutonTexte extends JPanel {
 	 * Constructeur deporte (si jamais on doit retoucer tout)
 	 * @param texte
 	 */
-	public void constructeurDeporte(String texte) {
+	private void constructeurDeporte(String texte) {
 		setOpaque(false);
 		setLayout(new GridBagLayout());	//on utilise un layout avance, mais c'est le seul moyen que j'ai trouve
 		GridBagConstraints contraintes = new GridBagConstraints();	//outil qui permet de parametrer le layout

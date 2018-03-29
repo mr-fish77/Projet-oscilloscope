@@ -23,7 +23,7 @@ import javax.swing.JTextField;
 
 public class Generateur extends JFrame implements ActionListener, Bouton_OnOff_Listener {
 	/** Les signaux. */
-	private Signal signal[] = new Signal[2];
+	private Signal[] signal = new Signal[2];
 	/** L'ecran de l'oscilloscope */
 	private Ecran ecran;
 	
@@ -194,13 +194,13 @@ public class Generateur extends JFrame implements ActionListener, Bouton_OnOff_L
 
 		private static final long serialVersionUID = 1L;
 		
-		JTextField[] txtField = new JTextField[2]; // Initialises dans le constructeur.
-		JButton[] boutons = new JButton [3]; // Initialises dans le constructeur.
-		Bouton_OnOff on = new Bouton_OnOff(Color.GREEN, Color.RED);
-		JComboBox<String> signalType = new JComboBox<String>(Signal.SIGNAL_TYPES);
-		JComboBox<String> ampUnit = new JComboBox<String>(Signal.AMPL_UNITES);
-		JComboBox<String> freqUnit = new JComboBox<String>(Signal.FREQ_UNITES);
-		JSlider slider = new JSlider(JSlider.HORIZONTAL, 0, (int)(100*Math.PI), 0);
+		private JTextField[] txtField = new JTextField[2]; // Initialises dans le constructeur.
+		private JButton[] boutons = new JButton [3]; // Initialises dans le constructeur.
+		private Bouton_OnOff on = new Bouton_OnOff(Color.GREEN, Color.RED);
+		private JComboBox<String> signalType = new JComboBox<String>(Signal.SIGNAL_TYPES);
+		private JComboBox<String> ampUnit = new JComboBox<String>(Signal.AMPL_UNITES);
+		private JComboBox<String> freqUnit = new JComboBox<String>(Signal.FREQ_UNITES);
+		private JSlider slider = new JSlider(JSlider.HORIZONTAL, 0, (int)(100*Math.PI), 0);
 		
 		/** Constructeur.
 		 * @param n Indice du signal concerne
@@ -338,7 +338,10 @@ public class Generateur extends JFrame implements ActionListener, Bouton_OnOff_L
 			refreshItems(n);
 			break;
 		case 'a': // Bouton PAR DEFAUT
+			double echelleX = signal[n].echelleX, echelleY = signal[n].echelleY;
 			this.signal[n] = new Sinus(n + 1); // Reinitialise un Signal en recreant une instance.
+			signal[n].echelleX = echelleX;	//on donne la bonne echelle au signal
+			signal[n].echelleY = echelleY;
 			onOff[n].setValeur(false); // Dit au Bouton_OnOff de s'eteindre.
 			
 			// On actualise l'affichage du JLabel en haut associe.
