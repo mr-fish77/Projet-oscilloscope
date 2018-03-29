@@ -55,7 +55,7 @@ public abstract class Curseur{
 	 * @return double : la valeur de la puissance
 	 */
 	public double pow(double val) {
-		return((Math.pow(10,  val)>0) ? Math.pow(10,  val) : 1);
+		return (Math.pow(10,  val)>0) ? Math.pow(10,  val) : 1;
 	}
 	
 	/**
