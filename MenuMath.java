@@ -5,9 +5,7 @@
  */
 
 
-import java.awt.*;
-import javax.swing.*;
-import java.awt.event.*;
+import java.awt.Graphics;
 
 public class MenuMath extends AbstractMenu {
 	public FonctionMath smaths;

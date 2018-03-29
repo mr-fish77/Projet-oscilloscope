@@ -12,18 +12,15 @@ public class Ecran extends JPanel{
 	/** Couleur d'arriere-plan ou d'avant-plan. */
 	public final static Color arrierePlan = Color.WHITE, avantPlan = Color.BLACK;
 	/** Objets graphiques utilises. */
-	public Grille grille; public AbstractMenu menus; 
-    public MenuDuBas bas;
-    private GridBagConstraints contraintes;	//pour utiliser un gridbaglayout
-	/** Les signaux. */
-	private Signal[] signaux;
+	public Grille grille; public AbstractMenu menus; public MenuDuBas bas;
+    /** Contraintes liees au GridBadLayout. */
+	private GridBagConstraints contraintes;
 	
 	/**
 	 * Constructeur par defaut de la classe
 	 */
-	public Ecran(Signal[]signaux, Oscilloscope oscillo) {
+	public Ecran(Signal[] s, Oscilloscope oscillo) {
 		super();
-		this.signaux = signaux;
 		
 		//GridBAgLayout (arrangement en lignes/colonnes)
 		setOpaque(false);
@@ -32,7 +29,7 @@ public class Ecran extends JPanel{
 		contraintes.fill = GridBagConstraints.BOTH;
         
 		//la grille d'affichage des signaux
-        grille = new Grille(signaux, this);
+        grille = new Grille(s, this);
         contraintes.gridx = 0;
         contraintes.gridy=0;
         contraintes.weightx = 1;
@@ -40,7 +37,7 @@ public class Ecran extends JPanel{
         add(grille, contraintes);
         
         // la zone de notification en bas de l'ecran
-        bas = new MenuDuBas(signaux);
+        bas = new MenuDuBas();
         contraintes.gridy = 1;
         contraintes.gridx = 0;
         contraintes.weightx = 1;

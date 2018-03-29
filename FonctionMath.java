@@ -3,10 +3,8 @@
  * @author Anas
  *
  */
-import java.awt.*;
-import javax.swing.*;
-import java.awt.event.*;
-
+import java.awt.Color;
+import java.awt.Graphics;
 
 public class FonctionMath{
 	

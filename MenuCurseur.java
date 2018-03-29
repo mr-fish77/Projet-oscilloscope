@@ -1,6 +1,4 @@
-import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class MenuCurseur extends AbstractMenu implements ActionListener, PotentiometreListener{
@@ -62,8 +60,8 @@ public class MenuCurseur extends AbstractMenu implements ActionListener, Potenti
 	 */
 	public void miseEnRoute() {
 		//on recupere les potentiometres
-		pot1 = this.oscillo.ch1.potPos;
-		pot2 = this.oscillo.ch2.potPos;
+		pot1 = oscillo.ch1.potPos;
+		pot2 = oscillo.ch2.potPos;
 		pot1.setPotentiometreListener(this);
 		pot2.setPotentiometreListener(this);
 		

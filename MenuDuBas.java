@@ -8,8 +8,6 @@ import java.awt.*;
 public class MenuDuBas extends JPanel {
 	/** Informations generales. */
 	private JLabel texte;
-	/** Les signaux. */
-	private Signal[] signaux;
 	
 	/** JLabel associes a chaque information de volts/div ou sec/div. */
 	private JLabel texteCh1, texteCh2, texteTemps;
@@ -18,9 +16,7 @@ public class MenuDuBas extends JPanel {
 	 * Constructeur du menu du bas
 	 * @param s Les signaux.
 	 */
-	public MenuDuBas(Signal[] s) {
-		signaux = s;
-		
+	public MenuDuBas() {
 		setOpaque(false);
 		setLayout(new GridLayout(1,4));
 		

@@ -34,8 +34,6 @@ public class Potentiometre extends JLabel implements MouseMotionListener, MouseL
 	private double decaX, decaY;
 	/** Coordonnees de la souris au precedent cran du potentiometre. */
 	private double xMem, yMem;
-	/** Cran actuel. */
-	private int cran;
 
 	/** Gestion du cran du potentiometre */
 	private PotentiometreListener listener;
@@ -46,7 +44,6 @@ public class Potentiometre extends JLabel implements MouseMotionListener, MouseL
 		setHorizontalAlignment(JLabel.CENTER);
 		setVerticalAlignment(JLabel.CENTER);
 
-		cran = 0;
 		switchAffichage = true; // On commence par un octogone normal.
 
 		addMouseListener(this); // support des clics de la souris

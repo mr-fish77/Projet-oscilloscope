@@ -21,6 +21,8 @@ import javax.swing.JPanel;
  */
 public class Bouton_OnOff extends JPanel implements MouseListener {
 
+	private static final long serialVersionUID = -4852536528429542058L;
+
 	/** Valeur associee a la couleur du bouton. */
 	private boolean valeur = false;
 

@@ -2,10 +2,8 @@ import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.LinkedList;
 
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /** Classe mere des differents menus. Elle gere principalement
@@ -16,6 +14,8 @@ import javax.swing.JPanel;
 
 public abstract class AbstractMenu extends JPanel implements ActionListener{
 	
+	private static final long serialVersionUID = 8535664640439971855L;
+
 	/** Oscillo pour acceder aux variable utiles */
 	protected static Oscilloscope oscillo;
 	
@@ -160,6 +160,6 @@ public abstract class AbstractMenu extends JPanel implements ActionListener{
 	/** Assigne un oscilloscope en attribut.
 	 * @param o Oscilloscope */
 	public void setOscillo(Oscilloscope o) {
-		this.oscillo = o;
+		oscillo = o;
 	}
 }

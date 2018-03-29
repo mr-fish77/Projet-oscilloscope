@@ -31,8 +31,6 @@ public class Oscilloscope extends JFrame implements ActionListener{
 	public Channel ch1, ch2;
 	/** Objet permettant de gerer la position et l'echelle temporels. */
 	private GestionTemps gestionTemps;
-	/** Generateur associe, on y recupere le signal lors d'une modification. */
-	private Generateur generateur;
 	/** Ecran d'affichage de l'oscilloscope. */
 	public Ecran ecran;
 	
@@ -61,9 +59,7 @@ public class Oscilloscope extends JFrame implements ActionListener{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		colorDefaut = getBackground();
 		AbstractMenu.oscillo = this;
-
-		this.generateur = generateur;
-
+		
 		JPanel conteneurPrincipal = new JPanel();		//pour ne pas avoir de probleme avec les marges des fenetres
 		conteneurPrincipal.setLayout(new GridLayout());
 		conteneurPrincipal.setOpaque(false);

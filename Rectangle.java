@@ -1,5 +1,3 @@
-import java.awt.Color;
-
 /**
  * Classe correspondant a un signal rectangulaire. 
  */
