@@ -33,12 +33,6 @@ public class Triangle extends Signal {
 		}
 	}
     
-    /** Methode qui recalcule les points des signaux en fonction de la taille de la fenetre...
-     */
-    public void calculPoint(){ //calcul des points
-    	super.calculPoint();
-    }
-    
     /** @return la forme du Signal, ici : TRI. */
 	public String getForme() {
 		return SIGNAL_TYPES[1];

@@ -64,7 +64,7 @@ public abstract class Signal {
     public double decalageY = 0;
     
     
-    /**détermine si le sigal doit être afficher ou non*/
+    /**determine si le sigal doit etre affiche ou non*/
     public boolean affiche;
 
     
@@ -289,7 +289,12 @@ public abstract class Signal {
     }
     
     
-    
+    /**
+     * Dessine le centre de la fleche
+     * @param Graphics g : comme d'hab
+     * @param int x : position en abscisse
+     * @param int y : position en ordonnee
+     */
     public void dessineCentre(Graphics g, int x, int y){
         
         if(affiche == true){//on regarde si l'oscillo doit afficher un signal

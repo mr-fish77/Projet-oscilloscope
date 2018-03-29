@@ -33,13 +33,6 @@ public class Rectangle extends Signal {
 		
 		
 	}
-     
-    
-    /** Methode qui recalcule les points des signaux en fonction de la taille de la fenetre...
-     */
-    public void calculPoint(){ 
-    	super.calculPoint();
-    }
     
     /** @return la forme du Signal, ici : REC. */
 	public String getForme() {

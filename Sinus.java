@@ -23,13 +23,6 @@ public class Sinus extends Signal {
     	return Math.sin( 2.*Math.PI*x);	//on retourne juste un sinus de periode 1 (pour correspondre a la normalisation)
     }
     
-
-    /** Methode qui recalcule les points des signaux en fonction de la taille de la fenetre...
-     */
-    public void calculPoint(){ //calcul des points
-       super.calculPoint();
-    }
-    
     /** @return la forme du Signal, ici : SIN. */
     public String getForme() {
 	    return SIGNAL_TYPES[0];
