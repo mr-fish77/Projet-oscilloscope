@@ -30,31 +30,31 @@ public class MenuMath extends AbstractMenu {
 	
     public void miseEnRoute() {}
     
-    public void actionBouton1(ActionEvent e) {
+    public void actionBouton1() {
         
         smaths.Addition();
         
     }
     
-    public void actionBouton2(ActionEvent e) {
+    public void actionBouton2() {
         
         smaths.Soustraction1();
         
         }
         
-    public void actionBouton3(ActionEvent e) {
+    public void actionBouton3() {
         
         smaths.Soustraction2();
         
     }
     
-    public void actionBouton4(ActionEvent e) {
+    public void actionBouton4() {
         
         smaths.inverse1();
         
     }
     
-    public void actionBouton5(ActionEvent e) {
+    public void actionBouton5() {
         
         smaths.inverse2();
         

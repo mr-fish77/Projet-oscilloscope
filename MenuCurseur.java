@@ -3,14 +3,7 @@ import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-<<<<<<< HEAD
-public class MenuCurseur extends AbstractMenu implements PotentiometreListener{
-	/** Oscillo pour acceder aux variable utiles */
-	protected Oscilloscope oscillo;		//l'objet ecran pour l'affichage
-	
-=======
 public class MenuCurseur extends AbstractMenu implements ActionListener, PotentiometreListener{
->>>>>>> cf5880c0a97e2302f0ae4bff8fbcd3244aa4c29a
 	/** Les differents curseurs */
 	protected Curseur curseurCourant = null;	//curseur affiche
 	protected Curseur[] curseurs;				//tableau des curseurs
@@ -136,4 +129,8 @@ public class MenuCurseur extends AbstractMenu implements ActionListener, Potenti
 		setText(sSource[source], 2);	//on met le bon texte
 		oscillo.ecran.grille.repaint();	//on repaint
 	}
+	
+	public void actionBouton3() {};
+	public void actionBouton4() {};
+	public void actionBouton5() {};
 }
