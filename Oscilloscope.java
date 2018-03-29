@@ -59,6 +59,7 @@ public class Oscilloscope extends JFrame implements ActionListener{
 		setMinimumSize(new Dimension(600, 600));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		colorDefaut = getBackground();
+		AbstractMenu.oscillo = this;
 
 		this.generateur = generateur;
 
@@ -69,8 +70,8 @@ public class Oscilloscope extends JFrame implements ActionListener{
 		setContentPane(conteneurPrincipal);
 		
 		//Definition des menus
-		menuCurseur = new MenuCurseur(signaux, this);
-		menuMaths = new MenuMath(signaux, this);
+		menuCurseur = new MenuCurseur(signaux);
+		menuMaths = new MenuMath(signaux);
 		
 		
 		/* Conteneur de gauche, contient l'ecran et les boutons interactions menus. */
