@@ -1,12 +1,4 @@
-import java.awt.*;
-import java.util.ArrayList;
-import javax.swing.JButton;
-import java.awt.event.*;
-
-
 public class MenuMesures extends AbstractMenu {
-	/** Liste des mesures possibles. A supprimer eventuellement plus tard. */
-	private final static String[] MESURES_POSSIBLES = {"Periode", "Frequence", "Amplitude"};
 	/** Index de la source actuelle des mesures. */
 	private int src = 0;
 	
@@ -16,14 +8,25 @@ public class MenuMesures extends AbstractMenu {
 	}
 	
 	public void refreshItems() {
-		String[] freq = this.signaux[src].getFreqAsString();
-		String[] ampl = this.signaux[src].getAmplAsString();
-		super.setAllTexts(new String[] {
-				"Source : " + (src+1),
-				"Periode : " + this.calculePeriode(),
-				"Frequence : " + freq[0] + " " + freq[1],
-				"Amplitude : " + ampl[0] + " " + ampl[1],
-				" "});
+		if (this.signaux[src].getActive()) {
+			String[] freq = this.signaux[src].getFreqAsString();
+			String[] ampl = this.signaux[src].getAmplAsString();
+			super.setAllTexts(new String[] {
+					"Source : " + (src+1),
+					"<html>Periode : <br />" + this.calculePeriode() + "</html>",
+					"<html>Frequence : <br />" + freq[0] + " " + freq[1] + "</html>",
+					"<html>Amplitude : " + ampl[0] + " " + ampl[1] + "</html>",
+					" "});
+		} else {
+			super.setAllTexts(new String[] {
+					"Source : " + (src+1),
+					"<html>Periode : <br /> ??? </html>",
+					"<html>Frequence : <br /> ??? </html>",
+					"<html>Amplitude : <br /> ??? </html>",
+					" "	
+			});
+		}
+		
 	}
 	
 	public String calculePeriode() {
@@ -38,7 +41,8 @@ public class MenuMesures extends AbstractMenu {
 	}
 	
 	public void actionBouton1 () {
-		this.src = (src + 1) % 1;
+		this.src = (src + 1) % 2;
 		System.out.println(src);
+		refreshItems();
 	}
 }

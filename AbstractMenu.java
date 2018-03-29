@@ -47,6 +47,7 @@ public abstract class AbstractMenu extends JPanel implements ActionListener{
 		for (java.awt.Component c : this.getComponents()){
 			JButton b = (JButton) c;
 			b.addActionListener(this);
+			b.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 		}
 	}
 	
