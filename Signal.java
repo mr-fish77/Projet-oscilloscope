@@ -300,8 +300,6 @@ public abstract class Signal {
                 drawArrowLine(g, x, (int) ( y/2 + decalageY*nbPixelY) , (x-10), (int) ( y/2 + decalageY*nbPixelY), 5 , 5);
             }
         }
-                
-        
     }
     
     
@@ -334,13 +332,5 @@ public abstract class Signal {
 
         g.drawLine(x1, y1, x2, y2);
         g.fillPolygon(xpoints, ypoints, 3);
-    }
-    
-    
-    
-    
-    
-    
-    
-    
+    } 
 }
