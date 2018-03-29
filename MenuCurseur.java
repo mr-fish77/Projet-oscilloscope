@@ -129,4 +129,8 @@ public class MenuCurseur extends AbstractMenu implements ActionListener, Potenti
 		setText(sSource[source], 2);	//on met le bon texte
 		oscillo.ecran.grille.repaint();	//on repaint
 	}
+	
+	public void actionBouton3() {};
+	public void actionBouton4() {};
+	public void actionBouton5() {};
 }

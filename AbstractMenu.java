@@ -93,7 +93,8 @@ public abstract class AbstractMenu extends JPanel implements ActionListener{
 	}
 	
 	/** Modifie le texte de tous les boutons a la fois.
-	 * @param String s Tableau avec tous les textes a mettre dans l'ordre. */
+	 * @param String s Tableau avec tous les textes a mettre dans l'ordre. 
+	 * Pour faire ca facilement : new String[]{"xxx","xxx"...} a 5 cases.*/
 	public void setAllTexts(String[] s){
 		bouton1.setText(s[0]);
 		bouton2.setText(s[1]);
@@ -135,26 +136,26 @@ public abstract class AbstractMenu extends JPanel implements ActionListener{
 	
 	/** Methode qui est appelee lorsque le 1er bouton est clique
 	 */
-	public void actionBouton1() {}
+	public abstract void actionBouton1();
 	
 	/** Methode qui est appelee lorsque le 2e bouton est clique
 	 */
-	public void actionBouton2() {}
+	public abstract void actionBouton2();
 	
 	
 	/** Methode qui est appelee lorsque le 3e bouton est clique
 	 */
-	public void actionBouton3() {}
+	public abstract void actionBouton3();
 	
 	
 	/** Methode qui est appelee lorsque le 4e bouton est clique
 	 */
-	public void actionBouton4() {}
+	public abstract void actionBouton4();
 	
 	
 	/** Methode qui est appelee lorsque le 5e bouton est clique
 	 */
-	public void actionBouton5() {}
+	public abstract void actionBouton5();
 	
 	/** Assigne un oscilloscope en attribut.
 	 * @param o Oscilloscope */

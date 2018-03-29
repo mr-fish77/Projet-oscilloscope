@@ -54,4 +54,9 @@ public class MenuMesures extends AbstractMenu {
 		System.out.println(src);
 		refreshItems();
 	}
+	
+	public void actionBouton2() {};
+	public void actionBouton3() {};
+	public void actionBouton4() {};
+	public void actionBouton5() {};
 }
