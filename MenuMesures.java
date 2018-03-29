@@ -12,12 +12,33 @@ public class MenuMesures extends AbstractMenu {
 	
 	public MenuMesures (Signal[] s) {
 		super(s);
+		refreshItems();
 	}
 	
 	public void refreshItems() {
+		String[] freq = this.signaux[src].getFreqAsString();
+		String[] ampl = this.signaux[src].getAmplAsString();
 		super.setAllTexts(new String[] {
 				"Source : " + (src+1),
-				"Periode : " + this.signaux[src],
+				"Periode : " + this.calculePeriode(),
+				"Frequence : " + freq[0] + " " + freq[1],
+				"Amplitude : " + ampl[0] + " " + ampl[1],
 				" "});
+	}
+	
+	public String calculePeriode() {
+		double p = 1./this.signaux[src].getFreq();
+		if (p > .001) {
+			return Double.toString(p*1000.) +"ms";
+		} else if (p > .000001) {
+			return Double.toString(p*1000000.) +"µs";
+		} else {
+			return Double.toString(p*1000000000.) +"ns";
+		}
+	}
+	
+	public void actionBouton1 () {
+		this.src = (src + 1) % 1;
+		System.out.println(src);
 	}
 }

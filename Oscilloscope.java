@@ -38,7 +38,8 @@ public class Oscilloscope extends JFrame implements ActionListener{
 	
 	/** Boutons en haut a droite de l'interface de l'oscilloscope. */
 	private BoutonTexte cacher, mesures, acquisition, autoset, utilitaire, curseurs, affichage, recopie, runStop, maths;
-	private AbstractMenu menuCurseur, menuMaths;
+	/** Les menus. */
+	private AbstractMenu menuCurseur, menuMaths, menuMesures;
 	
 	/** Surprise ^^ */
 	private Color colorDefaut;	//couleur par defaut de l'oscillo
@@ -72,7 +73,7 @@ public class Oscilloscope extends JFrame implements ActionListener{
 		//Definition des menus
 		menuCurseur = new MenuCurseur(signaux);
 		menuMaths = new MenuMath(signaux);
-		
+		menuMesures = new MenuMesures(signaux);
 		
 		/* Conteneur de gauche, contient l'ecran et les boutons interactions menus. */
 		JPanel conteneurEcran = new JPanel();
@@ -304,7 +305,7 @@ public class Oscilloscope extends JFrame implements ActionListener{
 		}else if (e.getSource() == curseurs.getJButton()) {	//menu curseur
 			ecran.changerMenu(menuCurseur);
 		}else if(e.getSource() == mesures.getJButton()) {
-			
+			ecran.changerMenu(menuMesures);
 			
 		}else if(e.getSource() == ch1.getButton().getJButton()) {
 			
