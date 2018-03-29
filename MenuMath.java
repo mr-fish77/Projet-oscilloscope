@@ -11,9 +11,9 @@ public class MenuMath extends AbstractMenu {
 	public FonctionMath smaths;
     
 	
-	public MenuMath(Signal[] s){
-		super(s);
-        smaths = new FonctionMath(s);
+	public MenuMath(){
+		super();
+        smaths = new FonctionMath(signaux);
 		
 		bouton1.setText("Ajouter: ");
 		bouton2.setText("Soustraire: CH1 - CH2");

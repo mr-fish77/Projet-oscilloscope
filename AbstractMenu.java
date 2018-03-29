@@ -1,3 +1,4 @@
+import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -5,12 +6,13 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 /** Classe mere des differents menus. Elle gere principalement
- * les 5 boutons de chaque menu, a savoir leur creation, leur methode
- * setText individuelle ou appliquable a tous, ainsi que 
+ * les 5 boutons de chaque menu, a savoir leur creation, 
+ * le renommage des boutons, ainsi que 
  * la simplification de la gestion des actionPerformed. 
- * C'est une methode abstract. */
+ * C'est une classe abstract. */
 
 public abstract class AbstractMenu extends JPanel implements ActionListener{
 	
@@ -20,7 +22,7 @@ public abstract class AbstractMenu extends JPanel implements ActionListener{
 	protected static Oscilloscope oscillo;
 	
 	/** Les signaux. */
-	protected Signal[] signaux;
+	protected static Signal[] signaux;
 	
 	/** Les 5 menus. */
 	protected JButton bouton1, bouton2, bouton3, bouton4, bouton5;
@@ -28,9 +30,8 @@ public abstract class AbstractMenu extends JPanel implements ActionListener{
 	/** Cree un Menu.
 	 * @param s Les signaux, en acces protected.
 	 */
-	protected AbstractMenu(Signal[] s) {
+	protected AbstractMenu() {
 		super();
-		signaux = s;
 		
 		/* Generation du contenu avec les boutons. */
 		setLayout(new GridLayout(5,1));
@@ -44,10 +45,10 @@ public abstract class AbstractMenu extends JPanel implements ActionListener{
 		this.add(bouton3);
 		this.add(bouton4);
 		this.add(bouton5);
-		for (java.awt.Component c : this.getComponents()){
+		for (Component c : this.getComponents()){
 			JButton b = (JButton) c;
 			b.addActionListener(this);
-			b.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+			b.setHorizontalAlignment(SwingConstants.CENTER);
 		}
 	}
 	
@@ -157,9 +158,12 @@ public abstract class AbstractMenu extends JPanel implements ActionListener{
 	 */
 	public abstract void actionBouton5();
 	
-	/** Assigne un oscilloscope en attribut.
-	 * @param o Oscilloscope */
-	public void setOscillo(Oscilloscope o) {
+	/** Assigne un oscilloscope et un tableau de signaux en attribut.
+	 * @param o Oscilloscope.
+	 * @param s Les signaux.
+	 */
+	public void setStatics(Oscilloscope o, Signal[] s) {
 		oscillo = o;
+		signaux = s;
 	}
 }

@@ -59,6 +59,7 @@ public class Oscilloscope extends JFrame implements ActionListener{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		colorDefaut = getBackground();
 		AbstractMenu.oscillo = this;
+		AbstractMenu.signaux = signaux;
 		
 		JPanel conteneurPrincipal = new JPanel();		//pour ne pas avoir de probleme avec les marges des fenetres
 		conteneurPrincipal.setLayout(new GridLayout());
@@ -67,9 +68,9 @@ public class Oscilloscope extends JFrame implements ActionListener{
 		setContentPane(conteneurPrincipal);
 		
 		//Definition des menus
-		menuCurseur = new MenuCurseur(signaux);
-		menuMaths = new MenuMath(signaux);
-		menuMesures = new MenuMesures(signaux);
+		menuCurseur = new MenuCurseur();
+		menuMaths = new MenuMath();
+		menuMesures = new MenuMesures();
 		
 		/* Conteneur de gauche, contient l'ecran et les boutons interactions menus. */
 		JPanel conteneurEcran = new JPanel();
@@ -322,7 +323,7 @@ public class Oscilloscope extends JFrame implements ActionListener{
 			}
 			
 			//Activation si on a clique 8 fois
-			if(compteurEgg>8) {
+			if(compteurEgg>9) {
 				easterEgg();
 				compteurEgg = 0;
 			}

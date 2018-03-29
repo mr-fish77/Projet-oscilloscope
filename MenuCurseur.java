@@ -19,13 +19,13 @@ public class MenuCurseur extends AbstractMenu implements ActionListener, Potenti
 	protected int source = 0;	//0 ou 1 suivant le signal
 	
 	
-	public MenuCurseur(Signal[] s) {
-		super(s);
+	public MenuCurseur() {
+		super();
 		
 		curseurs = new Curseur[4];
-		curseurs[1] = new CurseurHorizontal(s);
-		curseurs[2] = new CurseurVertical(s, 0);
-		curseurs[3]= new CurseurVertical(s, 1);
+		curseurs[1] = new CurseurHorizontal(signaux);
+		curseurs[2] = new CurseurVertical(signaux, 0);
+		curseurs[3]= new CurseurVertical(signaux, 1);
 		
 		
 		//On definit les textes des boutons

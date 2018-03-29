@@ -5,8 +5,8 @@ public class MenuMesures extends AbstractMenu {
 	/** Cree un MenuMesures.
 	 * @param s Les signaux.
 	 */
-	public MenuMesures (Signal[] s) {
-		super(s);
+	public MenuMesures () {
+		super();
 		refreshItems();
 	}
 	
@@ -51,7 +51,6 @@ public class MenuMesures extends AbstractMenu {
 	 */
 	public void actionBouton1 () {
 		this.src = (src + 1) % 2;
-		System.out.println(src);
 		refreshItems();
 	}
 	
