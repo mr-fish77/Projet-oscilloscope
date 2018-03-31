@@ -56,7 +56,7 @@ public class Oscilloscope extends JFrame implements ActionListener{
 	public Oscilloscope(Signal[] signaux, Generateur generateur){
 		super("Oscilloscope");
 		setIconImage(new ImageIcon("icone.png").getImage());	//icone de la fenetre
-		setSize((int)Toolkit.getDefaultToolkit().getScreenSize().getWidth() - 600, 600);
+		setSize((int)Toolkit.getDefaultToolkit().getScreenSize().getWidth() - 600, 600);	//generateur et oscilloscope cote a cote
 		setLocation(600, 0);
 		setMinimumSize(new Dimension(600, 600));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

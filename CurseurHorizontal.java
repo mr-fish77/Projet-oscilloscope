@@ -41,4 +41,29 @@ public class CurseurHorizontal extends Curseur {
 	public void mAJEchelle() {
 		echelle = s[0].echelleX;
 	}
+	
+	
+	/**
+	 * Donne la difference en String
+	 * @return String : la difference
+	 */
+	public String getDifference() {
+		return (super.getDifference() + " s");	//on affiche a l'ecran
+	}
+	
+	/**
+	 * Donne la valeur 1 en String
+	 * @return String : la valeur
+	 */
+	public String getVraiVal1() {//voir avant
+		return (super.getVraiVal1() + " s");	//on affiche a l'ecran
+	}
+	
+	/**
+	 * Donne la valeur 2 en String
+	 * @return String : la valeur
+	 */
+	public String getVraiVal2() {//voir avant
+		return (super.getVraiVal2() + " s");	//on affiche a l'ecran
+	}
 }

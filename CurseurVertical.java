@@ -45,4 +45,28 @@ public class CurseurVertical extends Curseur{
 	public void mAJEchelle() {
 		echelle = s[n].echelleY;
 	}
+	
+	/**
+	 * Donne la difference en String
+	 * @return String : la difference
+	 */
+	public String getDifference() {
+		return (super.getDifference() + " V");	//on affiche a l'ecran
+	}
+	
+	/**
+	 * Donne la valeur 1 en String
+	 * @return String : la valeur
+	 */
+	public String getVraiVal1() {//voir avant
+		return (super.getVraiVal1() + " V");	//on affiche a l'ecran
+	}
+	
+	/**
+	 * Donne la valeur 2 en String
+	 * @return String : la valeur
+	 */
+	public String getVraiVal2() {//voir avant
+		return (super.getVraiVal2() + " V");	//on affiche a l'ecran
+	}
 }
