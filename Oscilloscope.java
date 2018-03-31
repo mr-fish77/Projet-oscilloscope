@@ -7,6 +7,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -22,6 +23,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
+
 
 /**
  * Classe qui gere l'affichage de l'oscilloscope a l'ecran
@@ -54,7 +56,8 @@ public class Oscilloscope extends JFrame implements ActionListener{
 	public Oscilloscope(Signal[] signaux, Generateur generateur){
 		super("Oscilloscope");
 		setIconImage(new ImageIcon("icone.png").getImage());	//icone de la fenetre
-		setSize(1200, 600);
+		setSize((int)Toolkit.getDefaultToolkit().getScreenSize().getWidth() - 600, 600);
+		setLocation(600, 0);
 		setMinimumSize(new Dimension(600, 600));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		colorDefaut = getBackground();
@@ -62,7 +65,7 @@ public class Oscilloscope extends JFrame implements ActionListener{
 		AbstractMenu.signaux = signaux;
 		
 		JPanel conteneurPrincipal = new JPanel();		//pour ne pas avoir de probleme avec les marges des fenetres
-		conteneurPrincipal.setLayout(new GridLayout());
+		conteneurPrincipal.setLayout(new GridLayout(1, 2));
 		conteneurPrincipal.setOpaque(false);
 		conteneurPrincipal.setBackground(Color.RED);
 		setContentPane(conteneurPrincipal);

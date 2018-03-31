@@ -1,4 +1,5 @@
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -6,7 +7,6 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
 
 /** Classe mere des differents menus. Elle gere principalement
  * les 5 boutons de chaque menu, a savoir leur creation, 
@@ -35,6 +35,7 @@ public abstract class AbstractMenu extends JPanel implements ActionListener{
 		
 		/* Generation du contenu avec les boutons. */
 		setLayout(new GridLayout(5,1));
+		setMinimumSize(new Dimension(200, 500));
 		bouton1 = new JButton("");
 		bouton2 = new JButton("");
 		bouton3 = new JButton("");

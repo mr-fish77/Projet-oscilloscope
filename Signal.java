@@ -41,27 +41,27 @@ public abstract class Signal {
 	protected static final Color[] COULEURS_SIGNAUX = {Color.BLUE, Color.decode("#d19004")};
     
     /**nb de point par graduation*/
-    protected final int NB_POINTS = 1000; 
+    public final int NB_POINTS = 1000; 
     /**nb de pixels par graduation X*/
-    protected  int nbPixelX; 
+    public  int nbPixelX; 
     /**nb de pixels par graduation Y*/
-    protected  int nbPixelY; 
+    public  int nbPixelY; 
     /** origine X*/
-    protected  int ox; 
+    public  int ox; 
     /** origine Y*/
-    protected  int oy; 
+    public  int oy; 
     /**nb de graduation selon X*/
     public static final int CASE_X = 8;
     /**nb de graduation selon Y*/
     public static final int CASE_Y = 8; 
     /**valeur d'une graduation selon X en s*/
-    protected double echelleX; 
+    public double echelleX; 
     /**valeur d'une graduation selon Y en V*/
-    protected double echelleY; 
+    public double echelleY; 
     /**decalage suivant X en %/div */
-    protected double decalageX = 0;
+    public double decalageX = 0;
     /**decalage suivant Y en %/div */
-    protected double decalageY = 0;
+    public double decalageY = 0;
     
     
     /**determine si le sigal doit etre affiche ou non*/
@@ -234,70 +234,6 @@ public abstract class Signal {
 	public boolean equals (Signal sig) {
 		return sig.NUMERO == this.NUMERO;
 	}
-	
-    public int getnbPixelX() {
-    	return nbPixelX;
-    }
-    
-    public void setnbPixelX(int val) {
-    	nbPixelX = val;
-    }
-    
-    public int getnbPixelY() {
-    	return nbPixelY;
-    }
-    
-    public void setnbPixelY(int val) {
-    	nbPixelY = val;
-    }
-	
-    public int getox() {
-    	return ox;
-    }
-    
-    public void setox(int val) {
-    	ox = val;
-    }
-    
-    public int getoy() {
-    	return oy;
-    }
-    
-    public void setoy(int val) {
-    	oy = val;
-    }
-    
-    public double getechelleX() {
-    	return echelleX;
-    }
-    
-    public void setechelleX(double val) {
-    	echelleX = val;
-    }
-    
-    public double getechelleY() {
-    	return echelleY;
-    }
-    
-    public void setechelleY(double val) {
-    	echelleY = val;
-    }
-    
-    public double getdecalageX() {
-    	return decalageX;
-    }
-    
-    public void setdecalageX(double val) {
-    	decalageX = val;
-    }
-    
-    public double getdecalageY() {
-    	return decalageY;
-    }
-    
-    public void setdecalageY(double val) {
-    	decalageY = val;
-    }
 	
     
     /** met a l'echelle le signal 
