@@ -26,7 +26,7 @@ public abstract class AbstractMenu extends JPanel implements ActionListener{
 	protected static Signal[] signaux;
 	
 	/** Les 5 menus. */
-	private JButton bouton1, bouton2, bouton3, bouton4, bouton5;
+	private JButton[] boutons = new JButton[5];
 	
 	/** Cree un Menu.
 	 * @param s Les signaux, en acces protected.
@@ -37,21 +37,12 @@ public abstract class AbstractMenu extends JPanel implements ActionListener{
 		/* Generation du contenu avec les boutons. */
 		setLayout(new GridLayout(5,1));
 		setMinimumSize(new Dimension(200, 500));
-		bouton1 = new JButton("");
-		bouton2 = new JButton("");
-		bouton3 = new JButton("");
-		bouton4 = new JButton("");
-		bouton5 = new JButton("");
-		this.add(bouton1);
-		this.add(bouton2);
-		this.add(bouton3);
-		this.add(bouton4);
-		this.add(bouton5);
-		for (Component c : this.getComponents()){
-			JButton b = (JButton) c;
-			b.addActionListener(this);
-			b.setHorizontalAlignment(JButton.CENTER);
-			b.setFont(new Font("Arial", Font.BOLD, 15));
+		for (int i = 0; i < boutons.length; i++) {
+			boutons[i] = new JButton("");
+			boutons[i].addActionListener(this);
+			boutons[i].setHorizontalAlignment(JButton.CENTER);
+			boutons[i].setFont(new Font("Arial", Font.BOLD, 15));
+			this.add(boutons[i]);
 		}
 	}
 	
@@ -74,37 +65,19 @@ public abstract class AbstractMenu extends JPanel implements ActionListener{
 	
 	
 	/** Modifie le texte du bouton numero n.
-	 * @param s String a mettre dans le JButton.
-	 * @param n Numero du bouton. */
+	 * @param s : String a mettre dans le JButton.
+	 * @param n : Numero du bouton. */
 	public void setText(String s, int n){
-		switch (n){
-			case 1:
-			bouton1.setText(s);
-			break;
-			case 2:
-			bouton2.setText(s);
-			break;
-			case 3:
-			bouton3.setText(s);
-			break;
-			case 4:
-			bouton4.setText(s);
-			break;
-			case 5:
-			bouton5.setText(s);
-			break;
-		}
+		boutons[n-1].setText(s);
 	}
 	
 	/** Modifie le texte de tous les boutons a la fois.
-	 * @param String s Tableau avec tous les textes a mettre dans l'ordre. 
+	 * @param String s : Tableau avec tous les textes a mettre dans l'ordre. 
 	 * Pour faire ca facilement : new String[]{"xxx","xxx"...} a 5 cases.*/
 	public void setAllTexts(String[] s){
-		bouton1.setText(s[0]);
-		bouton2.setText(s[1]);
-		bouton3.setText(s[2]);
-		bouton4.setText(s[3]);
-		bouton5.setText(s[4]);
+		for (int i = 0; i < boutons.length; i++) {
+			boutons[i].setText(s[i]);
+		}
 	}
 	
 	/**
@@ -125,15 +98,15 @@ public abstract class AbstractMenu extends JPanel implements ActionListener{
 	 * 		  qui ne sera pas envoye aux methodes deportees.
 	 */
 	public void actionPerformed (ActionEvent e) {
-		if      (e.getSource().equals(bouton1)) {
+		if      (e.getSource().equals(boutons[0])) {
 			actionBouton1();
-		}else if(e.getSource().equals(bouton2)) {
+		}else if(e.getSource().equals(boutons[1])) {
 			actionBouton2();
-		}else if(e.getSource().equals(bouton3)) {
+		}else if(e.getSource().equals(boutons[2])) {
 			actionBouton3();
-		}else if(e.getSource().equals(bouton4)) {
+		}else if(e.getSource().equals(boutons[3])) {
 			actionBouton4();
-		}else if(e.getSource().equals(bouton5)) {
+		}else if(e.getSource().equals(boutons[4])) {
 			actionBouton5();
 		}
 	}
