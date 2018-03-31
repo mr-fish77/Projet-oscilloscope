@@ -1,4 +1,3 @@
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -111,27 +110,19 @@ public abstract class AbstractMenu extends JPanel implements ActionListener{
 		}
 	}
 	
-	/** Methode qui est appelee lorsque le 1er bouton est clique
-	 */
+	/** Methode qui est appelee lorsque le 1er bouton est clique. */
 	public abstract void actionBouton1();
 	
-	/** Methode qui est appelee lorsque le 2e bouton est clique
-	 */
+	/** Methode qui est appelee lorsque le 2e bouton est clique. */
 	public abstract void actionBouton2();
 	
-	
-	/** Methode qui est appelee lorsque le 3e bouton est clique
-	 */
+	/** Methode qui est appelee lorsque le 3e bouton est clique. */
 	public abstract void actionBouton3();
 	
-	
-	/** Methode qui est appelee lorsque le 4e bouton est clique
-	 */
+	/** Methode qui est appelee lorsque le 4e bouton est clique. */
 	public abstract void actionBouton4();
 	
-	
-	/** Methode qui est appelee lorsque le 5e bouton est clique
-	 */
+	/** Methode qui est appelee lorsque le 5e bouton est clique. */
 	public abstract void actionBouton5();
 	
 	/** Assigne un oscilloscope et un tableau de signaux en attribut.

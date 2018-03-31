@@ -116,6 +116,7 @@ public class Oscilloscope extends JFrame implements ActionListener{
 		
 		/* Derniers preparatifs puis affichage. */
 		ecran.repaint();
+		this.actionPerformed(new ActionEvent(autoset.getJButton(), 0, "")); // Autoset automatique au début
 		setVisible(true);
 		
 		//a voir plus tard ^^

@@ -104,7 +104,10 @@ public class GestionTemps extends JPanel implements PotentiometreListener{
 		int compteur = 0;
 		
 		//on diminue l'echelle jusqu'a ce que 2 periodes
-		while(compteur < ECHELLES.length && ECHELLES[compteur]*signaux[0].CASE_X*signaux[0].getFreq() > 2 && ECHELLES[compteur]*signaux[1].CASE_X*signaux[1].getFreq() > 2) {
+		while(
+				compteur < ECHELLES.length && 
+				ECHELLES[compteur]*Signal.CASE_X*signaux[0].getFreq() > 4) 
+		{
 			compteur ++;
 		}
 		
