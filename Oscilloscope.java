@@ -75,21 +75,15 @@ public class Oscilloscope extends JFrame implements ActionListener{
 		menuMaths = new MenuMath();
 		menuMesures = new MenuMesures();
 		
-		/* Conteneur de gauche, contient l'ecran et les boutons interactions menus. */
-		JPanel conteneurEcran = new JPanel();
-		conteneurEcran.setOpaque(false);
-		conteneurEcran.setLayout(new GridLayout(1,1));
-		add(conteneurEcran);
-		
 		/* Ecran de l'oscilloscope. */
 		ecran = new Ecran(signaux, this);
 		generateur.setEcran(ecran);	//pour gerer les repaints lorsqu'un signal est change dans le generateur
-		conteneurEcran.add(ecran);
+		conteneurPrincipal.add(ecran);
 		
 		
 		/* Conteneur de droite, contient les boutons pour afficher les menus. */
 		JPanel conteneurGestion = new JPanel();
-		add(conteneurGestion);
+		conteneurPrincipal.add(conteneurGestion);
 		conteneurGestion.setOpaque(false);
 		conteneurGestion.setLayout(new GridBagLayout());
 		
@@ -230,7 +224,7 @@ public class Oscilloscope extends JFrame implements ActionListener{
 	}
 	
 	/**
-	 * MEthode qui prend en charge l'easter egg (si vous l'avez trouve)
+	 * Methode qui prend en charge l'easter egg (si vous l'avez trouve)
 	 */
 	public void easterEgg() {
 		//belle couleur bleu nuit
@@ -266,13 +260,13 @@ public class Oscilloscope extends JFrame implements ActionListener{
 			g.drawImage(im, posX, posY, null);
 			
 			//on calcule les rebonds
-			if(posX<0) {
+			if(posX < 0) {
 				deltaX = (int)(Math.round(30*Math.random()))+10;	//on met des vitesses rapides
 			}else if(posX>getWidth()-80) {
 				deltaX = -(int)(Math.round(30*Math.random()))-10;
 			}
 			
-			if(posY<0) {
+			if(posY < getInsets().top) {	//pour eviter les problemes avec la marge du haut
 				deltaY = (int)(Math.round(10*Math.random()))+10;
 			}else if(posY>getHeight()-48) {
 				deltaY = -(int)(Math.round(10*Math.random()))-10;

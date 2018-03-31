@@ -67,7 +67,7 @@ public class Ecran extends JPanel{
 		// on change le menu
 		menus = menu;
 		menus.miseEnRoute();
-		contraintes.gridy = 0;
+		contraintes.gridy = 0;	//on remet les bonnes contraintes
 	    contraintes.gridx = 1;
 	    contraintes.weighty = 1;
 	    contraintes.weightx = 0.2;

@@ -1,3 +1,5 @@
+import java.awt.Graphics;
+
 public class MenuMesures extends AbstractMenu {
 	/** Index de la source actuelle des mesures. */
 	private int src = 0;
@@ -45,6 +47,18 @@ public class MenuMesures extends AbstractMenu {
 			return Double.toString(p*1000000000.) +" ns";
 		}
 	}
+	
+	
+	/** Methode normalement appelee pour afficher quelque chose a la grille
+	 * Sert ici pour mettre a jour l'affichage des boutons
+	 * @param Graphics g : l'objet graphique
+	 * @param int hauteur : la hauteur de la grille
+	 * @param int largeur : la largeur de la grille
+	 */
+	public void paintGrille(Graphics g, int hauteur, int largeur) {
+		refreshItems();
+	}
+	
 	
 	/** Action liee au bouton 1.
 	 * Change le Signal a l'ecran et 
