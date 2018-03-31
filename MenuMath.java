@@ -16,11 +16,12 @@ public class MenuMath extends AbstractMenu {
 		super();
         smaths = new FonctionMath(signaux);
 		
-		bouton1.setText("Ajouter: ");
-		bouton2.setText("Soustraire: CH1 - CH2");
-		bouton3.setText("Soustraire: CH2 - CH1");
-		bouton4.setText("Inverser CH1");
-		bouton5.setText("Inverser CH2");
+		super.setAllTexts(new String[] {
+				"Ajouter", 
+				super.linesToHtml(new String[] {"Soustraire", "CH1 - CH2"}),
+				super.linesToHtml(new String[] {"Soustraire", "CH2 - CH1"}),
+				"Inverser CH1",
+				"Inverser CH2"});
 	}
 	
 	public void paintGrille(Graphics g, int hauteur, int largeur) {

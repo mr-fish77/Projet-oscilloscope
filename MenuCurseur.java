@@ -29,11 +29,12 @@ public class MenuCurseur extends AbstractMenu implements ActionListener, Potenti
 		
 		
 		//On definit les textes des boutons
-		bouton1.setText("Type : aucun");
-		bouton2.setText("Source : CH1");
-		bouton3.setText("Delta");
-		bouton4.setText("Curseur 1");
-		bouton5.setText("Curseur 2");
+		super.setAllTexts(new String[] {
+				"Type : aucun",
+				"Source : CH1", 
+				"Delta", 
+				"Curseur 1", 
+				"Curseur 2"});
 
 	}
 	

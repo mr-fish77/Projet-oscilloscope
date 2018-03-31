@@ -1,5 +1,6 @@
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -25,7 +26,7 @@ public abstract class AbstractMenu extends JPanel implements ActionListener{
 	protected static Signal[] signaux;
 	
 	/** Les 5 menus. */
-	protected JButton bouton1, bouton2, bouton3, bouton4, bouton5;
+	private JButton bouton1, bouton2, bouton3, bouton4, bouton5;
 	
 	/** Cree un Menu.
 	 * @param s Les signaux, en acces protected.
@@ -50,6 +51,7 @@ public abstract class AbstractMenu extends JPanel implements ActionListener{
 			JButton b = (JButton) c;
 			b.addActionListener(this);
 			b.setHorizontalAlignment(JButton.CENTER);
+			b.setFont(new Font("Arial", Font.BOLD, 15));
 		}
 	}
 	
