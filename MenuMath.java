@@ -8,7 +8,7 @@
 import java.awt.Graphics;
 
 public class MenuMath extends AbstractMenu {
-	public FonctionMath smaths;
+	private FonctionMath smaths;
     
 	
 	public MenuMath(){
@@ -23,6 +23,12 @@ public class MenuMath extends AbstractMenu {
 	}
 	
 	public void paintGrille(Graphics g, int hauteur, int largeur) {
+		/* Cette methode est appelee des qu'un repaint est necessaire: !!! EN PARTICULIER QUAND LES SIGNAUX CHANGENT !!!
+		 * C'est ici que vous devez recalculer a chaque fois le nuage de point
+		 * 
+		 * C'est pour cela qu'il est peut être judicieux de creer une variable qui retient le calcul a effectuer (du style 0 : soustraction 1-2 / 1 soustraction 2-1 ...)
+		 */
+		
 		smaths.dessineCourbe(g);		
 	}
 	
