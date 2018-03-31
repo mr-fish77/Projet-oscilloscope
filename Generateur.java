@@ -124,13 +124,6 @@ public class Generateur extends JFrame implements ActionListener, Bouton_OnOff_L
 		setVisible(true);
 	}
 	
-	/** Re-calcule les items necessaires dans l'oscillo (affichage ecran) */
-	public void refreshOscillo() {
-		if(ecran != null) {
-			ecran.repaint();
-		}
-	}
-	
 	/** Re-calcule le texte affiche dans tous les composants le necessitant. 
 	 * @param i Numero du signal dont il faut actualiser les composants. 
 	 * */
@@ -150,8 +143,14 @@ public class Generateur extends JFrame implements ActionListener, Bouton_OnOff_L
 		/* Actif ou non.
 		 * Appele uniquement une fois, ensuite c'est dans MouseClicked. */
 		if(!init_done) {
-			labels.get(5*i+1).setText("OFF");
-			labels.get(5*i+1).setForeground(Color.DARK_GRAY);
+			if (i == 0) {
+				labels.get(1).setText("ON");
+				labels.get(1).setForeground(Color.GREEN);
+			} else {
+				labels.get(6).setText("OFF");
+				labels.get(6).setForeground(Color.DARK_GRAY);
+			}
+			
 		}
 		
 		// Types de signaux.
@@ -200,7 +199,7 @@ public class Generateur extends JFrame implements ActionListener, Bouton_OnOff_L
 		private JComboBox<String> signalType = new JComboBox<String>(Signal.SIGNAL_TYPES);
 		private JComboBox<String> ampUnit = new JComboBox<String>(Signal.AMPL_UNITES);
 		private JComboBox<String> freqUnit = new JComboBox<String>(Signal.FREQ_UNITES);
-		private JSlider slider = new JSlider(JSlider.HORIZONTAL, 0, (int)(100*Math.PI), 0);
+		private JSlider slider = new JSlider(JSlider.HORIZONTAL, 0, (int)(200*Math.PI), 0);
 		
 		/** Constructeur.
 		 * @param n Indice du signal concerne
@@ -224,6 +223,7 @@ public class Generateur extends JFrame implements ActionListener, Bouton_OnOff_L
 			title.setFont(TITLE);
 			add(title);
 			add(signalType);
+			on.setValeur(signal[n-1].getActive());
 			add(on);
 			
 			/* Ligne 2 : Amplitude. */
@@ -353,7 +353,7 @@ public class Generateur extends JFrame implements ActionListener, Bouton_OnOff_L
 		case 'n':
 			refreshItems(n);
 		}
-		refreshOscillo();
+		if (ecran != null) ecran.repaint();
 	}
 	
 	/** Se declenche en cas de clic sur un Button_OnOff.
@@ -379,6 +379,6 @@ public class Generateur extends JFrame implements ActionListener, Bouton_OnOff_L
 			txt.setText("OFF");
 			txt.setForeground(Color.DARK_GRAY);
 		}
-		refreshOscillo();
+		if (ecran != null) ecran.repaint();
 	}
 }

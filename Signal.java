@@ -19,9 +19,9 @@ public abstract class Signal {
 	public final int NUMERO;
 	
 	/** Valeur maximale de l'amplitude d'un signal : 10 V */
-	protected final double MAX_AMP = 10.;
+	public final double MAX_AMP = 10.;
 	/** Valeur maximale de la frequence d'un signal : 2 Ghz. */
-	protected final double MAX_FREQ =  (2.*Math.pow(10, 9)); 
+	public final double MAX_FREQ =  (2.*Math.pow(10, 9)); 
 	
 	/** Valeurs possibles des unites ou formes de signal. */
 	public static final String [] SIGNAL_TYPES = {"SIN", "TRI", "REC"}, FREQ_UNITES = {"Hz", "kHz", "MHz", "GHz"},  AMPL_UNITES = {"mV", "V"};
@@ -73,10 +73,10 @@ public abstract class Signal {
 	 * Constructeur par defaut.
 	 */
 	public Signal(int n) {
+		NUMERO = n;
 		amplitude = DEF_AMP;
 		freq = DEF_FREQ;
-		active = false;
-		NUMERO = n;
+		active = (NUMERO == 1) ? true : false;
 		couleur = COULEURS_SIGNAUX[n-1];
 		dephasage = 0;
 		
