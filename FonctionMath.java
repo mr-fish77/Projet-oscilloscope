@@ -9,94 +9,64 @@ import java.awt.Graphics;
 public class FonctionMath{
 	
 	public double[][] resultat;
-	public double[][] nuagePoint1;
-	public double[][] nuagePoint2;
     
-    public Signal[] signaux;
+    public Signal[] s;
 	
 	
-	public FonctionMath (Signal[] s){
-        signaux = s;
+	public FonctionMath (Signal[] sigaux){
+        this.s = sigaux;
 	}
 	
 	public void  Addition( ){
         
+    
+        this.resultat = new double[s[0].NB_POINTS * s[0].CASE_X ][2];
+        
+    	for(int i = (int) (-((s[0].NB_POINTS * s[0].CASE_X)/2)) ; i < (resultat.length /2) ; i++){ //soustraction pour remplir les nb negatifs
+            resultat[i + ((s[0].NB_POINTS * s[0].CASE_X)/2)][0] = (i * s[0].echelleX / s[0].NB_POINTS) * s[0].nbPixelX / s[0].echelleX   + s[0].ox; //mise à l'echlle des x
+			resultat[i + ((s[0].NB_POINTS * s[0].CASE_X)/2)][1] =  - (( s[0].fonction(s[0].getFreq() * ((i * s[0].echelleX / s[0].NB_POINTS) - s[0].decalageX * s[0].echelleX) - s[0].getDephasage()/(Math.PI*2))) * (s[0].getAmplitude() / s[0].echelleY)  * s[0].nbPixelY   
+            + s[1].fonction( s[1].getFreq() * ((i * s[1].echelleX / s[1].NB_POINTS) - s[1].decalageX * s[1].echelleX) - s[1].getDephasage()/(Math.PI*2)) * (s[1].getAmplitude() / s[1].echelleY)  * s[1].nbPixelY  ) + s[0].oy;                
+        }
+	}
+	
+	public void Soustraction1( ){ 
+        this.resultat = new double[s[0].NB_POINTS * s[0].CASE_X ][2];
+        
+    	for(int i = (int) (-((s[0].NB_POINTS * s[0].CASE_X)/2)) ; i < (resultat.length /2) ; i++){ //soustraction pour remplir les nb negatifs
+            resultat[i + ((s[0].NB_POINTS * s[0].CASE_X)/2)][0] = (i * s[0].echelleX / s[0].NB_POINTS) * s[0].nbPixelX / s[0].echelleX   + s[0].ox; //mise à l'echlle des x
+			resultat[i + ((s[0].NB_POINTS * s[0].CASE_X)/2)][1] =  - (( s[0].fonction(s[0].getFreq() * ((i * s[0].echelleX / s[0].NB_POINTS) - s[0].decalageX * s[0].echelleX) - s[0].getDephasage()/(Math.PI*2))) * (s[0].getAmplitude() / s[0].echelleY)  * s[0].nbPixelY   
+            - s[1].fonction( s[1].getFreq() * ((i * s[1].echelleX / s[1].NB_POINTS) - s[1].decalageX * s[1].echelleX) - s[1].getDephasage()/(Math.PI*2)) * (s[1].getAmplitude() / s[1].echelleY)  * s[1].nbPixelY  ) + s[0].oy;                
+        }
        
-        nuagePoint1= signaux[0].nuagePoint;
-		nuagePoint2= signaux[1].nuagePoint;
-        
-        
-        resultat = new double[nuagePoint1.length][nuagePoint1[0].length];
-		for (int i = 0; i < resultat.length; i++)
-		{
-			for (int j = 0; j < resultat[0].length ; j++)
-			{
-				resultat[i][j]=nuagePoint1[i][j]+nuagePoint2[i][j];
-                System.out.println(resultat[i][j]);
-			}
-			
-		}
 	}
 	
-	public void Soustraction1( ){ /*soustrait ch1 a ch2 */
-        nuagePoint1= signaux[0].nuagePoint;
-		nuagePoint2= signaux[1].nuagePoint;
+	public void Soustraction2( ){ 
+        this.resultat = new double[s[0].NB_POINTS * s[0].CASE_X ][2];
         
-        resultat = new double[nuagePoint1.length][nuagePoint1[0].length];
-        
-		for (int i = 0; i < nuagePoint1.length; i++)
-		{
-			for (int j = 0; j < nuagePoint1[0].length ; j++)
-			{
-				resultat[i][j]=nuagePoint1[i][j]-nuagePoint2[i][j];
-			}
-			
-		}
+    	for(int i = (int) (-((s[0].NB_POINTS * s[0].CASE_X)/2)) ; i < (resultat.length /2) ; i++){ //soustraction pour remplir les nb negatifs
+            resultat[i + ((s[0].NB_POINTS * s[0].CASE_X)/2)][0] = (i * s[0].echelleX / s[0].NB_POINTS) * s[0].nbPixelX / s[0].echelleX   + s[0].ox; //mise à l'echlle des x
+			resultat[i + ((s[0].NB_POINTS * s[0].CASE_X)/2)][1] =  - (-( s[0].fonction(s[0].getFreq() * ((i * s[0].echelleX / s[0].NB_POINTS) - s[0].decalageX * s[0].echelleX) - s[0].getDephasage()/(Math.PI*2))) * (s[0].getAmplitude() / s[0].echelleY)  * s[0].nbPixelY   
+            + s[1].fonction( s[1].getFreq() * ((i * s[1].echelleX / s[1].NB_POINTS) - s[1].decalageX * s[1].echelleX) - s[1].getDephasage()/(Math.PI*2)) * (s[1].getAmplitude() / s[1].echelleY)  * s[1].nbPixelY  ) + s[0].oy;                
+        }
+     
 	}
 	
-	public void Soustraction2( ){ /*soustrait ch2 a ch1 */
-        nuagePoint1= signaux[0].nuagePoint;
-		nuagePoint2= signaux[1].nuagePoint;
+	public void inverse1( ){ 
+        this.resultat = new double[s[0].NB_POINTS * s[0].CASE_X ][2];
         
-        resultat = new double[nuagePoint1.length][nuagePoint1[0].length];
-		for (int i = 0; i < nuagePoint1.length; i++)
-		{
-			for (int j = 0; j < nuagePoint1[0].length ; j++)
-			{
-				resultat[i][j]=nuagePoint1[i][j]-nuagePoint2[i][j];
-			}
-			
-		}
+    	for(int i = (int) (-((s[0].NB_POINTS * s[0].CASE_X)/2)) ; i < (resultat.length /2) ; i++){ //soustraction pour remplir les nb negatifs
+            resultat[i + ((s[0].NB_POINTS * s[0].CASE_X)/2)][0] = (i * s[0].echelleX / s[0].NB_POINTS) * s[0].nbPixelX / s[0].echelleX   + s[0].ox; //mise à l'echlle des x
+			resultat[i + ((s[0].NB_POINTS * s[0].CASE_X)/2)][1] =  - ( - ( s[0].fonction(s[0].getFreq() * ((i * s[0].echelleX / s[0].NB_POINTS) - s[0].decalageX * s[0].echelleX) - s[0].getDephasage()/(Math.PI*2))) * (s[0].getAmplitude() / s[0].echelleY)  * s[0].nbPixelY ) + s[0].oy;                
+        }
 	}
 	
-	public void inverse1( ){ /*inverse ch1 */
-        nuagePoint1= signaux[0].nuagePoint;
-		nuagePoint2= signaux[1].nuagePoint;
+	public void inverse2( ){ 
+        this.resultat = new double[s[0].NB_POINTS * s[0].CASE_X ][2];
         
-        resultat = new double[nuagePoint1.length][nuagePoint1[0].length];
-		for (int i = 0; i < nuagePoint1.length; i++)
-		{
-			for (int j = 0; j < nuagePoint1[0].length ; j++)
-			{
-				resultat[i][j]=1/(nuagePoint1[i][j]);
-			}
-			
-		}
-	}
-	
-	public void inverse2( ){ /*inverse ch2 */
-        nuagePoint1= signaux[0].nuagePoint;
-		nuagePoint2= signaux[1].nuagePoint;
-        
-        resultat = new double[nuagePoint1.length][nuagePoint1[0].length];
-		for (int i = 0; i < nuagePoint2.length; i++)
-		{
-			for (int j = 0; j < nuagePoint2[0].length ; j++)
-			{
-				resultat[i][j]=1/(nuagePoint2[i][j]);
-			}
-			
-		}
+    	for(int i = (int) (-((s[0].NB_POINTS * s[0].CASE_X)/2)) ; i < (resultat.length /2) ; i++){ //soustraction pour remplir les nb negatifs
+            resultat[i + ((s[0].NB_POINTS * s[0].CASE_X)/2)][0] = (i * s[0].echelleX / s[0].NB_POINTS) * s[0].nbPixelX / s[0].echelleX   + s[0].ox; //mise à l'echlle des x
+			resultat[i + ((s[0].NB_POINTS * s[0].CASE_X)/2)][1] =  - ( - s[1].fonction( s[1].getFreq() * ((i * s[1].echelleX / s[1].NB_POINTS) - s[1].decalageX * s[1].echelleX) - s[1].getDephasage()/(Math.PI*2)) * (s[1].getAmplitude() / s[1].echelleY)  * s[1].nbPixelY  ) + s[0].oy;                
+        }
 	}
 	
 	public void dessineCourbe(Graphics g) {
