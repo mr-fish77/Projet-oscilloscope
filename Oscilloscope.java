@@ -320,7 +320,7 @@ public class Oscilloscope extends JFrame implements ActionListener{
 			}
 			
 			//Activation si on a clique 8 fois
-			if(compteurEgg>9) {
+			if(compteurEgg>7) {
 				easterEgg();
 				compteurEgg = 0;
 			}
