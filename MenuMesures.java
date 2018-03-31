@@ -14,21 +14,21 @@ public class MenuMesures extends AbstractMenu {
 	
 	/** Actualise les boutons. */
 	public void refreshItems() {
-		if (this.signaux[src].getActive()) {
-			String[] freq = this.signaux[src].getFreqAsString();
-			String[] ampl = this.signaux[src].getAmplAsString();
+		if (signaux[src].getActive()) {
+			String[] freq = signaux[src].getFreqAsString();
+			String[] ampl = signaux[src].getAmplAsString();
 			super.setAllTexts(new String[] {
 					"Source : " + (src+1),
-					"<html>Periode : <br />" + this.calculePeriode() + "</html>",
-					"<html>Frequence : <br />" + freq[0] + " " + freq[1] + "</html>",
-					"<html>Amplitude : <br />" + ampl[0] + " " + ampl[1] + "</html>",
+					linesToHtml(new String[] {"Periode : ",   this.calculePeriode()  }),
+					linesToHtml(new String[] {"Frequence : ", freq[0] + " " + freq[1]}),
+					linesToHtml(new String[] {"Amplitude : ", ampl[0] + " " + ampl[1]}),
 					" "});
 		} else {
 			super.setAllTexts(new String[] {
 					"Source : " + (src+1),
-					"<html>Periode : <br /> ??? </html>",
-					"<html>Frequence : <br /> ??? </html>",
-					"<html>Amplitude : <br /> ??? </html>",
+					linesToHtml(new String[] {"Periode : ", "???"}),
+					linesToHtml(new String[] {"Frequence : ", "???"}),
+					linesToHtml(new String[] {"Amplitude : ", "???"}),
 					" "	
 			});
 		}

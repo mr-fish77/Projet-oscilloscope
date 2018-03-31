@@ -167,4 +167,23 @@ public abstract class AbstractMenu extends JPanel implements ActionListener{
 		oscillo = o;
 		signaux = s;
 	}
+	
+	/** Convertit plusieurs String en un unique String au format HTML avec texte au centre.
+	 * Un String du tableau en parametre se terminera par un retour a la ligne.
+	 * On supprime le retour a la ligne du dernier.
+	 * On utilise un StringBuffer plutot que de creer un String par iteration.
+	 * @param s Un tableau de String
+	 * @return Des String en HTML a la ligne.
+	 */
+	protected String linesToHtml(String[] s) {
+		StringBuffer b = new StringBuffer();
+		b.append("<html><center>");
+		for (String str : s) {
+			b.append(str + "<br />");
+		}
+		int tempLength = b.length();
+		b.delete(tempLength - 6, tempLength);
+		b.append("</center></html>");
+		return b.toString();
+	}
 }
