@@ -84,6 +84,7 @@ public class Ecran extends JPanel{
 	public void enleverMenus() {
 		//on enleve le menu affiche
 		if(menus !=null) {
+			menus.desactiverMenu();
 			remove(menus);
 			menus = null;
 		}
