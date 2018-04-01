@@ -123,7 +123,7 @@ public class Bouton_OnOff extends JPanel implements MouseListener {
 	 *            L'evenement.
 	 */
 	public void mouseClicked(MouseEvent e) {
-		if (listeners.size() > 0) {
+		if (!listeners.isEmpty()) {
 			int x = e.getX(), y = e.getY();
 			if 		((backgroundClicWorks)					// Si on peut cliquer sur l'arriere-plan c'est bon.
 					|| ((x > pb[0]) && (x < pb[0] + pb[2])	// Sinon, on verifie la position selon x

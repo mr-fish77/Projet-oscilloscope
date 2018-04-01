@@ -38,16 +38,27 @@ public class MenuMesures extends AbstractMenu {
 	 * @return La periode avec son unite.
 	 */
 	private String calculePeriode() {
-		double p = 1./this.signaux[src].getFreq();
+		double p = 1./signaux[src].getFreq();
 		if (p > .001) {
-			return Double.toString(p*1000.) +" ms";
+			return nbrAuMillieme(p*1000.) +" ms";
 		} else if (p > .000001) {
-			return Double.toString(p*1000000.) +" µs";
+			// Format HTML sinon la compilation refuse le signe grec 'mu'
+			return linesToHtml(new String[] {nbrAuMillieme(p*1000000.) +" &mu;s"});
 		} else {
-			return Double.toString(p*1000000000.) +" ns";
+			return nbrAuMillieme(p*1000000000.) +" ns";
 		}
 	}
 	
+	/** 
+	 * @param d Un nombre de type double.
+	 * @return son arrondi au millieme sous forme de String.
+	 */
+	private String nbrAuMillieme(double d) {
+		double tmp = d * 1000.;
+		tmp = Math.round(tmp);
+		tmp = tmp/1000.;
+		return Double.toString(tmp);
+	}
 	
 	/** Methode normalement appelee pour afficher quelque chose a la grille
 	 * Sert ici pour mettre a jour l'affichage des boutons
