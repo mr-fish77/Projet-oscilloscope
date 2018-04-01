@@ -22,14 +22,15 @@ public class MenuMesures extends AbstractMenu {
 					linesToHtml(new String[] {"Periode : ",   this.calculePeriode()  }),
 					linesToHtml(new String[] {"Frequence : ", freq[0] + " " + freq[1]}),
 					linesToHtml(new String[] {"Amplitude : ", ampl[0] + " " + ampl[1]}),
-					" "});
+					linesToHtml(new String[] {"Dephasage : ", signaux[src].getDephasageAsString()})
+					});
 		} else {
 			super.setAllTexts(new String[] {
 					"Source : " + (src+1),
 					linesToHtml(new String[] {"Periode : ", "???"}),
 					linesToHtml(new String[] {"Frequence : ", "???"}),
 					linesToHtml(new String[] {"Amplitude : ", "???"}),
-					" "	
+					linesToHtml(new String[] {"Dephasage : ", "???"})	
 			});
 		}
 	}

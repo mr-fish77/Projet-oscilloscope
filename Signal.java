@@ -175,6 +175,31 @@ public abstract class Signal {
 			return s;
 		}
 	}
+	
+	/**
+	 * @return Le dephasage sous forme de String.
+	 */
+	public String getDephasageAsString() {
+		return dephasageToString(this.dephasage);
+	}
+	
+	/** Convertit un dephasage en String.
+	 * @param phase Le dephasage a convertir.
+	 * @return Un String.
+	 */
+	public static String dephasageToString(double d) {
+		if (Math.abs(d - Math.PI) < .05) {
+			return "\u03C0 rad";
+		} else if (Math.abs(d - Math.PI/2.) < .05) {
+			return "\u03C0/2 rad";
+		} else if (Math.abs(d - Math.PI*3./2.) < .05) {
+			return "3\u03C0/2 rad";
+		} else if (Math.abs(d - Math.PI*2.) < .05) {
+			return "2\u03C0 rad";
+		} else {
+			return Double.toString(d) + " rad";
+		}
+	}
 
 	/**
 	 * @param amplitude

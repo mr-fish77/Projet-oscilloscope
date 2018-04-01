@@ -11,6 +11,9 @@ import javax.swing.JPanel;
  * Classe qui permet de gerer l'echelle et la position au niveau du temps
  */
 public class GestionTemps extends JPanel implements PotentiometreListener{
+	
+	private static final long serialVersionUID = 3745820913624486058L;
+
 	/** Le tableau de signal */
 	private Signal[] signaux;
 	

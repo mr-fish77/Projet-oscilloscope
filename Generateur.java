@@ -14,6 +14,7 @@ import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -178,7 +179,7 @@ public class Generateur extends JFrame implements ActionListener, Bouton_OnOff_L
 		double phase = (signal[i].getDephasage());
 		pan[i].slider.setValue((int)(phase*100.));
 		tempTxtField = (JTextField) tempTab[11];
-		tempTxtField.setText(Double.toString(phase));
+		tempTxtField.setText(signal[i].getDephasageAsString());
 	}
 	
 	/** Permet de recevoir l'ecran de l'oscilloscope. 
@@ -251,7 +252,7 @@ public class Generateur extends JFrame implements ActionListener, Bouton_OnOff_L
 				@Override
 				public void stateChanged(ChangeEvent e){
 					double valueToSet = (double)(slider.getValue())/100.;
-					sliderLabel.setText(Double.toString(valueToSet) + " rad");
+					sliderLabel.setText(Signal.dephasageToString(valueToSet));
 				}
 			});
 			add(slider);
@@ -363,7 +364,6 @@ public class Generateur extends JFrame implements ActionListener, Bouton_OnOff_L
 	 * @param e L'evenement.
 	 */
 	public void btnClicked(Bouton_OnOff_Event evt) {
-		Bouton_OnOff src = evt.getSourceAsBtn(); // Objet source.
 		int n = evt.getChiffre(); // Index du signal.
 		
 		boolean b = !signal[n].getActive(); // Valeur a appliquer
@@ -381,4 +381,5 @@ public class Generateur extends JFrame implements ActionListener, Bouton_OnOff_L
 		}
 		if (ecran != null) ecran.repaint();
 	}
+
 }

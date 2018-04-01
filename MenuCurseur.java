@@ -2,6 +2,9 @@ import java.awt.Graphics;
 import java.awt.event.ActionListener;
 
 public class MenuCurseur extends AbstractMenu implements ActionListener, PotentiometreListener{
+	
+	protected static final long serialVersionUID = 9141311592172041175L;
+	
 	/** Les differents curseurs */
 	protected Curseur curseurCourant = null;	//curseur affiche
 	protected Curseur[] curseurs;				//tableau des curseurs

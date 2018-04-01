@@ -29,6 +29,9 @@ import javax.swing.Timer;
  * Classe qui gere l'affichage de l'oscilloscope a l'ecran
  */
 public class Oscilloscope extends JFrame implements ActionListener{
+	
+	private static final long serialVersionUID = -7921754162527080020L;
+	
 	/** Les Channel correspondant a chaque Signal. */
 	public Channel ch1, ch2;
 	/** Objet permettant de gerer la position et l'echelle temporels. */
