@@ -77,7 +77,7 @@ public abstract class Signal {
 		NUMERO = n;
 		amplitude = DEF_AMP;
 		freq = DEF_FREQ;
-		active = (NUMERO == 1) ? true : false;
+		active = false;
 		couleur = COULEURS_SIGNAUX[n-1];
 		dephasage = 0;
 		
