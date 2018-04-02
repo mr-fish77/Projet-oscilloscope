@@ -8,7 +8,7 @@ public class CurseurHorizontal extends Curseur {
 	
 	/**
 	 * Constructeur par defaut de la classe
-	 * @param Signal[] s : le tableau des signaux
+	 * @param s : le tableau des signaux
 	 */
 	public CurseurHorizontal(Signal[] s) {
 		super(s);
@@ -17,9 +17,9 @@ public class CurseurHorizontal extends Curseur {
 	
 	/**
 	 * Methode qui gere l'affichage des curseurs a l'ecran
-	 * @param Graphics g :l'objet graphique qui fait zizir
-	 * @param int hauteur : la hauteur de la grille
-	 * @param int largeur : la largeur de la grille
+	 * @param g :l'objet graphique qui fait zizir
+	 * @param hauteur : la hauteur de la grille
+	 * @param largeur : la largeur de la grille
 	 */
 	public void paint(Graphics g, int hauteur, int largeur) {
 		g.setColor(Color.RED);	//affichage des curseurs dans la bonne couleur

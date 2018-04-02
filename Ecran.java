@@ -18,6 +18,8 @@ public class Ecran extends JPanel{
 	
 	/**
 	 * Constructeur par defaut de la classe
+	 * @param s : le tableau de signal
+	 * @param oscillo : l'objet oscilloscope
 	 */
 	public Ecran(Signal[] s, Oscilloscope oscillo) {
 		super();
@@ -47,7 +49,7 @@ public class Ecran extends JPanel{
 	
 	
 	/** Actualise l'affichage de l'ecran.
-	 * @param g L'element graphique toujours le bienvenu.
+	 * @param g : L'element graphique toujours le bienvenu.
 	 */
 	public void paint (Graphics g) {
 		super.paint(g);
@@ -56,7 +58,7 @@ public class Ecran extends JPanel{
 	
 	/**
 	 * Permet de basculer d'un menu a un autre
-	 * @param Menu menu : le nouveau menu a afficher
+	 * @param menu : le nouveau menu a afficher
 	 */
 	public void changerMenu(AbstractMenu menu) {
 		if(menus != null) {	//au lancement il n'y a pas de menu

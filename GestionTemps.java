@@ -39,8 +39,8 @@ public class GestionTemps extends JPanel implements PotentiometreListener{
 	
 	/**
 	 * Constructeur qui cree l'interface graphique du channel
-	 * @param Signal[] signaux : les signaux
-	 * @param Ecran ecran : l'ecran pour gerer les repaint()
+	 * @param signaux : les signaux
+	 * @param ecran : l'ecran pour gerer les repaint()
 	 */
 	public GestionTemps(Signal[] signaux, Ecran ecran){
 		this.signaux = signaux;
@@ -135,8 +135,8 @@ public class GestionTemps extends JPanel implements PotentiometreListener{
 	
 	
 	/** Permet l'interaction avec un potentiometre
-	 * @param Potentiometre potentiometre : la source de l'evenement
-	 * @param int evolutionCran : + ou -1
+	 * @param potentiometre : la source de l'evenement
+	 * @param evolutionCran : + ou -1
 	 */
 	public void potentiometrePerformed(Potentiometre potentiometre, int evolutionCran) {
 		if(potentiometre.equals(potPos)) {

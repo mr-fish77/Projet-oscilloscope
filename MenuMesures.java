@@ -5,7 +5,6 @@ public class MenuMesures extends AbstractMenu {
 	private int src = 0;
 	
 	/** Cree un MenuMesures.
-	 * @param s Les signaux.
 	 */
 	public MenuMesures () {
 		super();
@@ -63,9 +62,9 @@ public class MenuMesures extends AbstractMenu {
 	
 	/** Methode normalement appelee pour afficher quelque chose a la grille
 	 * Sert ici pour mettre a jour l'affichage des boutons
-	 * @param Graphics g : l'objet graphique
-	 * @param int hauteur : la hauteur de la grille
-	 * @param int largeur : la largeur de la grille
+	 * @param g : l'objet graphique
+	 * @param hauteur : la hauteur de la grille
+	 * @param largeur : la largeur de la grille
 	 */
 	public void paintGrille(Graphics g, int hauteur, int largeur) {
 		refreshItems();

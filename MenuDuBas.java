@@ -14,7 +14,6 @@ public class MenuDuBas extends JPanel {
 	
 	/**
 	 * Constructeur du menu du bas
-	 * @param s Les signaux.
 	 */
 	public MenuDuBas() {
 		setOpaque(false);
@@ -34,7 +33,7 @@ public class MenuDuBas extends JPanel {
 	}
 	
 	/** Permet de changer le texte general
-	 * @param String str : le texte a afficher
+	 * @param str : le texte a afficher
 	 */
 	public void setText(String str){
 		texte.setText(str);
@@ -42,7 +41,8 @@ public class MenuDuBas extends JPanel {
 	
 	
 	/** Permet de changer le texte Ch2
-	 * @param String str : le texte a afficher
+	 * @param str : le texte a afficher
+	 * @param n : le numero du signal
 	 */
 	public void setCh(String str, int n){
 		if(n == 0){
@@ -53,7 +53,7 @@ public class MenuDuBas extends JPanel {
 	}
 	
 	/** Permet de changer le texte du temps
-	 * @param String str : le texte a afficher
+	 * @param str : le texte a afficher
 	 */
 	public void setTemps(String str){
 		texteTemps.setText(str);

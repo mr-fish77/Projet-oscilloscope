@@ -19,7 +19,7 @@ public class BoutonTexte extends JPanel {
 	
 	
 	/** Constructeur qui permet de generer le bouton avec son texte.
-	 * @param String texte : le texte a afficher dans le bouton.
+	 * @param texte : le texte a afficher dans le bouton.
 	 */
 	public BoutonTexte(String texte) {
 		super();
@@ -28,7 +28,8 @@ public class BoutonTexte extends JPanel {
 	
 	
 	/** Constructeur qui permet de generer le bouton avec son texte.
-	 * @param String texte : le texte a afficher dans le bouton.
+	 * @param texte : le texte a afficher dans le bouton.
+	 * @param al : l'actionlistener a rajouter au bouton
 	 */
 	public BoutonTexte(String texte, ActionListener al) {
 		super();
@@ -67,7 +68,7 @@ public class BoutonTexte extends JPanel {
 	
 	/** Ajoute un ActionListener sur le bouton. 
 	 * Le BoutonTexte devient actif et colore en jaune.
-	 * @param obj Un objet qui implemente ActionListener. */
+	 * @param al : Un objet qui implemente ActionListener. */
 	public void addActionListener (ActionListener al){
 		this.bouton.addActionListener(al);
 		this.bouton.setEnabled(true);
@@ -76,7 +77,7 @@ public class BoutonTexte extends JPanel {
 	}
 	
 	/** Modifie le texte du Label.
-	 *@param le texte a modifier. */
+	 *@param s : le texte a modifier. */
 	public void setText(String s){
 		this.texte.setText(s);
 	}

@@ -3,7 +3,9 @@
  */
 public class Sinus extends Signal {
    
-    /** Constructeur par signal sinusoidal. */
+    /** Constructeur par signal sinusoidal.
+     * @param n : le numero du signal
+     */
     public Sinus(int n){
         super(n);
     }
@@ -16,7 +18,7 @@ public class Sinus extends Signal {
 
     
     /** Methode generale pour les signaux de calcul d'une valeur en un point
-     * @param double x : le point de calcul de la fonction
+     * @param x : le point de calcul de la fonction
      * @return double : la valeur en x
      */
     public double fonction(double x) {

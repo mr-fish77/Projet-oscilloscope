@@ -38,8 +38,10 @@ public class Channel extends JPanel implements ActionListener, PotentiometreList
 	
 	/**
 	 * Constructeur qui cree l'interface graphique du channel
-	 * @param Signal signal : le signal associe au channel
-	 * @param String nomChannel : le nom du channel
+	 * @param signaux : le tableau de signaux associe au channel
+	 * @param nomChannel : le nom du channel
+	 * @param n : le numero du signal associe
+	 * @param ecran : l'ecran de l'oscilloscope
 	 */
 	public Channel(Signal[] signaux, int n,  String nomChannel, Ecran ecran){
 		this.signaux = signaux;
@@ -139,8 +141,8 @@ public class Channel extends JPanel implements ActionListener, PotentiometreList
 	
 	
 	/** Permet l'interaction avec un potentiometre
-	 * @param Potentiometre potentiometre : la source de l'evenement
-	 * @param int evolutionCran : + ou -1
+	 * @param potentiometre : la source de l'evenement
+	 * @param evolutionCran : + ou -1
 	 */
 	public void potentiometrePerformed(Potentiometre potentiometre, int evolutionCran) {
 		if(potentiometre.equals(potPos)) {	//reglage du deltaY
@@ -160,7 +162,7 @@ public class Channel extends JPanel implements ActionListener, PotentiometreList
 	
     
     /** Permet l'interaction avec les boutons d'activation de l'affichage des signaux
-	 * @param  la source de l'evenement
+	 * @param e :  la source de l'evenement
      * 	 */
     public void actionPerformed(ActionEvent e) {
         

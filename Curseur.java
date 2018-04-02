@@ -21,7 +21,7 @@ public abstract class Curseur{
 	
 	/**
 	 * Constructeur par defaut de la classe
-	 * @param Signal[] s : le tableau des signaux
+	 * @param s : le tableau des signaux
 	 */
 	public Curseur(Signal[] s) {
 		this.s = s;
@@ -29,17 +29,17 @@ public abstract class Curseur{
 
 	/**
 	 * Methode qui permet d'afficher les curseurs a l'ecran
-	 * @param Graphics g : l'objet graphique bien pratique
-	 * @param int hauteur : la hauteur de la grille
-	 * @param int largeur : la largeur de la grille
+	 * @param g : l'objet graphique bien pratique
+	 * @param hauteur : la hauteur de la grille
+	 * @param largeur : la largeur de la grille
 	 */
 	public abstract void paint(Graphics g, int hauteur, int largeur);
 	
 	
 	/**
 	 * Methode appelee pour mettre a jour les valeurs des curseurs
-	 * @param int evolCran1 : l'evolution pour le curseur1
-	 * @param int evolCran2 : l'evolution pour le curseur2
+	 * @param evolCran1 : l'evolution pour le curseur1
+	 * @param evolCran2 : l'evolution pour le curseur2
 	 */
 	public void mAJCran(int evolCran1, int evolCran2) {
 		vraiVal1 += evolCran1*0.04;	//on progresse par 4% (ca semble a peu pres bon)
@@ -51,8 +51,8 @@ public abstract class Curseur{
 	}
 	
 	/** Methode correcte pour les puissances de 10 (ne renvoie pas de 0 pour 10^0)
-	 * @param double val : la puissance a calculer
-	 * @return double : la valeur de la puissance
+	 * @param val : la puissance a calculer
+	 * @return : la valeur de la puissance
 	 */
 	public double pow(double val) {
 		return (Math.pow(10,  val)>0) ? Math.pow(10,  val) : 1;

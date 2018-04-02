@@ -10,8 +10,8 @@ public class CurseurVertical extends Curseur{
 	
 	/**
 	 * Constructeur par defaut de la classe
-	 * @param Signal[] s : le tableau de signaux
-	 * @param int n : le numero du signal associe au curseur
+	 * @param s : le tableau de signaux
+	 * @param n : le numero du signal associe au curseur
 	 */
 	public CurseurVertical(Signal[] s, int n) {
 		super(s);
@@ -20,9 +20,9 @@ public class CurseurVertical extends Curseur{
 	
 	/**
 	 * Methode qui gere l'affichage des curseurs a l'ecran
-	 * @param Graphics g :l'objet graphique qui fait zizir
-	 * @param int hauteur : la hauteur de la grille
-	 * @param int largeur : la largeur de la grille
+	 * @param g :l'objet graphique qui fait zizir
+	 * @param hauteur : la hauteur de la grille
+	 * @param largeur : la largeur de la grille
 	 */
 	public void paint(Graphics g, int hauteur, int largeur) {
 		g.setColor(Color.RED);

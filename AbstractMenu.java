@@ -27,9 +27,7 @@ public abstract class AbstractMenu extends JPanel implements ActionListener{
 	/** Les 5 menus. */
 	private JButton[] boutons = new JButton[5];
 	
-	/** Cree un Menu.
-	 * @param s Les signaux, en acces protected.
-	 */
+	/** Cree un Menu.*/
 	protected AbstractMenu() {
 		super();
 		
@@ -56,9 +54,9 @@ public abstract class AbstractMenu extends JPanel implements ActionListener{
 	
 	/**
 	 * Methode qui permet de peindre sur l'ecran
-	 * @param Graphics g : l'objet graphique bien pratique
-	 * @param int hauteur : la hauteur de la grille
-	 * @param int largeur : la largeur de la grille
+	 * @param g : l'objet graphique bien pratique
+	 * @param hauteur : la hauteur de la grille
+	 * @param largeur : la largeur de la grille
 	 */
 	public void paintGrille(Graphics g, int hauteur, int largeur) {}
 	
@@ -71,7 +69,7 @@ public abstract class AbstractMenu extends JPanel implements ActionListener{
 	}
 	
 	/** Modifie le texte de tous les boutons a la fois.
-	 * @param String s : Tableau avec tous les textes a mettre dans l'ordre. 
+	 * @param s : Tableau avec tous les textes a mettre dans l'ordre. 
 	 * Pour faire ca facilement : new String[]{"xxx","xxx"...} a 5 cases.*/
 	public void setAllTexts(String[] s){
 		for (int i = 0; i < boutons.length; i++) {
@@ -93,7 +91,7 @@ public abstract class AbstractMenu extends JPanel implements ActionListener{
 	/** Methode qui prend en charge l'action sur les boutons.
 	 * N'est pas utilise par les sous-classes, 
 	 * les methodes de chaque bouton est deportee individuellement.
-	 * @param ActionEvent e : l'action event habituel
+	 * @param e : l'action event habituel
 	 * 		  qui ne sera pas envoye aux methodes deportees.
 	 */
 	public void actionPerformed (ActionEvent e) {

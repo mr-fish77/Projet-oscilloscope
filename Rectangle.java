@@ -5,7 +5,9 @@
 
 public class Rectangle extends Signal {
       
-    /** Constructeur par signal rectangle. */
+    /** Constructeur par signal rectangle. 
+     * @param n : le numero du signal
+     */
     public Rectangle(int n){
         super(n);
     }
@@ -18,7 +20,7 @@ public class Rectangle extends Signal {
     
     
     /** Methode generale pour les signaux de calcul d'une valeur en un point
-     * @param double x : le point de calcul de la fonction
+     * @param x : le point de calcul de la fonction
      * @return double : la valeur en x
      */
      public double fonction(double x){

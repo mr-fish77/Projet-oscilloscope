@@ -71,6 +71,7 @@ public abstract class Signal {
 
 	/**
 	 * Constructeur par defaut.
+	 * @param n : le numero du signal
 	 */
 	public Signal(int n) {
 		NUMERO = n;
@@ -89,6 +90,7 @@ public abstract class Signal {
 	
 	/**
 	 * Constructeur pour reconstruction
+	 * @param s : le signal a copier
 	 */
 	public Signal(Signal s) {
 		amplitude = s.amplitude;
@@ -184,7 +186,7 @@ public abstract class Signal {
 	}
 	
 	/** Convertit un dephasage en String.
-	 * @param phase Le dephasage a convertir.
+	 * @param d Le dephasage a convertir.
 	 * @return Un String.
 	 */
 	public static String dephasageToString(double d) {
@@ -202,8 +204,7 @@ public abstract class Signal {
 	}
 
 	/**
-	 * @param amplitude
-	 *            L'amplitude a modifier.
+	 * @param amplitude : L'amplitude a modifier.
 	 * 	      Valeur comprise entre 0.1 et MAX_AMP compris.
 	 */
 	public void setAmplitude(double amplitude) {
@@ -217,8 +218,7 @@ public abstract class Signal {
 	}
 
 	/** Modifie la valeur de la frequence.
-	 * @param freq
-	 *            La frequence a appliquer.
+	 * @param freq : La frequence a appliquer.
 	 * 	      Valeur comprise entre 1 Hz et MAX_FREQ.
 	 */
 	public void setFreq(double freq) {
@@ -232,7 +232,7 @@ public abstract class Signal {
 	}
 	
 	/** Modifie la valeur du dephasage.
-	 * @param p Phase à appliquer, sa valeur est entre -pi et pi.
+	 * @param p Phase a appliquer, sa valeur est entre -pi et pi.
 	 */
 	public void setDephasage(double p){
 		dephasage = p % (2*Math.PI);
@@ -262,8 +262,8 @@ public abstract class Signal {
 	
     
     /** met a l'echelle le signal 
-	 * @param taille affichage x
-     * @param taille affichage y
+	 * @param x : taille affichage x
+     * @param y : taille affichage y
 	 */
     public void miseAEchelle(int x, int y){
         nbPixelX = x / CASE_X;	//nombre de pixels par graduation
@@ -286,14 +286,14 @@ public abstract class Signal {
     
     
     /** Methode generale pour les signaux de calcul d'une valeur en un point
-     * @param double x : le point de calcul de la fonction
+     * @param x : le point de calcul de la fonction
      * @return double : la valeur en x
      */
     public abstract double fonction(double x);
     
     
     /** Dessine la courbe si elle doit etre affichee
-     * @param Graphics g : pour peindre la courbe
+     * @param g : pour peindre la courbe
      */
     public void dessineCourbe(Graphics g) {
     	
@@ -316,9 +316,9 @@ public abstract class Signal {
     
     /**
      * Dessine le centre de la fleche
-     * @param Graphics g : comme d'hab
-     * @param int x : position en abscisse
-     * @param int y : position en ordonnee
+     * @param g : comme d'hab
+     * @param x : position en abscisse
+     * @param y : position en ordonnee
      */
     public void dessineCentre(Graphics g, int x, int y){
         
@@ -335,7 +335,7 @@ public abstract class Signal {
     
         /**
      * desine une fleche entre deux point 
-     * @param g 
+     * @param g : l'objet graphique
      * @param x1 premier point.
      * @param y1 premier point
      * @param x2 deuxieme point.

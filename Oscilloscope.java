@@ -53,8 +53,8 @@ public class Oscilloscope extends JFrame implements ActionListener{
 	private Clip clip;	//la musique qui va avec
 	
 	/** Genere la fenetre principale de l'oscilloscope.
-	 * @param Signal[] signaux : le tableau des signaux
-	 * @param Generateur generateur : le generateur (pour gerer les repaints au besoin)
+	 * @param signaux : le tableau des signaux
+	 * @param generateur : le generateur (pour gerer les repaints au besoin)
 	 */
 	public Oscilloscope(Signal[] signaux, Generateur generateur){
 		super("Oscilloscope");
@@ -136,7 +136,7 @@ public class Oscilloscope extends JFrame implements ActionListener{
 	
 	/**
 	 * Methode deportee pour ajouter tous les boutons d'affichage de menus
-	 * @param JPanel boutonsAffichageMenus : le conteneur des menus
+	 * @param boutonsAffichageMenus : le conteneur des menus
 	 */
 	private void ajouterAffichageMenus(JPanel boutonsAffichageMenus) {
 		cacher = new BoutonTexte("Cacher Menus", this);
@@ -164,7 +164,7 @@ public class Oscilloscope extends JFrame implements ActionListener{
 	
 	/**
 	 * Methode deportee pour ajouter tous les elements a l'espace central : channel, temps, trigger...
-	 * @param JPanel affichageGestionChannels : le conteneur central
+	 * @param affichageGestionChannels : le conteneur central
 	 */
 	private void ajouterGestionChannels(JPanel affichageGestionChannels) {
 		affichageGestionChannels.add(ch1);	
@@ -254,7 +254,7 @@ public class Oscilloscope extends JFrame implements ActionListener{
 	
 	/**
 	 * Methode qui gere l'affichage graphique
-	 * @param Graphics g : l'object graphique interessant
+	 * @param g : l'object graphique interessant
 	 */
 	public void paint(Graphics g) {
 		super.paint(g);
@@ -292,7 +292,7 @@ public class Oscilloscope extends JFrame implements ActionListener{
 	
 	/**
 	 * Methode qui gere l'appui sur un bouton
-	 * @param ActionEvent e : l'actionEvent obligatoire :(
+	 * @param e : l'actionEvent obligatoire :(
 	 */
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == dureeEaster) {	//prise en charge timer easter egg

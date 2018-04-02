@@ -361,7 +361,7 @@ public class Generateur extends JFrame implements ActionListener, Bouton_OnOff_L
 	 * Ce sont des JPanel donc le ActionListener ne fonctionne pas sur eux.
 	 * Cette fonction active ou desactive simplement un Signal,
 	 * donc actualise juste le necessaire.
-	 * @param e L'evenement.
+	 * @param evt : L'evenement.
 	 */
 	public void btnClicked(Bouton_OnOff_Event evt) {
 		int n = evt.getChiffre(); // Index du signal.

@@ -56,9 +56,7 @@ public class MenuMath extends AbstractMenu {
     
 		smaths.dessineCourbe(g);		
 	}
-	
-    public void miseEnRoute() {}
-    
+
     public void actionBouton1() {
         
         smaths.Addition();

@@ -19,6 +19,7 @@ public class Grille extends JPanel {
 	
 	/** Cree la grille.
 	 * @param s Les signaux
+	 * @param ecran : l'ecran de l'oscillo
 	 */
 	public Grille(Signal[] s, Ecran ecran) {
 		super();
@@ -59,7 +60,7 @@ public class Grille extends JPanel {
 	
 	/**
 	 * Methode qui permet d'afficher la grille adaptee a la taille de l'ecran
-	 * @param Graphics g : l'objet graphique
+	 * @param g : l'objet graphique
 	 */
 	public void afficheQuadrillage(Graphics g) {
 		int hauteur = getHeight();	//on recupere la taille du jpanel et donc de l'ecran

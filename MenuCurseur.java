@@ -21,7 +21,10 @@ public class MenuCurseur extends AbstractMenu implements ActionListener, Potenti
 	protected int type = 0; 	//0 : rien, 1:temps, 2:volts
 	protected int source = 0;	//0 ou 1 suivant le signal
 	
-	
+	/**
+	 * Constructeur par defaut de la classe menuCurseur
+	 * Cre un menu sans l'afficher
+	 */
 	public MenuCurseur() {
 		super();
 		
@@ -43,9 +46,9 @@ public class MenuCurseur extends AbstractMenu implements ActionListener, Potenti
 	
 	/**
 	 * Methode qui permet de peindre sur l'ecran
-	 * @param Graphics g : l'objet graphique bien pratique
-	 * @param int hauteur : la hauteur de la grille
-	 * @param int largeur : la largeur de la grille
+	 * @param g : l'objet graphique bien pratique
+	 * @param hauteur : la hauteur de la grille
+	 * @param largeur : la largeur de la grille
 	 */
 	public void paintGrille(Graphics g, int hauteur, int largeur) {
 		if(curseurCourant != null) {		//si un curseur est afficher
@@ -93,8 +96,8 @@ public class MenuCurseur extends AbstractMenu implements ActionListener, Potenti
 	
 	/**
 	 * Methode qui gere le potentiometre
-	 * @param Potentiometre p : le potentiometre
-	 * @param int evolutionCran : l'evolution du cran
+	 * @param p : le potentiometre
+	 * @param evolutionCran : l'evolution du cran
 	 */
 	public void potentiometrePerformed(Potentiometre p, int evolutionCran) {
 		if(curseurCourant != null) {
